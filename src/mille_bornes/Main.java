@@ -1,4 +1,4 @@
-package mille_bornes.mille_bornes;
+package mille_bornes;
 
 public class Main {
     public static void main(String [] args) {

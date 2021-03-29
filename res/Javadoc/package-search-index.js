@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"m":"MilleBornes","l":"mille_bornes"},{"m":"MilleBornes","l":"mille_bornes.cartes"},{"m":"MilleBornes","l":"mille_bornes.cartes.attaques"},{"m":"MilleBornes","l":"mille_bornes.cartes.bottes"},{"m":"MilleBornes","l":"mille_bornes.cartes.parades"}]
