@@ -1,0 +1,2392 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   contentScriptType="application/ecmascript"
+   contentStyleType="text/css"
+   height="755.78192"
+   preserveAspectRatio="none"
+   version="1.1"
+   viewBox="0 0 1357.4904 755.78192"
+   width="1357.4904"
+   zoomAndPan="magnify"
+   id="svg5158"
+   sodipodi:docname="AutreUMLglobal.svg"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)">
+  <metadata
+     id="metadata5162">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     id="namedview5160"
+     showgrid="false"
+     inkscape:zoom="0.94130435"
+     inkscape:cx="666.5799"
+     inkscape:cy="398.7388"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5158"
+     inkscape:snap-global="false"
+     inkscape:snap-intersection-paths="false"
+     inkscape:snap-midpoints="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <defs
+     id="defs4624">
+    <filter
+       height="1.0315801"
+       id="f19me2iirbo6ro"
+       width="1.0147558"
+       x="-0.0061368942"
+       y="-0.0089322329">
+      <feGaussianBlur
+         result="blurOut"
+         stdDeviation="2.0"
+         id="feGaussianBlur4615" />
+      <feColorMatrix
+         in="blurOut"
+         result="blurOut2"
+         type="matrix"
+         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"
+         id="feColorMatrix4617" />
+      <feOffset
+         dx="4.0"
+         dy="4.0"
+         in="blurOut2"
+         result="blurOut3"
+         id="feOffset4619" />
+      <feBlend
+         in="SourceGraphic"
+         in2="blurOut3"
+         mode="normal"
+         id="feBlend4621" />
+    </filter>
+  </defs>
+  <polygon
+     fill="#ffffff"
+     filter="url(#f19me2iirbo6ro)"
+     points="562,95.5 724,95.5 731,117.7969 1363,117.7969 1363,859 562,859 "
+     style="stroke:#000000;stroke-width:1.5"
+     id="polygon4626"
+     transform="matrix(1.0009352,0,0,0.95958731,-13.694523,-85.096433)" />
+  <line
+     style="stroke:#000000;stroke-width:1.5"
+     x1="549.20343"
+     x2="718.20343"
+     y1="28.409424"
+     y2="28.409424"
+     id="line4628" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="14px"
+     font-weight="bold"
+     lengthAdjust="spacing"
+     textLength="156"
+     x="566"
+     y="110.4951"
+     id="text4630"
+     transform="translate(-12.796541,-88.887475)">mille_bornes.cartes</text>
+  <polygon
+     fill="#ffffff"
+     filter="url(#f19me2iirbo6ro)"
+     points="538,28.2969 538,738 16,738 16,6 124,6 131,28.2969 "
+     style="stroke:#000000;stroke-width:1.5"
+     id="polygon4632"
+     transform="translate(-12.796541,0.61252684)" />
+  <line
+     style="stroke:#000000;stroke-width:1.5"
+     x1="3.2034585"
+     x2="118.20345"
+     y1="28.909424"
+     y2="28.909424"
+     id="line4634" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="14px"
+     font-weight="bold"
+     lengthAdjust="spacing"
+     textLength="102"
+     x="20"
+     y="20.9951"
+     id="text4636"
+     transform="translate(-12.796541,0.61252684)">mille_bornes</text>
+  <g
+     id="g5467"
+     transform="translate(244.85148,-64.69875)">
+    <rect
+       codeLine="1"
+       fill="#fefece"
+       filter="url(#f19me2iirbo6ro)"
+       height="188.85159"
+       id="mille_bornes.cartes.Bataille"
+       style="stroke:#a80036;stroke-width:1.5"
+       width="268"
+       x="578"
+       y="388" />
+    <circle
+       cx="686.25"
+       cy="404"
+       fill="#a9dcdf"
+       style="stroke:#a80036;stroke-width:1"
+       id="ellipse4639"
+       r="11" />
+    <path
+       d="m 686.3594,399.2969 -1.1563,5.3281 h 2.3282 z M 684.875,396.75 h 2.9844 l 3.3594,13 h -2.4532 l -0.7656,-3 h -3.2812 l -0.75,3 h -2.4375 z"
+       fill="#000000"
+       id="path4641" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="12px"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="43"
+       x="706.75"
+       y="476.1543"
+       id="text4643"
+       transform="translate(0,-68)">Bataille</text>
+    <line
+       style="stroke:#a80036;stroke-width:1.5"
+       x1="579"
+       x2="845"
+       y1="420"
+       y2="420"
+       id="line4645" />
+    <line
+       style="stroke:#a80036;stroke-width:1.5"
+       x1="579"
+       x2="845"
+       y1="428"
+       y2="428"
+       id="line4647" />
+    <circle
+       cx="589"
+       cy="439"
+       fill="#84be84"
+       style="stroke:#038048;stroke-width:1"
+       id="ellipse4649"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="182"
+       x="598"
+       y="510.21039"
+       id="text4651"
+       transform="translate(0,-68)">boolean estContreeParFeuVert()</text>
+    <circle
+       cx="589"
+       cy="451.80469"
+       fill="#84be84"
+       style="stroke:#038048;stroke-width:1"
+       id="ellipse4653"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="203"
+       x="598"
+       y="523.01508"
+       id="text4655"
+       transform="translate(0,-68)">boolean estContreeParFinDeLimite()</text>
+    <circle
+       cx="589"
+       cy="464.60938"
+       fill="#84be84"
+       style="stroke:#038048;stroke-width:1"
+       id="ellipse4657"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="184"
+       x="598"
+       y="535.81982"
+       id="text4659"
+       transform="translate(0,-68)">boolean estContreeParEssence()</text>
+    <circle
+       cx="589"
+       cy="477.41412"
+       fill="#84be84"
+       style="stroke:#038048;stroke-width:1"
+       id="ellipse4661"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="227"
+       x="598"
+       y="548.62451"
+       id="text4663"
+       transform="translate(0,-68)">boolean estContreeParRoueDeSecours()</text>
+    <circle
+       cx="589"
+       cy="490.21881"
+       fill="#84be84"
+       style="stroke:#038048;stroke-width:1"
+       id="ellipse4665"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="206"
+       x="598"
+       y="561.4292"
+       id="text4667"
+       transform="translate(0,-68)">boolean estContreeParReparations()</text>
+    <circle
+       cx="589"
+       cy="503.02338"
+       fill="#84be84"
+       style="stroke:#038048;stroke-width:1"
+       id="ellipse4669"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="242"
+       x="598"
+       y="574.23389"
+       id="text4671"
+       transform="translate(0,-68)">boolean estContreeParVehiculePrioritaire()</text>
+    <circle
+       cx="589"
+       cy="515.82812"
+       fill="#84be84"
+       style="stroke:#038048;stroke-width:1"
+       id="ellipse4673"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="179"
+       x="598"
+       y="587.03857"
+       id="text4675"
+       transform="translate(0,-68)">boolean estContreeParCiterne()</text>
+    <circle
+       cx="589"
+       cy="528.63281"
+       fill="#84be84"
+       style="stroke:#038048;stroke-width:1"
+       id="ellipse4677"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="197"
+       x="598"
+       y="599.84332"
+       id="text4679"
+       transform="translate(0,-68)">boolean estContreeParIncrevable()</text>
+    <circle
+       cx="589"
+       cy="541.4375"
+       fill="#84be84"
+       style="stroke:#038048;stroke-width:1"
+       id="ellipse4681"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="203"
+       x="598"
+       y="612.64789"
+       id="text4683"
+       transform="translate(0,-68)">boolean estContreeParAsDuVolant()</text>
+    <circle
+       cx="589"
+       cy="554.24219"
+       fill="#84be84"
+       style="stroke:#038048;stroke-width:1"
+       id="ellipse4685"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="137"
+       x="598"
+       y="625.45258"
+       id="text4687"
+       transform="translate(0,-68)">boolean contre(Attaque)</text>
+    <circle
+       cx="589"
+       cy="567.04688"
+       fill="#84be84"
+       style="stroke:#038048;stroke-width:1"
+       id="ellipse4689"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="189"
+       x="598"
+       y="638.25732"
+       id="text4691"
+       transform="translate(0,-68)">void appliqueEffet(Jeu,EtatJoueur)</text>
+  </g>
+  <g
+     id="g5511"
+     transform="translate(234.24497,-67.524344)">
+    <rect
+       codeLine="48"
+       fill="#fefece"
+       filter="url(#f19me2iirbo6ro)"
+       height="73.609398"
+       id="mille_bornes.cartes.Botte"
+       style="stroke:#a80036;stroke-width:1.5"
+       width="215"
+       x="881.5"
+       y="445.5" />
+    <circle
+       cx="968.75"
+       cy="461.5"
+       fill="#a9dcdf"
+       style="stroke:#a80036;stroke-width:1"
+       id="ellipse4736"
+       r="11" />
+    <path
+       d="m 968.8594,456.7969 -1.1563,5.3281 h 2.3282 z M 967.375,454.25 h 2.9844 l 3.3594,13 h -2.4532 l -0.7656,-3 h -3.2812 l -0.75,3 h -2.4375 z"
+       fill="#000000"
+       id="path4738" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="12px"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="32"
+       x="989.25"
+       y="533.6543"
+       id="text4740"
+       transform="translate(0,-68)">Botte</text>
+    <line
+       style="stroke:#a80036;stroke-width:1.5"
+       x1="882.5"
+       x2="1095.5"
+       y1="477.5"
+       y2="477.5"
+       id="line4742" />
+    <line
+       style="stroke:#a80036;stroke-width:1.5"
+       x1="882.5"
+       x2="1095.5"
+       y1="485.5"
+       y2="485.5"
+       id="line4744" />
+    <circle
+       cx="892.5"
+       cy="496.5"
+       fill="#84be84"
+       style="stroke:#038048;stroke-width:1"
+       id="ellipse4746"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="137"
+       x="901.5"
+       y="567.71039"
+       id="text4748"
+       transform="translate(0,-68)">boolean contre(Attaque)</text>
+    <circle
+       cx="892.5"
+       cy="509.30469"
+       fill="#84be84"
+       style="stroke:#038048;stroke-width:1"
+       id="ellipse4750"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="189"
+       x="901.5"
+       y="580.51508"
+       id="text4752"
+       transform="translate(0,-68)">void appliqueEffet(Jeu,EtatJoueur)</text>
+  </g>
+  <g
+     id="g5499"
+     transform="translate(-555.24346,-67.524344)">
+    <rect
+       codeLine="82"
+       fill="#fefece"
+       filter="url(#f19me2iirbo6ro)"
+       height="73.609398"
+       id="mille_bornes.cartes.Borne"
+       style="stroke:#a80036;stroke-width:1.5"
+       width="215"
+       x="1131.5"
+       y="445.5" />
+    <circle
+       cx="1217.25"
+       cy="461.5"
+       fill="#add1b2"
+       style="stroke:#a80036;stroke-width:1"
+       id="ellipse4755"
+       r="11" />
+    <path
+       d="m 1219.7188,467.375 q -0.5782,0.3125 -1.2188,0.4688 -0.6406,0.1562 -1.3437,0.1562 -2.5,0 -3.8282,-1.6719 -1.3125,-1.6718 -1.3125,-4.8281 0,-3.1562 1.3125,-4.8281 1.3282,-1.6719 3.8282,-1.6719 0.7031,0 1.3437,0.1563 0.6563,0.1562 1.2188,0.4687 v 2.7969 q -0.625,-0.5625 -1.2188,-0.8281 -0.5937,-0.2813 -1.2187,-0.2813 -1.3438,0 -2.0313,1.0625 -0.6875,1.0625 -0.6875,3.125 0,2.0781 0.6875,3.1406 0.6875,1.0469 2.0313,1.0469 0.625,0 1.2187,-0.2656 0.5938,-0.2656 1.2188,-0.8438 z"
+       fill="#000000"
+       id="path4757" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="12px"
+       lengthAdjust="spacing"
+       textLength="35"
+       x="1237.75"
+       y="533.6543"
+       id="text4759"
+       transform="translate(0,-68)">Borne</text>
+    <line
+       style="stroke:#a80036;stroke-width:1.5"
+       x1="1132.5"
+       x2="1345.5"
+       y1="477.5"
+       y2="477.5"
+       id="line4761" />
+    <circle
+       cx="1142.5"
+       cy="488.5"
+       style="fill:none;stroke:#038048;stroke-width:1"
+       id="ellipse4763"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="35"
+       x="1151.5"
+       y="559.71039"
+       id="text4765"
+       transform="translate(0,-68)">int km</text>
+    <line
+       style="stroke:#a80036;stroke-width:1.5"
+       x1="1132.5"
+       x2="1345.5"
+       y1="498.30469"
+       y2="498.30469"
+       id="line4767" />
+    <circle
+       cx="1142.5"
+       cy="509.30469"
+       fill="#84be84"
+       style="stroke:#038048;stroke-width:1"
+       id="ellipse4769"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="189"
+       x="1151.5"
+       y="580.51508"
+       id="text4771"
+       transform="translate(0,-68)">void appliqueEffet(Jeu,EtatJoueur)</text>
+  </g>
+  <g
+     id="g5531"
+     transform="translate(-162.45277,-48.484729)">
+    <g
+       id="g5487"
+       transform="translate(297.23881,1.7828259)">
+      <rect
+         codeLine="14"
+         fill="#fefece"
+         filter="url(#f19me2iirbo6ro)"
+         height="60.804699"
+         id="mille_bornes.cartes.Parade"
+         style="stroke:#a80036;stroke-width:1.5"
+         width="215"
+         x="591.5"
+         y="660" />
+      <circle
+         cx="674.25"
+         cy="676"
+         fill="#a9dcdf"
+         style="stroke:#a80036;stroke-width:1"
+         id="ellipse4694"
+         r="11" />
+      <path
+         d="m 674.3594,671.2969 -1.1563,5.3281 h 2.3282 z M 672.875,668.75 h 2.9844 l 3.3594,13 h -2.4532 l -0.7656,-3 h -3.2812 l -0.75,3 h -2.4375 z"
+         fill="#000000"
+         id="path4696" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="41"
+         x="694.75"
+         y="802.1543"
+         id="text4698"
+         transform="translate(0,-122)">Parade</text>
+      <line
+         style="stroke:#a80036;stroke-width:1.5"
+         x1="592.5"
+         x2="805.5"
+         y1="692"
+         y2="692"
+         id="line4700" />
+      <line
+         style="stroke:#a80036;stroke-width:1.5"
+         x1="592.5"
+         x2="805.5"
+         y1="700"
+         y2="700"
+         id="line4702" />
+      <circle
+         cx="602.5"
+         cy="711"
+         fill="#84be84"
+         style="stroke:#038048;stroke-width:1"
+         id="ellipse4704"
+         r="3" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="11px"
+         lengthAdjust="spacing"
+         textLength="189"
+         x="611.5"
+         y="836.21039"
+         id="text4706"
+         transform="translate(0,-122)">void appliqueEffet(Jeu,EtatJoueur)</text>
+    </g>
+    <g
+       id="g5477"
+       transform="translate(293.07467,1.7828259)">
+      <rect
+         codeLine="108"
+         fill="#fefece"
+         filter="url(#f19me2iirbo6ro)"
+         height="60.804699"
+         id="mille_bornes.cartes.Attaque"
+         style="stroke:#a80036;stroke-width:1.5"
+         width="215"
+         x="841.5"
+         y="660" />
+      <circle
+         cx="920.75"
+         cy="676"
+         fill="#a9dcdf"
+         style="stroke:#a80036;stroke-width:1"
+         id="ellipse4774"
+         r="11" />
+      <path
+         d="m 920.8594,671.2969 -1.1563,5.3281 h 2.3282 z M 919.375,668.75 h 2.9844 l 3.3594,13 h -2.4532 l -0.7656,-3 h -3.2812 l -0.75,3 h -2.4375 z"
+         fill="#000000"
+         id="path4776" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12px"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="48"
+         x="941.25"
+         y="802.1543"
+         id="text4778"
+         transform="translate(0,-122)">Attaque</text>
+      <line
+         style="stroke:#a80036;stroke-width:1.5"
+         x1="842.5"
+         x2="1055.5"
+         y1="692"
+         y2="692"
+         id="line4780" />
+      <line
+         style="stroke:#a80036;stroke-width:1.5"
+         x1="842.5"
+         x2="1055.5"
+         y1="700"
+         y2="700"
+         id="line4782" />
+      <circle
+         cx="852.5"
+         cy="711"
+         fill="#84be84"
+         style="stroke:#038048;stroke-width:1"
+         id="ellipse4784"
+         r="3" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="11px"
+         lengthAdjust="spacing"
+         textLength="189"
+         x="861.5"
+         y="836.21039"
+         id="text4786"
+         transform="translate(0,-122)">void appliqueEffet(Jeu,EtatJoueur)</text>
+    </g>
+  </g>
+  <rect
+     codeLine="17"
+     fill="#fefece"
+     filter="url(#f19me2iirbo6ro)"
+     height="342.50781"
+     id="mille_bornes.EtatJoueur"
+     style="stroke:#a80036;stroke-width:1.5"
+     width="227"
+     x="281.70346"
+     y="379.61252" />
+  <circle
+     cx="358.95346"
+     cy="395.61252"
+     fill="#add1b2"
+     style="stroke:#a80036;stroke-width:1"
+     id="ellipse4808"
+     r="11" />
+  <path
+     d="m 361.42226,401.48752 q -0.5782,0.3125 -1.2188,0.4688 -0.6406,0.1562 -1.3437,0.1562 -2.5,0 -3.8282,-1.6719 -1.3125,-1.6718 -1.3125,-4.8281 0,-3.1562 1.3125,-4.8281 1.3282,-1.6719 3.8282,-1.6719 0.7031,0 1.3437,0.1563 0.6563,0.1562 1.2188,0.4687 v 2.7969 q -0.625,-0.5625 -1.2188,-0.8281 -0.5937,-0.2813 -1.2187,-0.2813 -1.3438,0 -2.0313,1.0625 -0.6875,1.0625 -0.6875,3.125 0,2.0781 0.6875,3.1406 0.6875,1.0469 2.0313,1.0469 0.625,0 1.2187,-0.2656 0.5938,-0.2656 1.2188,-0.8438 z"
+     fill="#000000"
+     id="path4810" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="12px"
+     lengthAdjust="spacing"
+     textLength="64"
+     x="392.25"
+     y="399.1543"
+     id="text4812"
+     transform="translate(-12.796541,0.61252684)">EtatJoueur</text>
+  <line
+     style="stroke:#a80036;stroke-width:1.5"
+     x1="282.70346"
+     x2="507.70346"
+     y1="411.61252"
+     y2="411.61252"
+     id="line4814" />
+  <rect
+     fill="none"
+     height="6"
+     style="stroke:#c82930;stroke-width:1"
+     width="6"
+     x="289.70346"
+     y="419.61252"
+     id="rect4816" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="76"
+     x="314.5"
+     y="425.21039"
+     id="text4818"
+     transform="translate(-12.796541,0.61252684)">Joueur joueur</text>
+  <rect
+     fill="none"
+     height="6"
+     style="stroke:#c82930;stroke-width:1"
+     width="6"
+     x="289.70346"
+     y="432.41721"
+     id="rect4820" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="156"
+     x="314.5"
+     y="438.01511"
+     id="text4822"
+     transform="translate(-12.796541,0.61252684)">Stack&lt;Bataille&gt; pileBataille</text>
+  <rect
+     fill="none"
+     height="6"
+     style="stroke:#c82930;stroke-width:1"
+     width="6"
+     x="289.70346"
+     y="445.22192"
+     id="rect4824" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="100"
+     x="314.5"
+     y="450.81979"
+     id="text4826"
+     transform="translate(-12.796541,0.61252684)">List&lt;Carte&gt; main</text>
+  <rect
+     fill="none"
+     height="6"
+     style="stroke:#c82930;stroke-width:1"
+     width="6"
+     x="289.70346"
+     y="458.02661"
+     id="rect4828" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="106"
+     x="314.5"
+     y="463.62451"
+     id="text4830"
+     transform="translate(-12.796541,0.61252684)">List&lt;Botte&gt; bottes</text>
+  <rect
+     fill="none"
+     height="6"
+     style="stroke:#c82930;stroke-width:1"
+     width="6"
+     x="289.70346"
+     y="470.83136"
+     id="rect4832" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="35"
+     x="314.5"
+     y="476.4292"
+     id="text4834"
+     transform="translate(-12.796541,0.61252684)">int km</text>
+  <rect
+     fill="none"
+     height="6"
+     style="stroke:#c82930;stroke-width:1"
+     width="6"
+     x="289.70346"
+     y="483.63593"
+     id="rect4836" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="121"
+     x="314.5"
+     y="489.23389"
+     id="text4838"
+     transform="translate(-12.796541,0.61252684)">boolean limiteVitesse</text>
+  <line
+     style="stroke:#a80036;stroke-width:1.5"
+     x1="282.70346"
+     x2="507.70346"
+     y1="496.44061"
+     y2="496.44061"
+     id="line4840" />
+  <circle
+     cx="292.70346"
+     cy="507.44061"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4842"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="62"
+     x="314.5"
+     y="510.0386"
+     id="text4844"
+     transform="translate(-12.796541,0.61252684)">int getKm()</text>
+  <circle
+     cx="292.70346"
+     cy="520.24536"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4846"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="103"
+     x="314.5"
+     y="522.84332"
+     id="text4848"
+     transform="translate(-12.796541,0.61252684)">void ajouteKm(int)</text>
+  <circle
+     cx="292.70346"
+     cy="533.05005"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4850"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="201"
+     x="314.5"
+     y="535.64789"
+     id="text4852"
+     transform="translate(-12.796541,0.61252684)">String ditPourquoiPeutPasAvancer()</text>
+  <circle
+     cx="292.70346"
+     cy="545.85474"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4854"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="150"
+     x="314.5"
+     y="548.45258"
+     id="text4856"
+     transform="translate(-12.796541,0.61252684)">boolean getLimiteVitesse()</text>
+  <circle
+     cx="292.70346"
+     cy="558.65942"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4858"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="173"
+     x="314.5"
+     y="561.25732"
+     id="text4860"
+     transform="translate(-12.796541,0.61252684)">void setLimiteVitesse(boolean)</text>
+  <circle
+     cx="292.70346"
+     cy="571.46417"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4862"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="114"
+     x="314.5"
+     y="574.06201"
+     id="text4864"
+     transform="translate(-12.796541,0.61252684)">Bataille getBataille()</text>
+  <circle
+     cx="292.70346"
+     cy="584.26886"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4866"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="137"
+     x="314.5"
+     y="586.8667"
+     id="text4868"
+     transform="translate(-12.796541,0.61252684)">void setBataille(Bataille)</text>
+  <circle
+     cx="292.70346"
+     cy="597.07343"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4870"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="146"
+     x="314.5"
+     y="599.67139"
+     id="text4872"
+     transform="translate(-12.796541,0.61252684)">void defausseBataille(Jeu)</text>
+  <circle
+     cx="292.70346"
+     cy="609.87817"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4874"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="124"
+     x="314.5"
+     y="612.47607"
+     id="text4876"
+     transform="translate(-12.796541,0.61252684)">List&lt;Carte&gt; getMain()</text>
+  <circle
+     cx="292.70346"
+     cy="622.68286"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4878"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="117"
+     x="314.5"
+     y="625.28082"
+     id="text4880"
+     transform="translate(-12.796541,0.61252684)">void addBotte(Botte)</text>
+  <circle
+     cx="292.70346"
+     cy="635.48755"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4882"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="144"
+     x="314.5"
+     y="638.08539"
+     id="text4884"
+     transform="translate(-12.796541,0.61252684)">void attaque(Jeu,Attaque)</text>
+  <circle
+     cx="292.70346"
+     cy="648.29224"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4886"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="89"
+     x="314.5"
+     y="650.89008"
+     id="text4888"
+     transform="translate(-12.796541,0.61252684)">String toString()</text>
+  <circle
+     cx="292.70346"
+     cy="661.09692"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4890"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="131"
+     x="314.5"
+     y="663.69482"
+     id="text4892"
+     transform="translate(-12.796541,0.61252684)">void prendCarte(Carte)</text>
+  <circle
+     cx="292.70346"
+     cy="673.90167"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4894"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="153"
+     x="314.5"
+     y="676.49951"
+     id="text4896"
+     transform="translate(-12.796541,0.61252684)">void defausseCarte(Jeu,int)</text>
+  <circle
+     cx="292.70346"
+     cy="686.70636"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4898"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="126"
+     x="314.5"
+     y="689.3042"
+     id="text4900"
+     transform="translate(-12.796541,0.61252684)">void joueCarte(Jeu,int)</text>
+  <circle
+     cx="292.70346"
+     cy="699.51093"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4902"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="166"
+     x="314.5"
+     y="702.10889"
+     id="text4904"
+     transform="translate(-12.796541,0.61252684)">void joueCarte(Jeu,int,Joueur)</text>
+  <circle
+     cx="292.70346"
+     cy="712.31567"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4906"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="133"
+     x="314.5"
+     y="714.91357"
+     id="text4908"
+     transform="translate(-12.796541,0.61252684)">List&lt;Botte&gt; getBottes()</text>
+  <rect
+     codeLine="52"
+     fill="#fefece"
+     filter="url(#f19me2iirbo6ro)"
+     height="278.48441"
+     id="mille_bornes.Jeu"
+     style="stroke:#a80036;stroke-width:1.5"
+     width="245"
+     x="19.703459"
+     y="41.612526" />
+  <circle
+     cx="128.45346"
+     cy="57.612526"
+     fill="#add1b2"
+     style="stroke:#a80036;stroke-width:1"
+     id="ellipse4911"
+     r="11" />
+  <path
+     d="m 130.92226,63.487524 q -0.5782,0.3125 -1.2188,0.4688 -0.6406,0.1562 -1.3437,0.1562 -2.5,0 -3.8282,-1.6719 -1.3125,-1.6718 -1.3125,-4.8281 0,-3.1562 1.3125,-4.8281 1.3282,-1.671897 3.8282,-1.671897 0.7031,0 1.3437,0.1563 0.6563,0.1562 1.2188,0.4687 v 2.796897 q -0.625,-0.5625 -1.2188,-0.8281 -0.5937,-0.2813 -1.2187,-0.2813 -1.3438,0 -2.0313,1.0625 -0.6875,1.0625 -0.6875,3.125 0,2.0781 0.6875,3.1406 0.6875,1.0469 2.0313,1.0469 0.625,0 1.2187,-0.2656 0.5938,-0.2656 1.2188,-0.8438 z"
+     fill="#000000"
+     id="path4913" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="12px"
+     lengthAdjust="spacing"
+     textLength="19"
+     x="161.75"
+     y="61.154301"
+     id="text4915"
+     transform="translate(-12.796541,0.61252684)">Jeu</text>
+  <line
+     style="stroke:#a80036;stroke-width:1.5"
+     x1="20.703459"
+     x2="263.70346"
+     y1="73.612526"
+     y2="73.612526"
+     id="line4917" />
+  <rect
+     fill="none"
+     height="6"
+     style="stroke:#c82930;stroke-width:1"
+     width="6"
+     x="27.703459"
+     y="81.612526"
+     id="rect4919" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="119"
+     x="52.5"
+     y="87.210403"
+     id="text4921"
+     transform="translate(-12.796541,0.61252684)">List&lt;Joueur&gt; joueurs</text>
+  <rect
+     fill="none"
+     height="6"
+     style="stroke:#c82930;stroke-width:1"
+     width="6"
+     x="27.703459"
+     y="94.417229"
+     id="rect4923" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="101"
+     x="52.5"
+     y="100.0151"
+     id="text4925"
+     transform="translate(-12.796541,0.61252684)">Joueur joueurActif</text>
+  <rect
+     fill="none"
+     height="6"
+     style="stroke:#c82930;stroke-width:1"
+     width="6"
+     x="27.703459"
+     y="107.22193"
+     id="rect4927" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="125"
+     x="52.5"
+     y="112.8198"
+     id="text4929"
+     transform="translate(-12.796541,0.61252684)">Joueur prochainJoueur</text>
+  <rect
+     fill="none"
+     height="6"
+     style="stroke:#c82930;stroke-width:1"
+     width="6"
+     x="27.703459"
+     y="120.02663"
+     id="rect4931" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="107"
+     x="52.5"
+     y="125.6245"
+     id="text4933"
+     transform="translate(-12.796541,0.61252684)">TasDeCartes sabot</text>
+  <rect
+     fill="none"
+     height="6"
+     style="stroke:#c82930;stroke-width:1"
+     width="6"
+     x="27.703459"
+     y="132.83131"
+     id="rect4935" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="127"
+     x="52.5"
+     y="138.4292"
+     id="text4937"
+     transform="translate(-12.796541,0.61252684)">TasDeCartes defausse</text>
+  <line
+     style="stroke:#a80036;stroke-width:1.5"
+     x1="20.703459"
+     x2="263.70346"
+     y1="145.63593"
+     y2="145.63593"
+     id="line4939" />
+  <circle
+     cx="30.703461"
+     cy="156.63593"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4941"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="149"
+     x="52.5"
+     y="159.2339"
+     id="text4943"
+     transform="translate(-12.796541,0.61252684)">void ajouteJoueurs(Joueur)</text>
+  <circle
+     cx="30.703461"
+     cy="169.44061"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4945"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="98"
+     x="52.5"
+     y="172.0386"
+     id="text4947"
+     transform="translate(-12.796541,0.61252684)">void prepareJeu()</text>
+  <circle
+     cx="30.703461"
+     cy="182.24532"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4949"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="89"
+     x="52.5"
+     y="184.84331"
+     id="text4951"
+     transform="translate(-12.796541,0.61252684)">String toString()</text>
+  <circle
+     cx="30.703461"
+     cy="195.05002"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4953"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="81"
+     x="52.5"
+     y="197.6479"
+     id="text4955"
+     transform="translate(-12.796541,0.61252684)">boolean joue()</text>
+  <circle
+     cx="30.703461"
+     cy="207.85472"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4957"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="219"
+     x="52.5"
+     y="210.45261"
+     id="text4959"
+     transform="translate(-12.796541,0.61252684)">void activeProchainJoueurEtTireCarte()</text>
+  <circle
+     cx="30.703461"
+     cy="220.65942"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4961"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="133"
+     x="52.5"
+     y="223.25729"
+     id="text4963"
+     transform="translate(-12.796541,0.61252684)">boolean estPartieFinie()</text>
+  <circle
+     cx="30.703461"
+     cy="233.46411"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4965"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="174"
+     x="52.5"
+     y="236.062"
+     id="text4967"
+     transform="translate(-12.796541,0.61252684)">void setProchainJoueur(Joueur)</text>
+  <circle
+     cx="30.703461"
+     cy="246.26883"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4969"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="127"
+     x="52.5"
+     y="248.8667"
+     id="text4971"
+     transform="translate(-12.796541,0.61252684)">Joueur getJoueurActif()</text>
+  <circle
+     cx="30.703461"
+     cy="259.07343"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4973"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="151"
+     x="52.5"
+     y="261.67139"
+     id="text4975"
+     transform="translate(-12.796541,0.61252684)">List&lt;Joueur&gt; getGagnant()</text>
+  <circle
+     cx="30.703461"
+     cy="271.87811"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4977"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="80"
+     x="52.5"
+     y="274.4761"
+     id="text4979"
+     transform="translate(-12.796541,0.61252684)">Carte pioche()</text>
+  <circle
+     cx="30.703461"
+     cy="284.68283"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4981"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="118"
+     x="52.5"
+     y="287.28079"
+     id="text4983"
+     transform="translate(-12.796541,0.61252684)">void defausse(Carte)</text>
+  <circle
+     cx="30.703461"
+     cy="297.48752"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4985"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="128"
+     x="52.5"
+     y="300.08539"
+     id="text4987"
+     transform="translate(-12.796541,0.61252684)">int getNbCartesSabot()</text>
+  <circle
+     cx="30.703461"
+     cy="310.29221"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse4989"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="140"
+     x="52.5"
+     y="312.89011"
+     id="text4991"
+     transform="translate(-12.796541,0.61252684)">Carte regardeDefausse()</text>
+  <rect
+     codeLine="72"
+     fill="#fefece"
+     filter="url(#f19me2iirbo6ro)"
+     height="150.4375"
+     id="mille_bornes.TasDeCartes"
+     style="stroke:#a80036;stroke-width:1.5"
+     width="148"
+     x="341.20346"
+     y="37.612526" />
+  <circle
+     cx="375.10345"
+     cy="53.612526"
+     fill="#add1b2"
+     style="stroke:#a80036;stroke-width:1"
+     id="ellipse4994"
+     r="11" />
+  <path
+     d="m 377.57226,59.487524 q -0.5782,0.3125 -1.2188,0.4688 -0.6406,0.1562 -1.3437,0.1562 -2.5,0 -3.8282,-1.6719 -1.3125,-1.6718 -1.3125,-4.8281 0,-3.156197 1.3125,-4.828097 1.3282,-1.6719 3.8282,-1.6719 0.7031,0 1.3437,0.1563 0.6563,0.1562 1.2188,0.4687 v 2.7969 q -0.625,-0.5625 -1.2188,-0.8281 -0.5937,-0.2813 -1.2187,-0.2813 -1.3438,0 -2.0313,1.0625 -0.6875,1.0625 -0.6875,3.124997 0,2.0781 0.6875,3.1406 0.6875,1.0469 2.0313,1.0469 0.625,0 1.2187,-0.2656 0.5938,-0.2656 1.2188,-0.8438 z"
+     fill="#000000"
+     id="path4996" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="12px"
+     lengthAdjust="spacing"
+     textLength="74"
+     x="406.10001"
+     y="125.1543"
+     id="text4998"
+     transform="translate(-12.796541,-67.387473)">TasDeCartes</text>
+  <line
+     style="stroke:#a80036;stroke-width:1.5"
+     x1="342.20346"
+     x2="488.20346"
+     y1="69.612526"
+     y2="69.612526"
+     id="line5000" />
+  <rect
+     fill="none"
+     height="6"
+     style="stroke:#c82930;stroke-width:1"
+     width="6"
+     x="349.20346"
+     y="77.612526"
+     id="rect5002" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="107"
+     x="374"
+     y="151.2104"
+     id="text5004"
+     transform="translate(-12.796541,-67.387473)">List&lt;Carte&gt; cartes</text>
+  <line
+     style="stroke:#a80036;stroke-width:1.5"
+     x1="342.20346"
+     x2="488.20346"
+     y1="90.417229"
+     y2="90.417229"
+     id="line5006" />
+  <rect
+     fill="#f24d5c"
+     height="6"
+     style="stroke:#c82930;stroke-width:1"
+     width="6"
+     x="349.20346"
+     y="98.417229"
+     id="rect5008" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="117"
+     x="374"
+     y="172.01511"
+     id="text5010"
+     transform="translate(-12.796541,-67.387473)">void creeLesCartes()</text>
+  <circle
+     cx="352.20346"
+     cy="114.22195"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5012"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="122"
+     x="374"
+     y="184.81979"
+     id="text5014"
+     transform="translate(-12.796541,-67.387473)">void melangeCartes()</text>
+  <circle
+     cx="352.20346"
+     cy="127.02662"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5016"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="96"
+     x="374"
+     y="197.6245"
+     id="text5018"
+     transform="translate(-12.796541,-67.387473)">int getNbCartes()</text>
+  <circle
+     cx="352.20346"
+     cy="139.83133"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5020"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="99"
+     x="374"
+     y="210.4292"
+     id="text5022"
+     transform="translate(-12.796541,-67.387473)">boolean estVide()</text>
+  <circle
+     cx="352.20346"
+     cy="152.63593"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5024"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="88"
+     x="374"
+     y="223.2339"
+     id="text5026"
+     transform="translate(-12.796541,-67.387473)">Carte regarde()</text>
+  <circle
+     cx="352.20346"
+     cy="165.44061"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5028"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="76"
+     x="374"
+     y="236.0386"
+     id="text5030"
+     transform="translate(-12.796541,-67.387473)">Carte prend()</text>
+  <circle
+     cx="352.20346"
+     cy="178.24532"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5032"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="94"
+     x="374"
+     y="248.84331"
+     id="text5034"
+     transform="translate(-12.796541,-67.387473)">void pose(Carte)</text>
+  <rect
+     codeLine="86"
+     fill="#fefece"
+     filter="url(#f19me2iirbo6ro)"
+     height="304.09381"
+     id="mille_bornes.Joueur"
+     style="stroke:#a80036;stroke-width:1.5"
+     width="227"
+     x="19.703459"
+     y="399.11252" />
+  <circle
+     cx="109.45345"
+     cy="415.11252"
+     fill="#add1b2"
+     style="stroke:#a80036;stroke-width:1"
+     id="ellipse5037"
+     r="11" />
+  <path
+     d="m 111.92226,420.98752 q -0.5782,0.3125 -1.2188,0.4688 -0.6406,0.1562 -1.3437,0.1562 -2.5,0 -3.8282,-1.6719 -1.3125,-1.6718 -1.3125,-4.8281 0,-3.1562 1.3125,-4.8281 1.3282,-1.6719 3.8282,-1.6719 0.7031,0 1.3437,0.1563 0.6563,0.1562 1.2188,0.4687 v 2.7969 q -0.625,-0.5625 -1.2188,-0.8281 -0.5937,-0.2813 -1.2187,-0.2813 -1.3438,0 -2.0313,1.0625 -0.6875,1.0625 -0.6875,3.125 0,2.0781 0.6875,3.1406 0.6875,1.0469 2.0313,1.0469 0.625,0 1.2187,-0.2656 0.5938,-0.2656 1.2188,-0.8438 z"
+     fill="#000000"
+     id="path5039" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="12px"
+     lengthAdjust="spacing"
+     textLength="39"
+     x="142.75"
+     y="418.6543"
+     id="text5041"
+     transform="translate(-12.796541,0.61252684)">Joueur</text>
+  <line
+     style="stroke:#a80036;stroke-width:1.5"
+     x1="20.703459"
+     x2="245.70346"
+     y1="431.11252"
+     y2="431.11252"
+     id="line5043" />
+  <circle
+     cx="30.703461"
+     cy="442.11252"
+     style="fill:none;stroke:#038048;stroke-width:1"
+     id="ellipse5045"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="62"
+     x="52.5"
+     y="444.71039"
+     id="text5047"
+     transform="translate(-12.796541,0.61252684)">String nom</text>
+  <rect
+     fill="none"
+     height="6"
+     style="stroke:#c82930;stroke-width:1"
+     width="6"
+     x="27.703459"
+     y="451.91721"
+     id="rect5049" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="84"
+     x="52.5"
+     y="457.51511"
+     id="text5051"
+     transform="translate(-12.796541,0.61252684)">EtatJoueur etat</text>
+  <rect
+     fill="none"
+     height="6"
+     style="stroke:#c82930;stroke-width:1"
+     width="6"
+     x="27.703459"
+     y="464.72192"
+     id="rect5053" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="78"
+     x="52.5"
+     y="470.31979"
+     id="text5055"
+     transform="translate(-12.796541,0.61252684)">Scanner input</text>
+  <rect
+     fill="none"
+     height="6"
+     style="stroke:#c82930;stroke-width:1"
+     width="6"
+     x="27.703459"
+     y="477.52661"
+     id="rect5057" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="125"
+     x="52.5"
+     y="483.12451"
+     id="text5059"
+     transform="translate(-12.796541,0.61252684)">Joueur prochainJoueur</text>
+  <line
+     style="stroke:#a80036;stroke-width:1.5"
+     x1="20.703459"
+     x2="245.70346"
+     y1="490.33136"
+     y2="490.33136"
+     id="line5061" />
+  <circle
+     cx="30.703461"
+     cy="501.33136"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5063"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="151"
+     x="52.5"
+     y="503.9292"
+     id="text5065"
+     transform="translate(-12.796541,0.61252684)">Joueur getProchainJoueur()</text>
+  <circle
+     cx="30.703461"
+     cy="514.13593"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5067"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="174"
+     x="52.5"
+     y="516.73389"
+     id="text5069"
+     transform="translate(-12.796541,0.61252684)">void setProchainJoueur(Joueur)</text>
+  <circle
+     cx="30.703461"
+     cy="526.94067"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5071"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="124"
+     x="52.5"
+     y="529.53857"
+     id="text5073"
+     transform="translate(-12.796541,0.61252684)">List&lt;Carte&gt; getMain()</text>
+  <circle
+     cx="30.703461"
+     cy="539.74536"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5075"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="62"
+     x="52.5"
+     y="542.34332"
+     id="text5077"
+     transform="translate(-12.796541,0.61252684)">int getKm()</text>
+  <circle
+     cx="30.703461"
+     cy="552.55005"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5079"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="150"
+     x="52.5"
+     y="555.14789"
+     id="text5081"
+     transform="translate(-12.796541,0.61252684)">boolean getLimiteVitesse()</text>
+  <circle
+     cx="30.703461"
+     cy="565.35474"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5083"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="93"
+     x="52.5"
+     y="567.95258"
+     id="text5085"
+     transform="translate(-12.796541,0.61252684)">int choisitCarte()</text>
+  <circle
+     cx="30.703461"
+     cy="578.15942"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5087"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="177"
+     x="52.5"
+     y="580.75732"
+     id="text5089"
+     transform="translate(-12.796541,0.61252684)">Joueur choisitAdversaire(Carte)</text>
+  <circle
+     cx="30.703461"
+     cy="590.96417"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5091"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="131"
+     x="52.5"
+     y="593.56201"
+     id="text5093"
+     transform="translate(-12.796541,0.61252684)">void prendCarte(Carte)</text>
+  <circle
+     cx="30.703461"
+     cy="603.76886"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5095"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="126"
+     x="52.5"
+     y="606.3667"
+     id="text5097"
+     transform="translate(-12.796541,0.61252684)">void joueCarte(Jeu,int)</text>
+  <circle
+     cx="30.703461"
+     cy="616.57343"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5099"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="153"
+     x="52.5"
+     y="619.17139"
+     id="text5101"
+     transform="translate(-12.796541,0.61252684)">void defausseCarte(Jeu,int)</text>
+  <circle
+     cx="30.703461"
+     cy="629.37817"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5103"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="144"
+     x="52.5"
+     y="631.97607"
+     id="text5105"
+     transform="translate(-12.796541,0.61252684)">void attaque(Jeu,Attaque)</text>
+  <circle
+     cx="30.703461"
+     cy="642.18286"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5107"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="166"
+     x="52.5"
+     y="644.78082"
+     id="text5109"
+     transform="translate(-12.796541,0.61252684)">void joueCarte(Jeu,int,Joueur)</text>
+  <circle
+     cx="30.703461"
+     cy="654.98755"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5111"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="114"
+     x="52.5"
+     y="657.58539"
+     id="text5113"
+     transform="translate(-12.796541,0.61252684)">Bataille getBataille()</text>
+  <circle
+     cx="30.703461"
+     cy="667.79224"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5115"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="201"
+     x="52.5"
+     y="670.39008"
+     id="text5117"
+     transform="translate(-12.796541,0.61252684)">String ditPourquoiPeutPasAvancer()</text>
+  <circle
+     cx="30.703461"
+     cy="680.59692"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5119"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="89"
+     x="52.5"
+     y="683.19482"
+     id="text5121"
+     transform="translate(-12.796541,0.61252684)">String toString()</text>
+  <circle
+     cx="30.703461"
+     cy="693.40167"
+     fill="#84be84"
+     style="stroke:#038048;stroke-width:1"
+     id="ellipse5123"
+     r="3" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="11px"
+     lengthAdjust="spacing"
+     textLength="133"
+     x="52.5"
+     y="695.99951"
+     id="text5125"
+     transform="translate(-12.796541,0.61252684)">List&lt;Botte&gt; getBottes()</text>
+  <path
+     codeLine="117"
+     d="M 885.22226,175.96913 686.98482,376.64874"
+     fill="none"
+     id="mille_bornes.cartes.Carte-backto-mille_bornes.cartes.Bataille"
+     style="stroke:#a80036;stroke-width:1"
+     sodipodi:nodetypes="cc" />
+  <polygon
+     fill="none"
+     points="831.82,229.55 831.36,250.74 818.25,245.83 "
+     style="stroke:#a80036;stroke-width:1"
+     id="polygon5128"
+     transform="rotate(24.251418,1023.2837,353.18)"
+     inkscape:transform-center-x="10.599159"
+     inkscape:transform-center-y="10.637389" />
+  <path
+     codeLine="118"
+     d="m 893.62504,528.24019 -64.89727,85.2516"
+     fill="none"
+     id="mille_bornes.cartes.Bataille-backto-mille_bornes.cartes.Parade"
+     style="stroke:#a80036;stroke-width:1"
+     sodipodi:nodetypes="cc" />
+  <polygon
+     fill="none"
+     points="713.3,665.69 699.32,664.99 707.31,645.37 "
+     style="stroke:#a80036;stroke-width:1"
+     id="polygon5131"
+     transform="rotate(33.808301,1025.5331,904.97304)"
+     inkscape:transform-center-x="8.8036126"
+     inkscape:transform-center-y="10.01175" />
+  <path
+     codeLine="119"
+     d="M 1045.4627,177.74407 1221.075,378.61438"
+     fill="none"
+     id="mille_bornes.cartes.Carte-backto-mille_bornes.cartes.Borne"
+     style="stroke:#a80036;stroke-width:1"
+     sodipodi:nodetypes="cc" />
+  <polygon
+     fill="none"
+     points="885.41,229.62 903.5,240.66 892.67,249.53 "
+     style="stroke:#a80036;stroke-width:1"
+     id="polygon5134"
+     transform="rotate(-0.94032159,-3146.9462,-8773.093)"
+     inkscape:transform-center-x="-9.1201898"
+     inkscape:transform-center-y="9.6973811" />
+  <path
+     codeLine="120"
+     d="m 955.08819,181.97714 -2.7e-4,140.63913"
+     fill="none"
+     id="mille_bornes.cartes.Carte-backto-mille_bornes.cartes.Botte"
+     style="stroke:#a80036;stroke-width:1"
+     sodipodi:nodetypes="cc" />
+  <polygon
+     fill="none"
+     points="868.82,250.74 868.31,229.55 881.92,245.8 "
+     style="stroke:#a80036;stroke-width:1"
+     id="polygon5137"
+     transform="rotate(20.669807,1096.7034,434.93138)"
+     inkscape:transform-center-x="0.035086666"
+     inkscape:transform-center-y="10.014828" />
+  <path
+     codeLine="121"
+     d="m 998.9816,527.04947 75.7486,85.77039"
+     fill="none"
+     id="mille_bornes.cartes.Bataille-backto-mille_bornes.cartes.Attaque"
+     style="stroke:#a80036;stroke-width:1"
+     sodipodi:nodetypes="cc" />
+  <polygon
+     fill="none"
+     points="784.19,665.15 777.54,645.02 795.28,656.61 "
+     style="stroke:#a80036;stroke-width:1"
+     id="polygon5140"
+     transform="rotate(-4.7916999,-704.96024,-1906.5999)"
+     inkscape:transform-center-x="-9.6232349"
+     inkscape:transform-center-y="9.9539694" />
+  <path
+     codeLine="123"
+     d="M 502.51346,112.61252 H 851.88674"
+     fill="none"
+     id="mille_bornes.TasDeCartes-backto-mille_bornes.cartes.Carte"
+     style="stroke:#a80036;stroke-width:1"
+     sodipodi:nodetypes="cc" />
+  <polygon
+     fill="#a80036"
+     points="502.18,180 508.18,184 514.18,180 508.18,176 "
+     style="stroke:#a80036;stroke-width:1"
+     id="polygon5143"
+     transform="translate(-12.796541,-67.387473)" />
+  <path
+     codeLine="124"
+     d="m 246.80346,551.11252 c 9.87,0 19.75,0 29.62,0"
+     fill="none"
+     id="mille_bornes.Joueur-to-mille_bornes.EtatJoueur"
+     style="stroke:#a80036;stroke-width:1" />
+  <polygon
+     fill="#a80036"
+     points="294.38,550.5 285.38,546.5 289.38,550.5 285.38,554.5 "
+     style="stroke:#a80036;stroke-width:1"
+     id="polygon5146"
+     transform="translate(-12.796541,0.61252684)" />
+  <path
+     codeLine="125"
+     d="m 138.51346,332.74252 -0.0555,66.3101"
+     fill="none"
+     id="mille_bornes.Jeu-backto-mille_bornes.Joueur"
+     style="stroke:#a80036;stroke-width:1"
+     sodipodi:nodetypes="cc" />
+  <polygon
+     fill="#ffffff"
+     points="151.63,319 147.4862,324.9016 151.34,330.9965 155.4838,325.0949 "
+     style="stroke:#a80036;stroke-width:1"
+     id="polygon5149"
+     transform="translate(-12.796541,0.61252684)" />
+  <text
+     fill="#000000"
+     font-family="sans-serif"
+     font-size="13px"
+     lengthAdjust="spacing"
+     textLength="24"
+     x="125.2875"
+     y="387.54849"
+     id="text5151"
+     transform="translate(-12.796541,0.61252684)">1..4</text>
+  <g
+     id="g5559"
+     transform="translate(109.20346,0.61252684)">
+    <rect
+       codeLine="42"
+       fill="#fefece"
+       filter="url(#f19me2iirbo6ro)"
+       height="99.218803"
+       id="mille_bornes.cartes.Carte"
+       style="stroke:#a80036;stroke-width:1.5"
+       width="215"
+       x="742.5"
+       y="62.5" />
+    <circle
+       cx="829.75"
+       cy="78.5"
+       fill="#a9dcdf"
+       style="stroke:#a80036;stroke-width:1"
+       id="ellipse4709"
+       r="11" />
+    <path
+       d="m 829.8594,73.7969 -1.1563,5.3281 h 2.3282 z M 828.375,71.25 h 2.9844 l 3.3594,13 h -2.4532 l -0.7656,-3 h -3.2812 l -0.75,3 h -2.4375 z"
+       fill="#000000"
+       id="path4711" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="12px"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="32"
+       x="850.25"
+       y="150.6543"
+       id="text4713"
+       transform="translate(0,-68)">Carte</text>
+    <line
+       style="stroke:#a80036;stroke-width:1.5"
+       x1="743.5"
+       x2="956.5"
+       y1="94.5"
+       y2="94.5"
+       id="line4715" />
+    <circle
+       cx="753.5"
+       cy="105.5"
+       style="fill:none;stroke:#038048;stroke-width:1"
+       id="ellipse4717"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="62"
+       x="762.5"
+       y="176.7104"
+       id="text4719"
+       transform="translate(0,-68)">String nom</text>
+    <circle
+       cx="753.5"
+       cy="118.3047"
+       style="fill:none;stroke:#038048;stroke-width:1"
+       id="ellipse4721"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="112"
+       x="762.5"
+       y="189.51511"
+       id="text4723"
+       transform="translate(0,-68)">Categorie categorie</text>
+    <line
+       style="stroke:#a80036;stroke-width:1.5"
+       x1="743.5"
+       x2="956.5"
+       y1="128.10941"
+       y2="128.10941"
+       id="line4725" />
+    <circle
+       cx="753.5"
+       cy="139.10941"
+       fill="#84be84"
+       style="stroke:#038048;stroke-width:1"
+       id="ellipse4727"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="189"
+       x="762.5"
+       y="210.31979"
+       id="text4729"
+       transform="translate(0,-68)">void appliqueEffet(Jeu,EtatJoueur)</text>
+    <circle
+       cx="753.5"
+       cy="151.91409"
+       fill="#84be84"
+       style="stroke:#038048;stroke-width:1"
+       id="ellipse4731"
+       r="3" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="89"
+       x="762.5"
+       y="223.1245"
+       id="text4733"
+       transform="translate(0,-68)">String toString()</text>
+    <rect
+       codeLine="111"
+       fill="#fefece"
+       filter="url(#f19me2iirbo6ro)"
+       height="99.218803"
+       id="mille_bornes.cartes.Categorie"
+       style="stroke:#a80036;stroke-width:1.5"
+       width="89"
+       x="992.5"
+       y="62.5" />
+    <circle
+       cx="1007.5"
+       cy="78.5"
+       fill="#eb937f"
+       style="stroke:#a80036;stroke-width:1"
+       id="ellipse4789"
+       r="11" />
+    <path
+       d="m 1011.6094,85 h -7.7188 V 72 h 7.7188 v 2.2813 h -5.2656 V 77 h 4.7656 v 2.2813 h -4.7656 v 3.4531 h 5.2656 z"
+       fill="#000000"
+       id="path4791" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="12px"
+       lengthAdjust="spacing"
+       textLength="57"
+       x="1021.5"
+       y="150.6543"
+       id="text4793"
+       transform="translate(0,-68)">Categorie</text>
+    <line
+       style="stroke:#a80036;stroke-width:1.5"
+       x1="993.5"
+       x2="1080.5"
+       y1="94.5"
+       y2="94.5"
+       id="line4795" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="44"
+       x="998.5"
+       y="176.7104"
+       id="text4797"
+       transform="translate(0,-68)">Attaque</text>
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="40"
+       x="998.5"
+       y="189.51511"
+       id="text4799"
+       transform="translate(0,-68)">Parade</text>
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="30"
+       x="998.5"
+       y="202.31979"
+       id="text4801"
+       transform="translate(0,-68)">Botte</text>
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="11px"
+       lengthAdjust="spacing"
+       textLength="34"
+       x="998.5"
+       y="215.1245"
+       id="text4803"
+       transform="translate(0,-68)">Borne</text>
+    <line
+       style="stroke:#a80036;stroke-width:1.5"
+       x1="993.5"
+       x2="1080.5"
+       y1="153.7188"
+       y2="153.7188"
+       id="line4805" />
+    <path
+       codeLine="126"
+       d="m 970.75,112 c 7.22,0 14.44,0 21.67,0"
+       fill="none"
+       id="mille_bornes.cartes.Carte-backto-mille_bornes.cartes.Categorie"
+       style="stroke:#a80036;stroke-width:1" />
+    <polygon
+       fill="#a80036"
+       points="963.74,176 957.74,180 963.74,184 969.74,180 "
+       style="stroke:#a80036;stroke-width:1"
+       id="polygon5154"
+       transform="translate(0,-68)" />
+  </g>
+</svg>
