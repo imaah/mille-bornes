@@ -1,4 +1,19 @@
 package mille_bornes.cartes.attaques;
 
-public class FeuRouge {
+import mille_bornes.cartes.Attaque;
+
+public class FeuRouge extends Attaque {
+    public FeuRouge() {
+        super("Feu rouge");
+    }
+
+    @Override
+    public boolean estContreeParVehiculePrioritaire() {
+        return true;
+    }
+
+    @Override
+    public boolean estContreeParFeuVert() {
+        return true;
+    }
 }

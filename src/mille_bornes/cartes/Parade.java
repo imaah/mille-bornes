@@ -1,4 +1,7 @@
 package mille_bornes.cartes;
 
-public class Parade {
+public abstract class Parade extends Bataille {
+    public Parade(String nom) {
+        super(nom, Categorie.PARADE);
+    }
 }

@@ -1,4 +1,15 @@
 package mille_bornes.cartes.parades;
 
-public class Reparations {
+import mille_bornes.cartes.Attaque;
+import mille_bornes.cartes.Parade;
+
+public class Reparations extends Parade {
+    public Reparations() {
+        super("Reparations");
+    }
+
+    @Override
+    public boolean contre(Attaque attaque) {
+        return attaque.estContreeParReparations();
+    }
 }

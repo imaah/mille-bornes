@@ -12,7 +12,7 @@ public abstract class Carte {
         this.categorie = categorie;
     }
 
-    public abstract void appliqueEffet(Jeu jeu, EtatJoueur etatjoueur);
+    public abstract void appliqueEffet(Jeu jeu, EtatJoueur joueur) throws IllegalStateException;
 
     @Override
     public String toString() {
