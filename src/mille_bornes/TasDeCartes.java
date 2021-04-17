@@ -27,23 +27,23 @@ public class TasDeCartes {
         CartesInitiales.genTasDeCarte(this);
 
         // Protection contre les bottes
-        cartes.add(new VehiculePrioritaire());
         cartes.add(new Citerne());
         cartes.add(new Increvable());
         cartes.add(new AsDuVolant());
+        cartes.add(new VehiculePrioritaire());
 
         // Ajout des autres cartes
         int i;
         for (i = 0; i < 14; i++) {
             if (i < 3) {
-                cartes.add(new PanneEssence());
-                cartes.add(new Crevaison());
                 cartes.add(new Accident());
+                cartes.add(new Crevaison());
+                cartes.add(new PanneEssence());
             }
 
             if (i < 4) {
-                cartes.add(new LimiteVitesse());
                 cartes.add(new Borne(200));
+                cartes.add(new LimiteVitesse());
             }
 
             if (i < 5) {
@@ -51,10 +51,10 @@ public class TasDeCartes {
             }
 
             if (i < 6) {
-                cartes.add(new FinDeLimite());
                 cartes.add(new Essence());
-                cartes.add(new RoueDeSecours());
                 cartes.add(new Reparations());
+                cartes.add(new FinDeLimite());
+                cartes.add(new RoueDeSecours());
             }
 
             if (i < 10) {
