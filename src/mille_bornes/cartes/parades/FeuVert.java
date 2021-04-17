@@ -1,5 +1,7 @@
 package mille_bornes.cartes.parades;
 
+import mille_bornes.EtatJoueur;
+import mille_bornes.Jeu;
 import mille_bornes.cartes.Attaque;
 import mille_bornes.cartes.Parade;
 

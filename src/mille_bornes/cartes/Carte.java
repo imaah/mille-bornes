@@ -3,6 +3,8 @@ package mille_bornes.cartes;
 import mille_bornes.EtatJoueur;
 import mille_bornes.Jeu;
 
+import java.util.Objects;
+
 public abstract class Carte {
     public final String nom;
     public final Categorie categorie;
@@ -17,5 +19,17 @@ public abstract class Carte {
     @Override
     public String toString() {
         return this.nom;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (getClass().isAssignableFrom(o.getClass())) return false;
+        Carte carte = (Carte) o;
+        return Objects.equals(nom, carte.nom) && categorie == carte.categorie;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nom, categorie);
     }
 }

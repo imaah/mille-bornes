@@ -10,7 +10,17 @@ public class Attaque extends Bataille {
 
     @Override
     public void appliqueEffet(Jeu jeu, EtatJoueur joueur) {
-        super.appliqueEffet(jeu, joueur);
+        if(joueur.getBataille() instanceof Attaque) {
+            throw new IllegalStateException("Vous ne pouvez pas ajouter d'attaque sur une attaque!");
+        }
+
+        for(Botte botte : joueur.getBottes()) {
+            if(botte.contre(this)) {
+                throw new IllegalStateException("Le joueur a une botte qui bloque cette carte!");
+            }
+        }
+
+        joueur.attaque(jeu, this);
     }
 
     @Override
