@@ -60,7 +60,24 @@ public class Joueur {
     }
 
     public Joueur choisitAdversaire(Carte carte) {
-        return null;
+        Joueur cible = null;
+        boolean estValide = false;;
+
+        while(!estValide) {
+            String nomDuJoueur = input.nextLine();
+
+            if(nomDuJoueur.equalsIgnoreCase("annuler")) throw new IllegalStateException();
+
+            cible = getProchainJoueur();
+
+            while (!cible.nom.equalsIgnoreCase(nomDuJoueur) && !cible.equals(this)) {
+                cible = cible.getProchainJoueur();
+            }
+
+            estValide = !cible.equals(this);
+        }
+
+        return cible;
     }
 
     public void prendCarte(Carte carte) {
