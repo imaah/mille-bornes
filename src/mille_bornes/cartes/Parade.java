@@ -15,7 +15,10 @@ public abstract class Parade extends Bataille {
         if(bataille instanceof Attaque) {
             if(contre((Attaque) bataille)) {
                 joueur.defausseBataille(jeu);
+            } else {
+                throw new IllegalStateException("Cette carte ne peut pas être jouée maintenant");
             }
         }
+        joueur.setBataille(this);
     }
 }

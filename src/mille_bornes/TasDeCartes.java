@@ -10,7 +10,6 @@ import mille_bornes.cartes.bottes.VehiculePrioritaire;
 import mille_bornes.cartes.parades.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,8 +23,6 @@ public class TasDeCartes {
     }
 
     private void creeLesCartes() {
-        CartesInitiales.genTasDeCarte(this);
-
         // Protection contre les bottes
         cartes.add(new Citerne());
         cartes.add(new Increvable());
@@ -80,11 +77,7 @@ public class TasDeCartes {
     }
 
     public boolean estVide() {
-        if (this.cartes.size() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.cartes.isEmpty();
     }
 
     public Carte regarde() {
@@ -101,43 +94,16 @@ public class TasDeCartes {
         this.cartes.add(0, carte);
     }
 
-
-    enum CartesInitiales {
-        BORNE_50(Borne.class, 2, 50);
-
-        private final Object[] parametres;
-        private final Class<? extends Carte> carteClass;
-        private final int nombre;
-
-        CartesInitiales(Class<? extends Carte> carteClass, int nombre, Object... parametres) {
-            this.carteClass = carteClass;
-            this.nombre = nombre;
-            this.parametres = parametres;
-        }
-
-        public static void genTasDeCarte(TasDeCartes tdc) {
-            for (CartesInitiales c : values()) {
-                tdc.cartes.addAll(c.initCartes());
+    /*
+     * Cette méthode permet de vérifier qu'il ne reste plus de borne dans le tas de cartes car c'est l'une des
+     * condition de fin de jeu.
+     */
+    public boolean contientBornes() {
+        for (Carte carte : cartes) {
+            if(carte instanceof Borne) {
+                return true;
             }
         }
-
-        public Carte init() {
-            Class<?>[] classes = Arrays.stream(parametres).map(Object::getClass).toArray(Class<?>[]::new);
-            try {
-                return carteClass.getConstructor(classes).newInstance(parametres);
-            } catch (Exception ignored) {
-            }
-            return null;
-        }
-
-        public List<Carte> initCartes() {
-            List<Carte> cartes = new ArrayList<>();
-
-            for (int i = 0; i < nombre; i++) {
-                cartes.add(init());
-            }
-
-            return cartes;
-        }
+        return false;
     }
 }

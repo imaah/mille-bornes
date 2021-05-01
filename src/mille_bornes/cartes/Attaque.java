@@ -20,7 +20,7 @@ public class Attaque extends Bataille {
             }
         }
 
-        joueur.attaque(jeu, this);
+        joueur.setBataille(this);
     }
 
     @Override

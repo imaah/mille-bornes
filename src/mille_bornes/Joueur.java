@@ -42,16 +42,23 @@ public class Joueur {
     }
 
     public int choisitCarte() {
-        boolean correcte;
+        boolean correcte = false;
         int valeur = 0;
 
         do {
             try {
-                valeur = input.nextInt();
-                correcte = true;
+                String line = input.nextLine();
+
+                valeur = Integer.parseInt(line);
+                if ((-7 <= valeur) && (valeur <= 7) && valeur != 0) {
+                    correcte = true;
+                }
             } catch (NoSuchElementException e) {
                 // TODO: 17/04/2021 Afficher le bon message
                 System.out.println("Err");
+                correcte = false;
+            } catch (NumberFormatException e) {
+                System.err.println("Veuillez entrer un entier valide !");
                 correcte = false;
             }
         } while (!correcte);
@@ -61,10 +68,10 @@ public class Joueur {
 
     public Joueur choisitAdversaire(Carte carte) {
         Joueur cible = null;
-        boolean estValide = false;;
+        boolean estValide = false;
 
         while(!estValide) {
-            String nomDuJoueur = input.nextLine();
+            String nomDuJoueur = input.nextLine().trim();
 
             if(nomDuJoueur.equalsIgnoreCase("annuler")) throw new IllegalStateException();
 
@@ -74,6 +81,7 @@ public class Joueur {
                 cible = cible.getProchainJoueur();
             }
 
+            // TODO: 01/05/2021 Check attaques
             estValide = !cible.equals(this);
         }
 

@@ -4,6 +4,7 @@ import mille_bornes.cartes.Attaque;
 import mille_bornes.cartes.Bataille;
 import mille_bornes.cartes.Botte;
 import mille_bornes.cartes.Carte;
+import mille_bornes.cartes.attaques.LimiteVitesse;
 import mille_bornes.cartes.bottes.AsDuVolant;
 import mille_bornes.cartes.bottes.Citerne;
 import mille_bornes.cartes.bottes.Increvable;
@@ -35,12 +36,29 @@ public class EtatJoueur {
     }
 
     public void ajouteKm(int km) {
+        String raison = ditPourquoiPeutPasAvancer();
+
+        if(limiteVitesse && km > MAX_VITESSE_SOUS_LIMITE) {
+            throw new IllegalStateException("Vous ne pouvez pas vous déplacer a de plus de " + MAX_VITESSE_SOUS_LIMITE + "km");
+        } else if (raison != null) {
+            throw new IllegalStateException(raison);
+        }
+
         this.km += km;
     }
 
     public String ditPourquoiPeutPasAvancer() {
-        return "";
-        // TODO: 17/04/2021 direPourquoiPeutPasAvancer()
+        String message = null;
+
+        if(pileBataille.isEmpty() && !bottes.contains(new VehiculePrioritaire())) {
+            message = "Vous n'avez pas encore démarré.";
+        }
+
+        if(getBataille() instanceof Attaque) {
+            message = "Vous êtes en train de vous faire attaquer !";
+        }
+
+        return message;
     }
 
     public boolean getLimiteVitesse() {
@@ -72,6 +90,11 @@ public class EtatJoueur {
 
     public void addBotte(@NotNull Botte botte) {
         bottes.add(botte);
+        if(getBataille() != null && getBataille() instanceof Attaque) {
+            if(botte.contre((Attaque) getBataille())) {
+                pileBataille.pop();
+            }
+        }
     }
 
     public void attaque(@NotNull Jeu jeu, @NotNull Attaque attaque) {
@@ -81,9 +104,10 @@ public class EtatJoueur {
 
                 if (botte.contre(attaque)) {
                     // Coup-fourré
-                    // TODO: 17/04/2021 Meilleur message lors du coup-fourré
-                    System.out.println("Coup-fourré!");
-                    addBotte(botte);
+                    System.out.println("Votre adversaire sort un coup-fourré! Votre attaque n'a aucun effet et il récupère la main.");
+                    botte.appliqueEffet(jeu, this);
+                    jeu.setProchainJoueur(this.joueur);
+                    jeu.defausse(attaque);
                     return;
                 }
             }
@@ -94,7 +118,17 @@ public class EtatJoueur {
             if (botte.contre(attaque)) throw new IllegalStateException("");
         }
 
-        setBataille(attaque);
+        if(getBataille() instanceof Attaque && !(attaque instanceof LimiteVitesse)) {
+            // TODO: 01/05/2021 Message d'erreur : peut pas attaquer car déjà attaque en haut.
+            throw new IllegalStateException("");
+        }
+
+        if(attaque instanceof LimiteVitesse && limiteVitesse) {
+            // TODO: 01/05/2021 Message d'erreur : Attaque avec Limite de vitesse
+            throw new IllegalStateException("");
+        }
+
+        attaque.appliqueEffet(jeu, this);
     }
 
     public void prendCarte(Carte carte) {
@@ -104,14 +138,21 @@ public class EtatJoueur {
     public void defausseCarte(@NotNull Jeu jeu, @Range(from = 0, to = 6) int i) {
         // TODO: 17/04/2021 Retirer la carte, utiliser la methode jeu.defausser();
         Carte carte = main.get(i);
+        main.remove(i);
         jeu.defausse(carte);
     }
 
     public void joueCarte(@NotNull Jeu jeu, @Range(from = 0, to = 6) int i) {
         Carte carte = main.get(i);
-        if (carte instanceof Attaque) throw new IllegalStateException("Vous ne pouvez pas vous attaquer vous-même!");
+        if (carte instanceof Attaque) {
+            Joueur cible = joueur.choisitAdversaire(carte);
+            joueCarte(jeu, i, cible);
+        } else {
+            carte.appliqueEffet(jeu, this);
+        }
 
-        carte.appliqueEffet(jeu, this);
+        // Une fois jouée, on retire la carte de la main
+        main.remove(i);
     }
 
     public void joueCarte(@NotNull Jeu jeu, @Range(from = 0, to = 6) int i, @NotNull Joueur joueur) {
@@ -120,9 +161,9 @@ public class EtatJoueur {
         if (carte instanceof Attaque) {
             Attaque attaque = (Attaque) carte;
             joueur.attaque(jeu, attaque);
+        } else {
+            throw new IllegalStateException("La carte n'est pas une attaque, donc ne peut pas être utilisée sur un autre joueur!");
         }
-
-        throw new IllegalStateException("La carte n'est pas une attaque, donc ne peut pas être utilisée sur un autre joueur!");
     }
 
     public List<Botte> getBottes() {
@@ -147,8 +188,10 @@ public class EtatJoueur {
                 .append(bottes.contains(new VehiculePrioritaire()) ? 'V' : '.')
                 .append(']');
 
-        builder.append(", ")
-                .append(getBataille().nom);
+        if(getBataille() != null) {
+            builder.append(", ")
+                    .append(getBataille().nom);
+        }
 
         return builder.toString();
     }

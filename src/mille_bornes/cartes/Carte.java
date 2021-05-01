@@ -23,13 +23,8 @@ public abstract class Carte {
 
     @Override
     public boolean equals(Object o) {
-        if (getClass().isAssignableFrom(o.getClass())) return false;
+        if (!getClass().isAssignableFrom(o.getClass())) return false;
         Carte carte = (Carte) o;
         return Objects.equals(nom, carte.nom) && categorie == carte.categorie;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(nom, categorie);
     }
 }

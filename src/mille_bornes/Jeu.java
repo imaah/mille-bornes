@@ -45,8 +45,12 @@ public class Jeu {
             }
         }
 
-        // Le premier joueur commence
-        this.joueurActif = this.joueurs.get(0);
+        for(int i = 0; i < joueurs.size(); i++) {
+            joueurs.get(i).setProchainJoueur(joueurs.get((i + 1) % joueurs.size()));
+        }
+
+        // Le premier joueur commence (on prévoit que le tour va changer)
+        this.joueurActif = this.joueurs.get(joueurs.size() - 1);
     }
 
     @Override
@@ -72,17 +76,26 @@ public class Jeu {
 
         activeProchainJoueurEtTireCarte();
 
+        System.out.println(joueurActif);
+        System.out.println(joueurActif.getMain());
         // Tant que la carte n'a pas pu être jouée, on recommence
         do {
             carteJouee = false;
 
             try {
-                this.joueurActif.joueCarte(this, this.joueurActif.choisitCarte());
+                int nCarte = this.joueurActif.choisitCarte();
+                if(nCarte > 0) {
+                    this.joueurActif.joueCarte(this, nCarte - 1);
+                } else if(nCarte < 0) {
+                    this.joueurActif.defausseCarte(this, -nCarte - 1);
+                }
 
                 carteJouee = true;
+            } catch (IllegalStateException e) {
+                System.err.println(e.getMessage());
+                carteJouee = false;
             } catch (Exception e) {
-                System.out.println(e);
-
+                e.printStackTrace();
                 carteJouee = false;
             }
 
@@ -90,7 +103,7 @@ public class Jeu {
 
 
         // Si le joueur actuel vient de passer les 1000km ou qu'il à pioché la dernière carte, c'est fini
-        if (this.getJouerActif().getKm() >= 1000 || this.sabot.estVide()) {
+        if (this.getJoueurActif().getKm() >= 1000 || this.sabot.estVide()) {
             return true;
         } else {
             return false;
@@ -100,8 +113,10 @@ public class Jeu {
     public void activeProchainJoueurEtTireCarte() {
         this.joueurActif = joueurActif.getProchainJoueur();
 
-        if (!estPartieFinie()) {
-            this.joueurActif.prendCarte(sabot.prend());
+        while (joueurActif.getMain().size() < 7) {
+            if (!estPartieFinie()) {
+                this.joueurActif.prendCarte(sabot.prend());
+            }
         }
     }
 
@@ -119,7 +134,7 @@ public class Jeu {
         this.prochainJoueur = prochainJoueurActif;
     }
 
-    public Joueur getJouerActif() {
+    public Joueur getJoueurActif() {
         return this.joueurActif;
     }
 
