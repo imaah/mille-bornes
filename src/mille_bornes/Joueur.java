@@ -54,8 +54,7 @@ public class Joueur {
                     correcte = true;
                 }
             } catch (NoSuchElementException e) {
-                // TODO: 17/04/2021 Afficher le bon message
-                System.out.println("Err");
+                System.err.println("La valeur que vous avez entrée n'est pas correcte. Choisissez une carte avec son numéro (-7 <= numéro < 0 pour la défausse, 0 < numéro <= 7 pour jouer)");
                 correcte = false;
             } catch (NumberFormatException e) {
                 System.err.println("Veuillez entrer un entier valide !");

@@ -27,7 +27,7 @@ public class EtatJoueur {
     private int km = 0;
     private boolean limiteVitesse;
 
-    public EtatJoueur(@NotNull Joueur joueur) {
+    public EtatJoueur(Joueur joueur) {
         this.joueur = joueur;
     }
 
@@ -78,17 +78,16 @@ public class EtatJoueur {
         pileBataille.push(bataille);
     }
 
-    public void defausseBataille(@NotNull Jeu jeu) {
+    public void defausseBataille(Jeu jeu) {
         Bataille bataille = pileBataille.pop();
         jeu.defausse(bataille);
-        // TODO: 17/04/2021 Defausser la carte "bataille" avec la méthode jeu.defausse(bataille);
     }
 
     public List<Carte> getMain() {
         return Collections.unmodifiableList(main);
     }
 
-    public void addBotte(@NotNull Botte botte) {
+    public void addBotte(Botte botte) {
         bottes.add(botte);
         if(getBataille() != null && getBataille() instanceof Attaque) {
             if(botte.contre((Attaque) getBataille())) {
@@ -97,7 +96,7 @@ public class EtatJoueur {
         }
     }
 
-    public void attaque(@NotNull Jeu jeu, @NotNull Attaque attaque) {
+    public void attaque(Jeu jeu, Attaque attaque) {
         for (Carte carte : main) {
             if (carte instanceof Botte) {
                 Botte botte = (Botte) carte;
@@ -114,8 +113,7 @@ public class EtatJoueur {
         }
 
         for (Botte botte : bottes) {
-            // TODO: 17/04/2021 Ajouter un message pour l'erreur.
-            if (botte.contre(attaque)) throw new IllegalStateException("");
+            if (botte.contre(attaque)) throw new IllegalStateException("Ce joueur possède une botte contre cette attaque! Choisissez une autre cible.");
         }
 
         if(getBataille() instanceof Attaque && !(attaque instanceof LimiteVitesse)) {

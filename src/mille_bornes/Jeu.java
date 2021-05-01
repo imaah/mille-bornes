@@ -2,7 +2,10 @@ package mille_bornes;
 
 import mille_bornes.cartes.Carte;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Jeu {
@@ -40,7 +43,7 @@ public class Jeu {
 
         // Don de 6 cartes à chaque joueur
         for (int i = 0; i < 6; i++) {
-            for(Joueur joueur: this.joueurs) {
+            for (Joueur joueur : this.joueurs) {
                 joueur.prendCarte(this.sabot.prend());
             }
         }
@@ -58,7 +61,7 @@ public class Jeu {
         StringBuilder resultat = new StringBuilder();
 
         // Ajout de tout les joueurs au résultats
-        for (Joueur joueur: this.joueurs) {
+        for (Joueur joueur : this.joueurs) {
             resultat.append(joueur.toString());
         }
 
@@ -121,8 +124,15 @@ public class Jeu {
     }
 
     public boolean estPartieFinie() {
+        // Si le sabot n'est pas vide mais qu'il ne contient plus aucune borne, la partie est finie
+        if (!this.sabot.estVide()) {
+            if (!this.sabot.contientBornes()) {
+                return true;
+            }
+        }
+
         // Si n'importe quel joueur à dépassé les 1000km
-        for (Joueur joueur: this.joueurs) {
+        for (Joueur joueur : this.joueurs) {
             if (joueur.getKm() >= 1000) {
                 return true;
             }
@@ -138,7 +148,7 @@ public class Jeu {
         return this.joueurActif;
     }
 
-     public List<Joueur> getGagnant() {
+    public List<Joueur> getGagnant() {
         if (this.sabot.getNbCartes() != 0) {
             return null;
         } else {
