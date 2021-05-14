@@ -1,5 +1,6 @@
 package mille_bornes;
 
+import com.google.gson.annotations.Expose;
 import mille_bornes.cartes.Carte;
 
 import java.util.ArrayList;
@@ -9,10 +10,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Jeu {
+    @Expose
     private final List<Joueur> joueurs = new ArrayList<>();
+    @Expose
     private Joueur joueurActif;
+    @Expose
     private Joueur prochainJoueur;
+    @Expose
     private TasDeCartes sabot;
+    @Expose
     private TasDeCartes defausse;
 
     public Jeu() {}
@@ -48,7 +54,7 @@ public class Jeu {
             }
         }
 
-        for(int i = 0; i < joueurs.size(); i++) {
+        for (int i = 0; i < joueurs.size(); i++) {
             joueurs.get(i).setProchainJoueur(joueurs.get((i + 1) % joueurs.size()));
         }
 
@@ -87,9 +93,9 @@ public class Jeu {
 
             try {
                 int nCarte = this.joueurActif.choisitCarte();
-                if(nCarte > 0) {
+                if (nCarte > 0) {
                     this.joueurActif.joueCarte(this, nCarte - 1);
-                } else if(nCarte < 0) {
+                } else if (nCarte < 0) {
                     this.joueurActif.defausseCarte(this, -nCarte - 1);
                 }
 
@@ -114,6 +120,7 @@ public class Jeu {
     }
 
     public void activeProchainJoueurEtTireCarte() {
+        System.out.println(joueurActif);
         this.joueurActif = joueurActif.getProchainJoueur();
 
         while (joueurActif.getMain().size() < 7) {

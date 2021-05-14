@@ -1,5 +1,6 @@
 package mille_bornes.cartes;
 
+import com.google.gson.annotations.Expose;
 import mille_bornes.EtatJoueur;
 import mille_bornes.Jeu;
 import mille_bornes.cartes.attaques.FeuRouge;
@@ -7,6 +8,8 @@ import mille_bornes.cartes.attaques.FeuRouge;
 import java.util.Objects;
 
 public class Borne extends Carte {
+    private static final long serialVersionUID = -5391072928856424396L;
+    @Expose
     public final int km;
 
     public Borne(int km) {

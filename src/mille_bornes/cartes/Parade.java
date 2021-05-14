@@ -4,6 +4,8 @@ import mille_bornes.EtatJoueur;
 import mille_bornes.Jeu;
 
 public abstract class Parade extends Bataille {
+    private static final long serialVersionUID = -1307910562516914625L;
+
     public Parade(String nom) {
         super(nom, Categorie.PARADE);
     }

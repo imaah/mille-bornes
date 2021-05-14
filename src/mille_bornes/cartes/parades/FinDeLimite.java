@@ -7,6 +7,8 @@ import mille_bornes.cartes.Parade;
 
 public class FinDeLimite extends Parade {
 
+    private static final long serialVersionUID = 885026341013870691L;
+
     public FinDeLimite() {
         super("Fin de limite");
     }

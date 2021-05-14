@@ -1,12 +1,21 @@
 package mille_bornes.cartes;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.JsonAdapter;
 import mille_bornes.EtatJoueur;
 import mille_bornes.Jeu;
+import mille_bornes.extensions.sauvegarde.CarteAdapter;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class Carte {
+@JsonAdapter(CarteAdapter.class)
+public abstract class Carte implements Serializable {
+    private static final long serialVersionUID = -3871654206865696965L;
+
+    @Expose
     public final String nom;
+    @Expose
     public final Categorie categorie;
 
     public Carte(String nom, Categorie categorie) {

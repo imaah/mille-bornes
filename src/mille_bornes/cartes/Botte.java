@@ -4,6 +4,8 @@ import mille_bornes.EtatJoueur;
 import mille_bornes.Jeu;
 
 public abstract class Botte extends Carte {
+    private static final long serialVersionUID = -3439676551653430543L;
+
     public Botte(String nom) {
         super("Botte " + nom, Categorie.BOTTE);
     }

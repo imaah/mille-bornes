@@ -1,5 +1,6 @@
 package mille_bornes;
 
+import com.google.gson.annotations.Expose;
 import mille_bornes.cartes.Attaque;
 import mille_bornes.cartes.Bataille;
 import mille_bornes.cartes.Botte;
@@ -10,9 +11,13 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Joueur {
+    @Expose
     public final String nom;
+    @Expose
     private final EtatJoueur etat;
+    @Expose(serialize = false, deserialize = false)
     private final Scanner input;
+    @Expose(serialize = false, deserialize = false)
     private Joueur prochainJoueur;
 
     public Joueur(String nom) {
@@ -69,10 +74,10 @@ public class Joueur {
         Joueur cible = null;
         boolean estValide = false;
 
-        while(!estValide) {
+        while (!estValide) {
             String nomDuJoueur = input.nextLine().trim();
 
-            if(nomDuJoueur.equalsIgnoreCase("annuler")) throw new IllegalStateException();
+            if (nomDuJoueur.equalsIgnoreCase("annuler")) throw new IllegalStateException();
 
             cible = getProchainJoueur();
 

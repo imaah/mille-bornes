@@ -1,5 +1,6 @@
 package mille_bornes;
 
+import com.google.gson.annotations.Expose;
 import mille_bornes.cartes.Attaque;
 import mille_bornes.cartes.Bataille;
 import mille_bornes.cartes.Botte;
@@ -12,19 +13,27 @@ import mille_bornes.cartes.bottes.VehiculePrioritaire;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-public class EtatJoueur {
+public class EtatJoueur implements Serializable {
     public static final int MAX_VITESSE_SOUS_LIMITE = 50;
+    private static final long serialVersionUID = -8006677368600111361L;
 
+    @Expose(serialize = false, deserialize = false)
     private final Joueur joueur;
+    @Expose
     private final Stack<Bataille> pileBataille = new Stack<>();
+    @Expose
     private final List<Carte> main = new LinkedList<>();
+    @Expose
     private final List<Botte> bottes = new LinkedList<>();
+    @Expose
     private int km = 0;
+    @Expose
     private boolean limiteVitesse;
 
     public EtatJoueur(Joueur joueur) {
