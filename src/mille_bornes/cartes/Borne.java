@@ -23,6 +23,9 @@ public class Borne extends Carte {
             );
         } else if(etatjoueur.getBataille() instanceof FeuRouge) {
             throw new IllegalStateException("Vous ne pouvez pas placer de borne, vous êtes à l'arrêt!");
+        } else if(etatjoueur.getKm() + this.km > 1000) {
+            throw new IllegalStateException("Vous ne pouvez pas dépasser les 1000 bornes! " +
+                    "Vous devez atteindre exactement ce score.");
         }
 
         etatjoueur.ajouteKm(km);

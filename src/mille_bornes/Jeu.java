@@ -106,7 +106,7 @@ public class Jeu {
 
 
         // Si le joueur actuel vient de passer les 1000km ou qu'il à pioché la dernière carte, c'est fini
-        if (this.getJoueurActif().getKm() >= 1000 || this.sabot.estVide()) {
+        if (this.getJoueurActif().getKm() == 1000 || this.sabot.estVide()) {
             return true;
         } else {
             return false;
@@ -133,7 +133,7 @@ public class Jeu {
 
         // Si n'importe quel joueur à dépassé les 1000km
         for (Joueur joueur : this.joueurs) {
-            if (joueur.getKm() >= 1000) {
+            if (joueur.getKm() == 1000) {
                 return true;
             }
         }

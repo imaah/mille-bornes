@@ -9,8 +9,6 @@ import mille_bornes.cartes.bottes.AsDuVolant;
 import mille_bornes.cartes.bottes.Citerne;
 import mille_bornes.cartes.bottes.Increvable;
 import mille_bornes.cartes.bottes.VehiculePrioritaire;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Range;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -133,14 +131,14 @@ public class EtatJoueur {
         main.add(carte);
     }
 
-    public void defausseCarte(@NotNull Jeu jeu, @Range(from = 0, to = 6) int i) {
+    public void defausseCarte(Jeu jeu, int i) {
         // TODO: 17/04/2021 Retirer la carte, utiliser la methode jeu.defausser();
         Carte carte = main.get(i);
         main.remove(i);
         jeu.defausse(carte);
     }
 
-    public void joueCarte(@NotNull Jeu jeu, @Range(from = 0, to = 6) int i) {
+    public void joueCarte(Jeu jeu, int i) {
         Carte carte = main.get(i);
         if (carte instanceof Attaque) {
             Joueur cible = joueur.choisitAdversaire(carte);
@@ -153,7 +151,7 @@ public class EtatJoueur {
         main.remove(i);
     }
 
-    public void joueCarte(@NotNull Jeu jeu, @Range(from = 0, to = 6) int i, @NotNull Joueur joueur) {
+    public void joueCarte(Jeu jeu, int i, Joueur joueur) {
         Carte carte = main.get(i);
 
         if (carte instanceof Attaque) {
