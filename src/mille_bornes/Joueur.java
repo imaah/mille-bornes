@@ -44,9 +44,7 @@ public class Joueur implements Serializable {
     }
 
 
-    /**
-     * Cette methode permet de vérifier si le scanner n'est pas null.
-     */
+    // Cette methode permet de vérifier si le scanner n'est pas null.
     private void checkScanner() {
         if(input == null) {
             input = new Scanner(System.in);
@@ -63,6 +61,7 @@ public class Joueur implements Serializable {
             try {
                 String line = input.nextLine();
                 valeur = Integer.parseInt(line);
+                // Vérification de la valeur entrée
                 if ((-7 <= valeur && valeur <= 7) && valeur != 0) {
                     correcte = true;
                 }
@@ -96,6 +95,7 @@ public class Joueur implements Serializable {
 
             cible = getProchainJoueur();
 
+            // On boucle dans tout les joueurs
             while (!cible.nom.equalsIgnoreCase(nomDuJoueur) && !cible.equals(this)) {
                 cible = cible.getProchainJoueur();
             }

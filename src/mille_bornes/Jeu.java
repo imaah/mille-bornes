@@ -90,6 +90,7 @@ public class Jeu implements Serializable {
         System.out.println(this);
         System.out.println("\nC'est au tour de " + joueurActif.nom);
 
+        // Affichage d'entre-deux-tours
         System.out.println(joueurActif);
         System.out.print("[");
         for (int i = 0; i < joueurActif.getMain().size(); i++) {
@@ -99,6 +100,7 @@ public class Jeu implements Serializable {
             }
         }
         System.out.println("]");
+
         // Tant que la carte n'a pas pu être jouée, on recommence
         do {
             try {
@@ -107,6 +109,8 @@ public class Jeu implements Serializable {
                     this.joueurActif.joueCarte(this, nCarte - 1);
                 } else if (nCarte < 0) {
                     this.joueurActif.defausseCarte(this, -nCarte - 1);
+                } else {
+                    throw new IllegalStateException("Entrez un numéro de carte entre 1 et 7 inclus (négatif pour défausser)");
                 }
 
                 carteJouee = true;
@@ -120,14 +124,18 @@ public class Jeu implements Serializable {
 
         } while (!carteJouee);
 
-
-        // Si le joueur actuel vient de passer les 1000km ou qu'il à pioché la dernière carte, c'est fini
-        return this.getJoueurActif().getKm() >= 1000 || this.sabot.estVide();
+        // On ne continue que si la partie n'est pas finie
+        return estPartieFinie();
     }
 
     public void activeProchainJoueurEtTireCarte() {
+        if (this.joueurActif instanceof Bot) {
+            ((Bot) this.joueurActif).remplirNCartesRestantes();
+        }
+
         this.joueurActif = prochainJoueur;
 
+        // Si le joueur n'a pas 7 cartes (à priori impossible), il en pioche autant qu'il faut
         while (joueurActif.getMain().size() < 7) {
             if (!estPartieFinie()) {
                 this.joueurActif.prendCarte(pioche());
@@ -148,7 +156,7 @@ public class Jeu implements Serializable {
 
         // Si n'importe quel joueur à dépassé les 1000km
         for (Joueur joueur : this.joueurs) {
-            if (joueur.getKm() >= 1000) {
+            if (joueur.getKm() == 1000) {
                 return true;
             }
         }

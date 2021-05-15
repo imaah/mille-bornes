@@ -22,10 +22,13 @@ public class FeuVert extends Parade {
     public void appliqueEffet(Jeu jeu, EtatJoueur joueur) {
         Bataille bataille = joueur.getBataille();
 
+        // Si la carte du haut de la bataille est une attaque...
         if (bataille instanceof Attaque) {
+            // ... on vérifie que notre carte la contre bien
             if (contre((Attaque) bataille)) {
                 joueur.defausseBataille(jeu);
             } else {
+                // Sinon on ne peut pas la jouer
                 throw new IllegalStateException("Cette carte ne peut pas être jouée maintenant");
             }
         }
