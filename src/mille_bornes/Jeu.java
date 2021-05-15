@@ -1,6 +1,7 @@
 package mille_bornes;
 
 import mille_bornes.cartes.Carte;
+import mille_bornes.extensions.bots.Bot;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -86,25 +87,34 @@ public class Jeu implements Serializable {
 
         activeProchainJoueurEtTireCarte();
 
-        System.out.println("\n\n\n");
+        if(estPartieFinie()) {
+            return true;
+        }
+
+        System.out.println("\n");
         System.out.println(this);
-        System.out.println("\nC'est au tour de " + joueurActif.nom);
+        System.out.println("C'est au tour de " + joueurActif.nom);
 
         // Affichage d'entre-deux-tours
         System.out.println(joueurActif);
-        System.out.print("[");
-        for (int i = 0; i < joueurActif.getMain().size(); i++) {
-            System.out.print((i + 1) + ": " + joueurActif.getMain().get(i));
-            if (i < joueurActif.getMain().size() - 1) {
-                System.out.print(", ");
+
+        if(!(joueurActif instanceof Bot)) {
+            System.out.print("[");
+            for (int i = 0; i < joueurActif.getMain().size(); i++) {
+                System.out.print((i + 1) + ": " + joueurActif.getMain().get(i));
+                if (i < joueurActif.getMain().size() - 1) {
+                    System.out.print(", ");
+                }
             }
+            System.out.println("]");
         }
-        System.out.println("]");
 
         // Tant que la carte n'a pas pu être jouée, on recommence
         do {
             try {
                 int nCarte = this.joueurActif.choisitCarte();
+                Carte carte = this.joueurActif.getMain().get(Math.abs(nCarte) - 1);
+
                 if (nCarte > 0) {
                     this.joueurActif.joueCarte(this, nCarte - 1);
                 } else if (nCarte < 0) {
@@ -113,15 +123,20 @@ public class Jeu implements Serializable {
                     throw new IllegalStateException("Entrez un numéro de carte entre 1 et 7 inclus (négatif pour défausser)");
                 }
 
+                if(joueurActif instanceof Bot) {
+                    System.out.println(joueurActif.nom + " à " + (nCarte < 0 ? "défaussé " : "joué ") + carte);
+                }
+
                 carteJouee = true;
             } catch (IllegalStateException e) {
-                System.err.println(e.getMessage());
+                if(!(joueurActif instanceof Bot)) {
+                    System.err.println(e.getMessage());
+                }
                 carteJouee = false;
             } catch (Exception e) {
                 e.printStackTrace();
                 carteJouee = false;
             }
-
         } while (!carteJouee);
 
         // On ne continue que si la partie n'est pas finie
@@ -139,6 +154,8 @@ public class Jeu implements Serializable {
         while (joueurActif.getMain().size() < 7) {
             if (!estPartieFinie()) {
                 this.joueurActif.prendCarte(pioche());
+            } else {
+                break;
             }
         }
         prochainJoueur = joueurActif.getProchainJoueur();

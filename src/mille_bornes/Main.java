@@ -1,10 +1,14 @@
 package mille_bornes;
 
-import mille_bornes.extensions.sauvegarde.Saver;
+import mille_bornes.extensions.bots.DumbBot;
+import mille_bornes.extensions.bots.SmartBot;
+import mille_bornes.extensions.sauvegarde.Serialiseur;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -17,7 +21,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         File file = new File("save.dat");
         boolean loadFile = false;
-        Saver saver = new Saver();
+        Serialiseur serialiseur = new Serialiseur();
         Jeu jeu;
 
         if (file.exists()) {
@@ -36,7 +40,7 @@ public class Main {
 
         if (loadFile) {
             try {
-                jeu = saver.loadObjectFromFile(file, Jeu.class);
+                jeu = serialiseur.loadObjectFromFile(file, Jeu.class);
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
                 return;
@@ -45,7 +49,8 @@ public class Main {
             List<String> noms = new ArrayList<>();
 
             System.out.print("Entrez le nombre de joueurs (entre 1 et 4): ");
-            int nombreJoueurs = readInt(scanner, "Veuillez entrer un entier valide entre 2 et 4", 1, 4);
+
+            int nombreJoueurs = readInt(scanner, "Veuillez entrer un entier valide entre 1 et 4", 1, 4);
 
             int nombreBots;
             int nbBotsPotentiels = 4 - nombreJoueurs;
@@ -79,6 +84,8 @@ public class Main {
                 }
             }
 
+            Joueur[] joueurs = creerJoueurs(scanner, nombreJoueurs, nombreBots, noms);
+
             jeu = new Jeu(joueurs);
 
             jeu.prepareJeu();
@@ -86,15 +93,14 @@ public class Main {
 
         do {
             try {
-                saver.saveIntoFile(file, jeu);
+                serialiseur.saveIntoFile(file, jeu);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if(jeu.estPartieFinie()) {
-                System.out.printf("Victoire de %s ! \uD83C\uDF89%n", jeu.getGagnant().stream().map(joueur -> joueur.nom).collect(Collectors.joining(",")));
-                break;
-            }
         } while (!jeu.joue());
+        if (jeu.estPartieFinie()) {
+            System.out.printf("Victoire de %s ! \uD83C\uDF89%n", jeu.getGagnant().stream().map(joueur -> joueur.nom).collect(Collectors.joining(",")));
+        }
     }
 
     private int readInt(Scanner scanner, String error) {
@@ -110,7 +116,7 @@ public class Main {
             try {
                 value = Integer.parseInt(scanner.nextLine());
 
-                if(min <= value && value <= max) {
+                if (min <= value && value <= max) {
                     valid = true;
                 } else {
                     System.err.println(error);
