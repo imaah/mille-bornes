@@ -1,6 +1,5 @@
 package mille_bornes;
 
-import com.google.gson.annotations.Expose;
 import mille_bornes.cartes.Attaque;
 import mille_bornes.cartes.Bataille;
 import mille_bornes.cartes.Botte;
@@ -10,8 +9,6 @@ import mille_bornes.cartes.bottes.AsDuVolant;
 import mille_bornes.cartes.bottes.Citerne;
 import mille_bornes.cartes.bottes.Increvable;
 import mille_bornes.cartes.bottes.VehiculePrioritaire;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Range;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -23,20 +20,15 @@ public class EtatJoueur implements Serializable {
     public static final int MAX_VITESSE_SOUS_LIMITE = 50;
     private static final long serialVersionUID = -8006677368600111361L;
 
-    @Expose(serialize = false, deserialize = false)
     private final Joueur joueur;
-    @Expose
     private final Stack<Bataille> pileBataille = new Stack<>();
-    @Expose
     private final List<Carte> main = new LinkedList<>();
-    @Expose
     private final List<Botte> bottes = new LinkedList<>();
-    @Expose
     private int km = 0;
-    @Expose
     private boolean limiteVitesse;
 
     public EtatJoueur(Joueur joueur) {
+        if (joueur == null) throw new IllegalStateException("joueur ne peut pas être null.");
         this.joueur = joueur;
     }
 
@@ -47,10 +39,13 @@ public class EtatJoueur implements Serializable {
     public void ajouteKm(int km) {
         String raison = ditPourquoiPeutPasAvancer();
 
-        if(limiteVitesse && km > MAX_VITESSE_SOUS_LIMITE) {
-            throw new IllegalStateException("Vous ne pouvez pas vous déplacer a de plus de " + MAX_VITESSE_SOUS_LIMITE + "km");
+        if (limiteVitesse && km > MAX_VITESSE_SOUS_LIMITE) {
+            throw new IllegalStateException("Vous ne pouvez pas vous déplacer a de plus de " + MAX_VITESSE_SOUS_LIMITE +
+                                            "km");
         } else if (raison != null) {
             throw new IllegalStateException(raison);
+        } else if (this.km + km > 1000) {
+            throw new IllegalStateException("Vous ne pouvez pas aller plus loin que 1000 km !");
         }
 
         this.km += km;
@@ -59,11 +54,11 @@ public class EtatJoueur implements Serializable {
     public String ditPourquoiPeutPasAvancer() {
         String message = null;
 
-        if(pileBataille.isEmpty() && !bottes.contains(new VehiculePrioritaire())) {
+        if (pileBataille.isEmpty() && !bottes.contains(new VehiculePrioritaire())) {
             message = "Vous n'avez pas encore démarré.";
         }
 
-        if(getBataille() instanceof Attaque) {
+        if (getBataille() instanceof Attaque) {
             message = "Vous êtes en train de vous faire attaquer !";
         }
 
@@ -97,23 +92,30 @@ public class EtatJoueur implements Serializable {
     }
 
     public void addBotte(Botte botte) {
+        if (botte == null) throw new IllegalArgumentException();
+
         bottes.add(botte);
-        if(getBataille() != null && getBataille() instanceof Attaque) {
-            if(botte.contre((Attaque) getBataille())) {
+        if (getBataille() != null && getBataille() instanceof Attaque) {
+            if (botte.contre((Attaque) getBataille())) {
                 pileBataille.pop();
             }
         }
     }
 
     public void attaque(Jeu jeu, Attaque attaque) {
-        for (Carte carte : main) {
+        if (jeu == null || attaque == null) throw new IllegalArgumentException();
+
+        for (int i = 0; i < main.size(); i++) {
+            Carte carte = main.get(i);
             if (carte instanceof Botte) {
                 Botte botte = (Botte) carte;
 
                 if (botte.contre(attaque)) {
                     // Coup-fourré
-                    System.out.println("Votre adversaire sort un coup-fourré! Votre attaque n'a aucun effet et il récupère la main.");
+                    System.out.println("Votre adversaire sort un coup-fourré! Votre attaque " +
+                                       "n'a aucun effet et il récupère la main.");
                     botte.appliqueEffet(jeu, this);
+                    defausseCarte(jeu, i);
                     jeu.setProchainJoueur(this.joueur);
                     jeu.defausse(attaque);
                     return;
@@ -122,34 +124,38 @@ public class EtatJoueur implements Serializable {
         }
 
         for (Botte botte : bottes) {
-            if (botte.contre(attaque)) throw new IllegalStateException("Ce joueur possède une botte contre cette attaque! Choisissez une autre cible.");
+            if (botte.contre(attaque))
+                throw new IllegalStateException("Ce joueur possède une botte contre cette attaque! Choisissez une autre cible.");
         }
 
-        if(getBataille() instanceof Attaque && !(attaque instanceof LimiteVitesse)) {
-            // TODO: 01/05/2021 Message d'erreur : peut pas attaquer car déjà attaque en haut.
-            throw new IllegalStateException("");
+        if (getBataille() instanceof Attaque && !(attaque instanceof LimiteVitesse)) {
+            throw new IllegalStateException("Le joueur se fait déjà attaquer.");
         }
 
-        if(attaque instanceof LimiteVitesse && limiteVitesse) {
-            // TODO: 01/05/2021 Message d'erreur : Attaque avec Limite de vitesse
-            throw new IllegalStateException("");
+        if (attaque instanceof LimiteVitesse && limiteVitesse) {
+            throw new IllegalStateException("Le joueur est déjà sous une limite de vitesse.");
         }
 
         attaque.appliqueEffet(jeu, this);
     }
 
     public void prendCarte(Carte carte) {
+        if (main.size() > 6) throw new IllegalStateException("Le joueur ne peut pas avoir plus de 6 cartes");
+
         main.add(carte);
     }
 
-    public void defausseCarte(@NotNull Jeu jeu, @Range(from = 0, to = 6) int i) {
-        // TODO: 17/04/2021 Retirer la carte, utiliser la methode jeu.defausser();
+    public void defausseCarte(Jeu jeu, int i) {
+        if (jeu == null || !(0 <= i && i <= 6)) throw new IllegalArgumentException();
+
         Carte carte = main.get(i);
         main.remove(i);
         jeu.defausse(carte);
     }
 
-    public void joueCarte(@NotNull Jeu jeu, @Range(from = 0, to = 6) int i) {
+    public void joueCarte(Jeu jeu, int i) {
+        if (jeu == null || !(0 <= i && i <= 6)) throw new IllegalArgumentException();
+
         Carte carte = main.get(i);
         if (carte instanceof Attaque) {
             Joueur cible = joueur.choisitAdversaire(carte);
@@ -162,7 +168,9 @@ public class EtatJoueur implements Serializable {
         main.remove(i);
     }
 
-    public void joueCarte(@NotNull Jeu jeu, @Range(from = 0, to = 6) int i, @NotNull Joueur joueur) {
+    public void joueCarte(Jeu jeu, int i, Joueur joueur) {
+        if (jeu == null || joueur == null || !(0 <= i && i <= 6)) throw new IllegalArgumentException();
+
         Carte carte = main.get(i);
 
         if (carte instanceof Attaque) {
@@ -195,9 +203,8 @@ public class EtatJoueur implements Serializable {
                 .append(bottes.contains(new VehiculePrioritaire()) ? 'V' : '.')
                 .append(']');
 
-        if(getBataille() != null) {
-            builder.append(", ")
-                    .append(getBataille().nom);
+        if (getBataille() != null) {
+            builder.append(", ").append(getBataille().nom);
         }
 
         return builder.toString();

@@ -1,9 +1,11 @@
 package mille_bornes.extensions.sauvegarde;
 
+import mille_bornes.Jeu;
+
 import java.io.*;
 
 public class Saver {
-    public void saveToFile(File file, Serializable object) throws IOException {
+    public void saveIntoFile(File file, Serializable object) throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
         oos.writeObject(object);
         oos.flush();

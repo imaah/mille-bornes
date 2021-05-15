@@ -1,29 +1,26 @@
 package mille_bornes;
 
-import com.google.gson.annotations.Expose;
 import mille_bornes.cartes.Attaque;
 import mille_bornes.cartes.Bataille;
 import mille_bornes.cartes.Botte;
 import mille_bornes.cartes.Carte;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class Joueur {
-    @Expose
+public class Joueur implements Serializable {
+    private static final long serialVersionUID = 3926516591482943201L;
+
     public final String nom;
-    @Expose
     private final EtatJoueur etat;
-    @Expose(serialize = false, deserialize = false)
-    private final Scanner input;
-    @Expose(serialize = false, deserialize = false)
+    private transient Scanner input;
     private Joueur prochainJoueur;
 
     public Joueur(String nom) {
         this.nom = nom;
         this.etat = new EtatJoueur(this);
-        this.input = new Scanner(System.in);
     }
 
     public Joueur getProchainJoueur() {
@@ -46,20 +43,33 @@ public class Joueur {
         return etat.getLimiteVitesse();
     }
 
+
+    /**
+     * Cette methode permet de vérifier si le scanner n'est pas null.
+     */
+    private void checkScanner() {
+        if(input == null) {
+            input = new Scanner(System.in);
+        }
+    }
+
     public int choisitCarte() {
+        checkScanner();
         boolean correcte = false;
         int valeur = 0;
-
+        System.out.println("Choisissez une carte avec son numéro " +
+                           "(-7 <= numéro < 0 pour la défausse, 0 < numéro <= 7 pour jouer)");
         do {
             try {
                 String line = input.nextLine();
-
                 valeur = Integer.parseInt(line);
-                if ((-7 <= valeur) && (valeur <= 7) && valeur != 0) {
+                if ((-7 <= valeur && valeur <= 7) && valeur != 0) {
                     correcte = true;
                 }
             } catch (NoSuchElementException e) {
-                System.err.println("La valeur que vous avez entrée n'est pas correcte. Choisissez une carte avec son numéro (-7 <= numéro < 0 pour la défausse, 0 < numéro <= 7 pour jouer)");
+                System.err.println("La valeur que vous avez entrée n'est pas correcte.\n" +
+                                   "Choisissez une carte avec son numéro " +
+                                   "(-7 <= numéro < 0 pour la défausse, 0 < numéro <= 7 pour jouer)");
                 correcte = false;
             } catch (NumberFormatException e) {
                 System.err.println("Veuillez entrer un entier valide !");
@@ -71,13 +81,18 @@ public class Joueur {
     }
 
     public Joueur choisitAdversaire(Carte carte) {
+        if(!(carte instanceof Attaque)) throw new IllegalArgumentException();
+
+        checkScanner();
         Joueur cible = null;
         boolean estValide = false;
 
         while (!estValide) {
+            System.out.println("Quel joueur voulez-vous attaquer ? ([a]nnuler pour annuler) ");
             String nomDuJoueur = input.nextLine().trim();
 
-            if (nomDuJoueur.equalsIgnoreCase("annuler")) throw new IllegalStateException();
+            if (nomDuJoueur.equalsIgnoreCase("annuler") || nomDuJoueur.equalsIgnoreCase("a"))
+                throw new IllegalStateException();
 
             cible = getProchainJoueur();
 
@@ -85,8 +100,12 @@ public class Joueur {
                 cible = cible.getProchainJoueur();
             }
 
-            // TODO: 01/05/2021 Check attaques
-            estValide = !cible.equals(this);
+            if(cible.equals(this)) {
+                System.err.println("Vous ne pouvez pas vous attaquer vous-même !");
+                estValide = false;
+            } else {
+                estValide = true;
+            }
         }
 
         return cible;

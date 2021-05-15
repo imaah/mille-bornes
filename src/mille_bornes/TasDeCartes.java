@@ -1,6 +1,5 @@
 package mille_bornes;
 
-import com.google.gson.annotations.Expose;
 import mille_bornes.cartes.Borne;
 import mille_bornes.cartes.Carte;
 import mille_bornes.cartes.attaques.*;
@@ -17,7 +16,6 @@ import java.util.List;
 
 public class TasDeCartes implements Serializable {
     private static final long serialVersionUID = 5828284262241991397L;
-    @Expose
     private final List<Carte> cartes = new ArrayList<>();
 
     public TasDeCartes(boolean creerLesCartes) {
@@ -89,11 +87,7 @@ public class TasDeCartes implements Serializable {
     }
 
     public Carte prend() {
-        Carte laCarte = this.cartes.get(0);
-        this.cartes.remove(0);
-        return laCarte;
-        // simplification possible :
-        // return this.cartes.remove(0);
+        return this.cartes.remove(0);
     }
 
     public void pose(Carte carte) {
@@ -106,7 +100,7 @@ public class TasDeCartes implements Serializable {
      */
     public boolean contientBornes() {
         for (Carte carte : cartes) {
-            if(carte instanceof Borne) {
+            if (carte instanceof Borne) {
                 return true;
             }
         }
