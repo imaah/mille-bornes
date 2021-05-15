@@ -84,8 +84,6 @@ public class Main {
                 }
             }
 
-            Joueur[] joueurs = creerJoueurs(scanner, nombreJoueurs, nombreBots, noms);
-
             jeu = new Jeu(joueurs);
 
             jeu.prepareJeu();
