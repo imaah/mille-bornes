@@ -38,24 +38,30 @@ public class SmartBot extends Bot {
                 return carteAJouer;
             }
 
+            if ((carteAJouer = trouveCarteDeType(Attaque.class)) != -1) {
+                return carteAJouer;
+            }
+
             return defausseCarte();
         }
 
         // S'il n'y a rien avancer ...
         if (getLimiteVitesse()) {
-            if((carteAJouer = trouveMaxBorne(EtatJoueur.MAX_VITESSE_SOUS_LIMITE)) != -1) {
+            if ((carteAJouer = trouveMaxBorne(EtatJoueur.MAX_VITESSE_SOUS_LIMITE)) != -1) {
                 return carteAJouer;
             }
         } else {
-            if((carteAJouer = trouveMaxBorne(200)) != -1) {
+            if ((carteAJouer = trouveMaxBorne(200)) != -1) {
                 return carteAJouer;
             }
         }
 
-        if((carteAJouer = trouveCarteDeType(Attaque.class)) != -1) {
+        // si on peut pas avancer alors attaquer
+        if ((carteAJouer = trouveCarteDeType(Attaque.class)) != -1) {
             return carteAJouer;
         }
 
+        // si on peut rien faire alors on defausse une carte
         return defausseCarte();
     }
 
@@ -156,8 +162,14 @@ public class SmartBot extends Bot {
         for (int i = 0; i < getMain().size(); i++) {
             Carte carte = getMain().get(i);
 
-            if (carte instanceof Parade && nCartesRestantes.contains(i)) {
+            if (carte instanceof Parade && checkCartesPossible(i, true)) {
                 if (((Parade) carte).contre(attaque)) {
+                    return i;
+                }
+            }
+
+            if (carte instanceof Botte && checkCartesPossible(i, true)) {
+                if (((Botte) carte).contre(attaque)) {
                     return i;
                 }
             }
