@@ -79,8 +79,10 @@ public class Jeu {
 
         activeProchainJoueurEtTireCarte();
 
+        // Affichage du jeu du joueur
         System.out.println(joueurActif);
         System.out.println(joueurActif.getMain());
+
         // Tant que la carte n'a pas pu être jouée, on recommence
         do {
             carteJouee = false;
@@ -91,6 +93,8 @@ public class Jeu {
                     this.joueurActif.joueCarte(this, nCarte - 1);
                 } else if(nCarte < 0) {
                     this.joueurActif.defausseCarte(this, -nCarte - 1);
+                } else {
+                    throw new IllegalStateException("Entrez un numéro de carte entre 1 et 7 inclus (négatif pour défausser)");
                 }
 
                 carteJouee = true;

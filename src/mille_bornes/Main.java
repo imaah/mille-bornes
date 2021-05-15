@@ -30,7 +30,7 @@ public class Main {
 
         for (int i = 0; i < nombreBots; i++) {
             System.out.print("Entrez le nom du bot n°" + (i + 1) + ": ");
-            joueurs[i] = new Bot(scanner.nextLine());
+            joueurs[i + nombreJoueurs] = new Bot(scanner.nextLine());
         }
 
         Jeu jeu = new Jeu(joueurs);
