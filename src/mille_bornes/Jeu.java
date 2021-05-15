@@ -86,24 +86,28 @@ public class Jeu implements Serializable {
 
         activeProchainJoueurEtTireCarte();
 
-        System.out.println("\n\n\n");
+        System.out.println("\n");
         System.out.println(this);
-        System.out.println("\nC'est au tour de " + joueurActif.nom);
+        System.out.println("C'est au tour de " + joueurActif.nom);
 
         System.out.println(joueurActif);
-        System.out.print("[");
-        for (int i = 0; i < joueurActif.getMain().size(); i++) {
-            System.out.print((i + 1) + ": " + joueurActif.getMain().get(i));
-            if (i < joueurActif.getMain().size() - 1) {
-                System.out.print(", ");
-            }
-        }
-        System.out.println("]");
 
+        if(!(joueurActif instanceof Bot)) {
+            System.out.print("[");
+            for (int i = 0; i < joueurActif.getMain().size(); i++) {
+                System.out.print((i + 1) + ": " + joueurActif.getMain().get(i));
+                if (i < joueurActif.getMain().size() - 1) {
+                    System.out.print(", ");
+                }
+            }
+            System.out.println("]");
+        }
         // Tant que la carte n'a pas pu être jouée, on recommence
         do {
             try {
                 int nCarte = this.joueurActif.choisitCarte();
+                Carte carte = this.joueurActif.getMain().get(Math.abs(nCarte));
+
                 if (nCarte > 0) {
                     this.joueurActif.joueCarte(this, nCarte - 1);
                 } else if (nCarte < 0) {
@@ -112,15 +116,20 @@ public class Jeu implements Serializable {
                     throw new IllegalStateException("Entrez un numéro de carte entre 1 et 7 inclus (négatif pour défausser)");
                 }
 
+                if(joueurActif instanceof Bot) {
+                    System.out.println(joueurActif.nom + " à " + (nCarte < 0 ? "défaussé " : "joué ") + carte);
+                }
+
                 carteJouee = true;
             } catch (IllegalStateException e) {
-                System.err.println(e.getMessage());
+                if(!(joueurActif instanceof Bot)) {
+                    System.err.println(e.getMessage());
+                }
                 carteJouee = false;
             } catch (Exception e) {
                 e.printStackTrace();
                 carteJouee = false;
             }
-
         } while (!carteJouee);
 
         // On ne continue que si la partie n'est pas finie

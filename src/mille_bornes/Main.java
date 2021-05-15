@@ -56,8 +56,6 @@ public class Main {
                 nombreBots = 0;
             }
 
-            // Joueur[] joueurs = new Joueur[nombreJoueurs + nombreBots];
-
             Joueur[] joueurs = creerJoueurs(scanner, nombreJoueurs, nombreBots, noms);
 
             jeu = new Jeu(joueurs);
