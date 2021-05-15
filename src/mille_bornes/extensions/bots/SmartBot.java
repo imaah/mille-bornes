@@ -27,9 +27,6 @@ public class SmartBot extends Bot {
         }
 
         if (carte > 0) {
-            System.out.println(carte);
-            System.out.println(nCartesRestantes);
-            System.out.println(checkCartesPossible(carte, true));
             nCartesRestantes.remove(Integer.valueOf(carte));
         }
         return carte;

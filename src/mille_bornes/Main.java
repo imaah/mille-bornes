@@ -73,11 +73,10 @@ public class Main {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (jeu.estPartieFinie()) {
-                System.out.printf("Victoire de %s ! \uD83C\uDF89%n", jeu.getGagnant().stream().map(joueur -> joueur.nom).collect(Collectors.joining(",")));
-                break;
-            }
         } while (!jeu.joue());
+        if (jeu.estPartieFinie()) {
+            System.out.printf("Victoire de %s ! \uD83C\uDF89%n", jeu.getGagnant().stream().map(joueur -> joueur.nom).collect(Collectors.joining(",")));
+        }
     }
 
 

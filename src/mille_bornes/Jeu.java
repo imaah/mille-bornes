@@ -87,13 +87,17 @@ public class Jeu implements Serializable {
 
         activeProchainJoueurEtTireCarte();
 
+        if(estPartieFinie()) {
+            return true;
+        }
+
         System.out.println("\n");
         System.out.println(this);
         System.out.println("C'est au tour de " + joueurActif.nom);
 
         System.out.println(joueurActif);
 
-//        if(!(joueurActif instanceof Bot)) {
+        if(!(joueurActif instanceof Bot)) {
             System.out.print("[");
             for (int i = 0; i < joueurActif.getMain().size(); i++) {
                 System.out.print((i + 1) + ": " + joueurActif.getMain().get(i));
@@ -102,14 +106,13 @@ public class Jeu implements Serializable {
                 }
             }
             System.out.println("]");
-//        }
+        }
         // Tant que la carte n'a pas pu être jouée, on recommence
         do {
             try {
                 int nCarte = this.joueurActif.choisitCarte();
                 Carte carte = this.joueurActif.getMain().get(Math.abs(nCarte) - 1);
 
-                System.out.println(carte);
                 if (nCarte > 0) {
                     this.joueurActif.joueCarte(this, nCarte - 1);
                 } else if (nCarte < 0) {
@@ -148,6 +151,8 @@ public class Jeu implements Serializable {
         while (joueurActif.getMain().size() < 7) {
             if (!estPartieFinie()) {
                 this.joueurActif.prendCarte(pioche());
+            } else {
+                break;
             }
         }
         prochainJoueur = joueurActif.getProchainJoueur();
