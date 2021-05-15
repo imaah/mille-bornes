@@ -78,7 +78,15 @@ public class Main {
                     if (i < nombreJoueurs) {
                         joueurs[i] = new Joueur(nom);
                     } else {
-                        joueurs[i] = new Bot(nom);
+                        System.out.println("Entrez la difficulté du bot : \n- Facile (1)\n- Difficile (2)");
+
+                        int difficulte = readInt(scanner, "Veuillez entrer un entier valide entre 1 et 2", 1, 2);
+
+                        if (difficulte == 1) {
+                            joueurs[i] = new DumbBot(nom);
+                        } else {
+                            joueurs[i] = new SmartBot(nom);
+                        }
                     }
                     noms.add(nom.toLowerCase());
                 }
