@@ -121,7 +121,7 @@ public class Main {
                     joueurs[i] = new Joueur(nom);
                 } else {
 
-                    System.out.println("Entrez la difficulté du bot : \n- Facile (1)\n- 2: Difficile (2)");
+                    System.out.println("Entrez la difficulté du bot : \n- Facile (1)\n- Difficile (2)");
 
                     int difficulte = readInt(scanner, "Veuillez entrer un entier valide entre 1 et 2", 1, 2);
 
