@@ -23,7 +23,7 @@ public class Borne extends Carte {
                     String.format("Vous ne pouvez pas aller au delà de %d km/h !",
                             EtatJoueur.MAX_VITESSE_SOUS_LIMITE)
             );
-        } else if (etatjoueur.getBataille() instanceof FeuRouge) {
+        } else if (etatjoueur.getBataille() instanceof Attaque) {
             throw new IllegalStateException("Vous ne pouvez pas placer de borne, vous êtes à l'arrêt!");
         } else if(etatjoueur.getKm() + this.km > 1000) {
             throw new IllegalStateException("Vous ne pouvez pas dépasser les 1000 bornes! " +

@@ -1,10 +1,7 @@
 package mille_bornes.extensions.bots;
 
-import mille_bornes.Joueur;
-import mille_bornes.cartes.Attaque;
-import mille_bornes.cartes.Borne;
-import mille_bornes.cartes.Carte;
-import mille_bornes.cartes.Parade;
+import mille_bornes.EtatJoueur;
+import mille_bornes.cartes.*;
 import mille_bornes.cartes.bottes.VehiculePrioritaire;
 import mille_bornes.cartes.parades.FeuVert;
 
@@ -22,15 +19,16 @@ public class SmartBot extends Bot {
     public int choisitCarte() {
         int carteAJouer;
         if (getBataille() == null) { // n'a pas demarré
-
             if ((carteAJouer = trouveCarteDeType(VehiculePrioritaire.class)) != -1
                 || (carteAJouer = trouveCarteDeType(FeuVert.class)) != -1) { // Si le joueur a de quoi demarrer alors on l'utilise.
                 return carteAJouer;
             }
 
-//            if((carteAJouer = trouveCarteDeType(Attaque.class)) != -1) { // Si le joueur n'a pas de quoi démarrer alors il attaque.
-//                return carteAJouer;
-//            }
+            if ((carteAJouer = trouveCarteDeType(Attaque.class)) != -1) { // Si le joueur n'a pas de quoi démarrer alors il attaque.
+                return carteAJouer;
+            }
+
+            return defausseCarte();
         }
 
         if (getBataille() instanceof Attaque) {
@@ -39,21 +37,58 @@ public class SmartBot extends Bot {
             if ((carteAJouer = trouveContre(attaque)) != -1) {
                 return carteAJouer;
             }
+
+            return defausseCarte();
         }
 
-        return -random.nextInt(7); // si rien n'est bon alors on defausse une carte aléatoire.
+        // S'il n'y a rien avancer ...
+        if (getLimiteVitesse()) {
+            if((carteAJouer = trouveMaxBorne(EtatJoueur.MAX_VITESSE_SOUS_LIMITE)) != -1) {
+                return carteAJouer;
+            }
+        } else {
+            if((carteAJouer = trouveMaxBorne(200)) != -1) {
+                return carteAJouer;
+            }
+        }
+
+        if((carteAJouer = trouveCarteDeType(Attaque.class)) != -1) {
+            return carteAJouer;
+        }
+
+        return defausseCarte();
     }
 
-    @Override
-    public Joueur choisitAdversaire(Carte carte) {
-        return null;
+    private int defausseCarte() {
+        int carteADefausser;
+
+        if ((carteADefausser = trouveMinBorne(75, false)) != -1) {
+            return -carteADefausser;
+        }
+
+        if ((carteADefausser = trouveCarteDeType(Attaque.class, false)) != -1) {
+            return -carteADefausser;
+        }
+
+        Carte carte;
+
+        do {
+            carteADefausser = random.nextInt(getMain().size());
+            carte = getMain().get(carteADefausser);
+        } while (carte instanceof Botte);
+
+        return -carteADefausser;
     }
 
     private int trouveCarteDeType(Class<? extends Carte> carteClass) {
+        return trouveCarteDeType(carteClass, true);
+    }
+
+    private int trouveCarteDeType(Class<? extends Carte> carteClass, boolean check) {
         for (int i = 0; i < getMain().size(); i++) {
             Carte carte = getMain().get(i);
 
-            if (carteClass.isAssignableFrom(carte.getClass())) {
+            if (carteClass.isAssignableFrom(carte.getClass()) && checkCartesPossible(i, check)) {
                 return i;
             }
         }
@@ -61,15 +96,31 @@ public class SmartBot extends Bot {
         return -1;
     }
 
+    private boolean checkCartesPossible(int carteN, boolean check) {
+        if (check && nCartesRestantes.contains(carteN)) {
+            return true;
+        }
+        return !check;
+    }
+
     private int trouveMinBorne() {
+        return trouveMinBorne(Integer.MAX_VALUE, true);
+    }
+
+    private int trouveMinBorne(int max) {
+        return trouveMinBorne(max, true);
+    }
+
+    private int trouveMinBorne(int max, boolean check) {
         Borne borne = null;
         int index = -1;
 
         for (int i = 0; i < getMain().size(); i++) {
             Carte carte = getMain().get(i);
 
-            if (carte instanceof Borne) {
-                if (borne == null || borne.km < ((Borne) carte).km) {
+            if (carte instanceof Borne && checkCartesPossible(i, check)) {
+
+                if (borne == null || (borne.km < ((Borne) carte).km && ((Borne) carte).km <= max)) {
                     borne = (Borne) carte;
                     index = i;
                 }
@@ -80,14 +131,18 @@ public class SmartBot extends Bot {
     }
 
     private int trouveMaxBorne(int max) {
+        return trouveMaxBorne(max, true);
+    }
+
+    private int trouveMaxBorne(int max, boolean check) {
         Borne borne = null;
         int index = -1;
 
         for (int i = 0; i < getMain().size(); i++) {
             Carte carte = getMain().get(i);
 
-            if (carte instanceof Borne) {
-                if (borne == null || (max >= borne.km && borne.km > ((Borne) carte).km)) {
+            if (carte instanceof Borne && checkCartesPossible(i, check)) {
+                if (borne == null || (max >= ((Borne) carte).km && ((Borne) carte).km < borne.km)) {
                     borne = (Borne) carte;
                     index = i;
                 }
@@ -101,7 +156,7 @@ public class SmartBot extends Bot {
         for (int i = 0; i < getMain().size(); i++) {
             Carte carte = getMain().get(i);
 
-            if (carte instanceof Parade) {
+            if (carte instanceof Parade && nCartesRestantes.contains(i)) {
                 if (((Parade) carte).contre(attaque)) {
                     return i;
                 }
