@@ -95,6 +95,7 @@ public class Jeu implements Serializable {
         System.out.println(this);
         System.out.println("C'est au tour de " + joueurActif.nom);
 
+        // Affichage d'entre-deux-tours
         System.out.println(joueurActif);
 
         if(!(joueurActif instanceof Bot)) {
@@ -107,6 +108,7 @@ public class Jeu implements Serializable {
             }
             System.out.println("]");
         }
+
         // Tant que la carte n'a pas pu être jouée, on recommence
         do {
             try {
@@ -148,6 +150,7 @@ public class Jeu implements Serializable {
 
         this.joueurActif = prochainJoueur;
 
+        // Si le joueur n'a pas 7 cartes (à priori impossible), il en pioche autant qu'il faut
         while (joueurActif.getMain().size() < 7) {
             if (!estPartieFinie()) {
                 this.joueurActif.prendCarte(pioche());

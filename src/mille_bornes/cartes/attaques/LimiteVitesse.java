@@ -23,9 +23,12 @@ public class LimiteVitesse extends Attaque {
 
     @Override
     public void appliqueEffet(Jeu jeu, EtatJoueur joueur) {
+        // Un joueur ne peut avoir qu'une limite de vitesse au maximum
         if(joueur.getLimiteVitesse()) {
             throw new IllegalStateException("Le joueur a déjà une limite de vitesse!");
         }
+
+        // S'il n'en a pas, on lui applique
         joueur.setLimiteVitesse(true);
     }
 }

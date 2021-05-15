@@ -20,6 +20,7 @@ public class FinDeLimite extends Parade {
 
     @Override
     public void appliqueEffet(Jeu jeu, EtatJoueur joueur) {
+        // On ne peut enlever une limite de vitesse que si nous en avons une
         if(!joueur.getLimiteVitesse()) {
             throw new IllegalStateException("Vous n'avez pas de limite de vitesse!");
         }
