@@ -133,13 +133,13 @@ public class Jeu implements Serializable {
         }
 
         this.joueurActif = joueurActif.getProchainJoueur();
-    }
 
         while (joueurActif.getMain().size() < 7) {
             if (!estPartieFinie()) {
                 this.joueurActif.prendCarte(pioche());
             }
         }
+
         prochainJoueur = joueurActif.getProchainJoueur();
     }
 
