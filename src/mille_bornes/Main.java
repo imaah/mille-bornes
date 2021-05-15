@@ -1,5 +1,7 @@
 package mille_bornes;
 
+import mille_bornes.extensions.bots.DumbBot;
+import mille_bornes.extensions.bots.SmartBot;
 import mille_bornes.extensions.sauvegarde.Saver;
 
 import java.io.File;
@@ -45,7 +47,7 @@ public class Main {
             List<String> noms = new ArrayList<>();
 
             System.out.print("Entrez le nombre de joueurs (entre 1 et 4): ");
-            int nombreJoueurs = readInt(scanner, "Veuillez entrer un entier valide entre 2 et 4", 1, 4);
+            int nombreJoueurs = readInt(scanner, "Veuillez entrer un entier valide entre 1 et 4", 1, 4);
 
             int nombreBots;
             int nbBotsPotentiels = 4 - nombreJoueurs;
@@ -120,7 +122,16 @@ public class Main {
                 if (i < nombreJoueurs) {
                     joueurs[i] = new Joueur(nom);
                 } else {
-                    joueurs[i] = new Bot(nom);
+
+                    System.out.println("Entrez la difficulté du bot : \n- Facile (1)\n- 2: Difficile (2)");
+
+                    int difficulte = readInt(scanner, "Veuillez entrer un entier valide entre 1 et 2", 1, 2);
+
+                    if(difficulte == 1) {
+                        joueurs[i] = new DumbBot(nom);
+                    } else {
+                        joueurs[i] = new SmartBot(nom);
+                    }
                 }
                 noms.add(nom.toLowerCase());
             }

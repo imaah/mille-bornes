@@ -1,6 +1,7 @@
 package mille_bornes;
 
 import mille_bornes.cartes.Carte;
+import mille_bornes.extensions.bots.Bot;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,26 +1,22 @@
-package mille_bornes;
+package mille_bornes.extensions.bots;
 
-import mille_bornes.cartes.*;
+import mille_bornes.Joueur;
+import mille_bornes.cartes.Attaque;
+import mille_bornes.cartes.Carte;
 
-import java.lang.reflect.Array;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-public class Bot extends Joueur {
-    private static final long serialVersionUID = 3357922195600973159L;
-    private transient final Random random = new Random();
-    private List<Integer> nCartesRestantes;
+public class DumbBot extends Bot {
+    private static final long serialVersionUID = 5572469609476004597L;
+    protected transient final Random random = new Random();
 
-    public Bot(String nom) {
+    public DumbBot(String nom) {
         super(nom);
-        remplirNCartesRestantes();
     }
 
-    public void remplirNCartesRestantes() {
-        this.nCartesRestantes = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
-    }
-
+    @Override
     public int choisitCarte() {
         // Si il reste des cartes non testées
         if (nCartesRestantes.size() != 0) {
@@ -32,6 +28,7 @@ public class Bot extends Joueur {
         }
     }
 
+    @Override
     public Joueur choisitAdversaire(Carte carte) {
         // Tout les joueurs sont pour l'instant des cibles potentielles
         List<Joueur> ciblesPossibles = new ArrayList<>();
