@@ -18,16 +18,12 @@ public class Bot extends Joueur {
     public void remplirNCartesRestantes() {
         this.nCartesRestantes = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
     }
-
-    private int getCarteAleatoire() {
+    
+    public int choisitCarte() {
         int n = nCartesRestantes.get(random.nextInt(nCartesRestantes.size()));
         nCartesRestantes = nCartesRestantes.stream().filter(i -> i != n).collect(Collectors.toList());
 
         return n;
-    }
-
-    public int choisitCarte() {
-        return getCarteAleatoire();
     }
 
     public Joueur choisitAdversaire(Carte carte) {
