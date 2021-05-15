@@ -49,6 +49,7 @@ public class Main {
             List<String> noms = new ArrayList<>();
 
             System.out.print("Entrez le nombre de joueurs (entre 1 et 4): ");
+
             int nombreJoueurs = readInt(scanner, "Veuillez entrer un entier valide entre 1 et 4", 1, 4);
 
             int nombreBots;
@@ -58,6 +59,29 @@ public class Main {
                 nombreBots = readInt(scanner, "Veuillez entrer un entier valide entre 1 et " + nbBotsPotentiels + ")", 0, nbBotsPotentiels);
             } else {
                 nombreBots = 0;
+            }
+
+            Joueur[] joueurs = new Joueur[nombreJoueurs + nombreBots];
+
+            for (int i = 0; i < nombreJoueurs + nombreBots; i++) {
+                System.out.print("Entrez le nom du " +
+                        (i < nombreJoueurs ? "joueur" : "bot") +
+                        " n°" + (i + 1) + ": ");
+                String nom = scanner.nextLine().trim();
+                if(nom.equalsIgnoreCase("annuler") || nom.equalsIgnoreCase("")) {
+                    System.err.println("Nom invalide !");
+                    i--;
+                } else if(noms.contains(nom.toLowerCase())) {
+                    System.err.println("Le nom entré a déjà été utilisé !");
+                    i--;
+                } else {
+                    if (i < nombreJoueurs) {
+                        joueurs[i] = new Joueur(nom);
+                    } else {
+                        joueurs[i] = new Bot(nom);
+                    }
+                    noms.add(nom.toLowerCase());
+                }
             }
 
             Joueur[] joueurs = creerJoueurs(scanner, nombreJoueurs, nombreBots, noms);
@@ -79,7 +103,11 @@ public class Main {
         }
     }
 
+    private int readInt(Scanner scanner, String error) {
+        return readInt(scanner, error, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
 
+    // Pour la praticité de lecture d'entiers
     private int readInt(Scanner scanner, String error, int min, int max) {
         boolean valid = false;
         int value = 0;
@@ -99,41 +127,5 @@ public class Main {
         }
 
         return value;
-    }
-
-    private Joueur[] creerJoueurs(Scanner scanner, int nombreJoueurs, int nombreBots, List<String> noms) {
-        Joueur[] joueurs = new Joueur[nombreJoueurs + nombreBots];
-
-        for (int i = 0; i < nombreJoueurs + nombreBots; i++) {
-            System.out.print("Entrez le nom du " +
-                             (i < nombreJoueurs ? "joueur" : "bot") +
-                             " n°" + (i + 1) + ": ");
-            String nom = scanner.nextLine().trim();
-            if (nom.equalsIgnoreCase("annuler") || nom.equalsIgnoreCase("")) {
-                System.err.println("Nom invalide !");
-                i--;
-            } else if (noms.contains(nom.toLowerCase())) {
-                System.err.println("Le nom entré a déjà été utilisé !");
-                i--;
-            } else {
-                if (i < nombreJoueurs) {
-                    joueurs[i] = new Joueur(nom);
-                } else {
-
-                    System.out.println("Entrez la difficulté du bot : \n- Facile (1)\n- Difficile (2)");
-
-                    int difficulte = readInt(scanner, "Veuillez entrer un entier valide entre 1 et 2", 1, 2);
-
-                    if (difficulte == 1) {
-                        joueurs[i] = new DumbBot(nom);
-                    } else {
-                        joueurs[i] = new SmartBot(nom);
-                    }
-                }
-                noms.add(nom.toLowerCase());
-            }
-        }
-
-        return joueurs;
     }
 }

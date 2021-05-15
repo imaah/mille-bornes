@@ -49,7 +49,6 @@ public abstract class Bataille extends Carte {
 
     public abstract boolean contre(Attaque attaque);
 
-    public void appliqueEffet(Jeu jeu, EtatJoueur joueur) {
-
-    }
+    // Nous avons décidé de mettre cette méthode abstraite pour faciliter la création des autres classes
+    public abstract void appliqueEffet(Jeu jeu, EtatJoueur joueur) throws IllegalStateException;
 }

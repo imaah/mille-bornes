@@ -39,6 +39,7 @@ public class EtatJoueur implements Serializable {
     public void ajouteKm(int km) {
         String raison = ditPourquoiPeutPasAvancer();
 
+        // Vérifications d'actions légales
         if (limiteVitesse && km > MAX_VITESSE_SOUS_LIMITE) {
             throw new IllegalStateException("Vous ne pouvez pas vous déplacer a de plus de " + MAX_VITESSE_SOUS_LIMITE +
                                             "km");
@@ -95,8 +96,10 @@ public class EtatJoueur implements Serializable {
         if (botte == null) throw new IllegalArgumentException();
 
         bottes.add(botte);
+        // Si on a bien une attaque sur le joueur...
         if (getBataille() != null && getBataille() instanceof Attaque) {
             if (botte.contre((Attaque) getBataille())) {
+                // ... et qu'on la contre, on la retire
                 pileBataille.pop();
             }
         }
@@ -105,13 +108,16 @@ public class EtatJoueur implements Serializable {
     public void attaque(Jeu jeu, Attaque attaque) {
         if (jeu == null || attaque == null) throw new IllegalArgumentException();
 
+        // Pour chaque carte de la main
         for (int i = 0; i < main.size(); i++) {
             Carte carte = main.get(i);
+            // Si le joueur possède une botte
             if (carte instanceof Botte) {
                 Botte botte = (Botte) carte;
 
+                // Si cette botte peut contrer l'attaque...
                 if (botte.contre(attaque)) {
-                    // Coup-fourré
+                    // ...Coup-fourré
                     System.out.println("Votre adversaire sort un coup-fourré! Votre attaque " +
                                        "n'a aucun effet et il récupère la main.");
                     botte.appliqueEffet(jeu, this);
@@ -123,6 +129,7 @@ public class EtatJoueur implements Serializable {
             }
         }
 
+        // Impossible d'attaquer si la victime potentielle a la botte
         for (Botte botte : bottes) {
             if (botte.contre(attaque))
                 throw new IllegalStateException("Ce joueur possède une botte contre cette attaque! Choisissez une autre cible.");
@@ -156,11 +163,14 @@ public class EtatJoueur implements Serializable {
     public void joueCarte(Jeu jeu, int i) {
         if (jeu == null || !(0 <= i && i <= 6)) throw new IllegalArgumentException();
 
+        // Récupération de la carte à jouer
         Carte carte = main.get(i);
         if (carte instanceof Attaque) {
+            // Si c'est une attaque, on choisit qui attaquer
             Joueur cible = joueur.choisitAdversaire(carte);
             joueCarte(jeu, i, cible);
         } else {
+            // Sinon on applique son effet
             carte.appliqueEffet(jeu, this);
         }
 
@@ -172,8 +182,8 @@ public class EtatJoueur implements Serializable {
         if (jeu == null || joueur == null || !(0 <= i && i <= 6)) throw new IllegalArgumentException();
 
         Carte carte = main.get(i);
-
         if (carte instanceof Attaque) {
+            // Si c'est une attaque, on l'applique au joueur cible
             Attaque attaque = (Attaque) carte;
             joueur.attaque(jeu, attaque);
         } else {
