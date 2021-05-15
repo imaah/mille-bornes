@@ -108,16 +108,15 @@ public class Jeu {
 
         } while (!carteJouee);
 
-
-        // Si le joueur actuel vient de passer les 1000km ou qu'il à pioché la dernière carte, c'est fini
-        if (this.getJoueurActif().getKm() == 1000 || this.sabot.estVide()) {
-            return true;
-        } else {
-            return false;
-        }
+        // On ne continue que si la partie n'est pas finie
+        return estPartieFinie();
     }
 
     public void activeProchainJoueurEtTireCarte() {
+        if (this.joueurActif instanceof Bot) {
+            ((Bot) this.joueurActif).remplirNCartesRestantes();
+        }
+
         this.joueurActif = joueurActif.getProchainJoueur();
 
         while (joueurActif.getMain().size() < 7) {

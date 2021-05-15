@@ -2,24 +2,32 @@ package mille_bornes;
 
 import mille_bornes.cartes.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Bot extends Joueur {
+    private Random random = new Random();
+    private List<Integer> nCartesRestantes;
+
     public Bot(String nom) {
         super(nom);
     }
 
+    public void remplirNCartesRestantes() {
+        this.nCartesRestantes = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
+    }
+
+    private int getCarteAleatoire() {
+        int n = nCartesRestantes.get(random.nextInt(nCartesRestantes.size()));
+        nCartesRestantes = nCartesRestantes.stream().filter(i -> i != n).collect(Collectors.toList());
+
+        return n;
+    }
+
     public int choisitCarte() {
-        // 3 chances sur 10 de défausser, sinon on essaye de jouer une carte au hasard
-        if (Math.random() >= 0.3f) {
-            return (int) Math.random() * 7 + 1;
-        } else {
-            return - (int) Math.random() * 7 + 1;
-        }
+        return getCarteAleatoire();
     }
 
     public Joueur choisitAdversaire(Carte carte) {
@@ -37,6 +45,6 @@ public class Bot extends Joueur {
         if (ciblesPossibles.isEmpty()) throw new IllegalStateException();
 
         // Retour d'un joueur au hasard
-        return ciblesPossibles.get((int) Math.random() * ciblesPossibles.size() + 1);
+        return ciblesPossibles.get(random.nextInt(ciblesPossibles.size()));
     }
 };
