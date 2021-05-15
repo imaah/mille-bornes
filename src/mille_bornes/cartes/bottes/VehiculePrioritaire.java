@@ -6,6 +6,8 @@ import mille_bornes.cartes.Attaque;
 import mille_bornes.cartes.Botte;
 
 public class VehiculePrioritaire extends Botte {
+    private static final long serialVersionUID = 7199288912826231138L;
+
     public VehiculePrioritaire() {
         super("Vehicule Prioritaire");
     }

@@ -2,29 +2,36 @@ package mille_bornes;
 
 import mille_bornes.cartes.Carte;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Jeu {
+public class Jeu implements Serializable {
+    private static final long serialVersionUID = 7915602017457172577L;
+
     private final List<Joueur> joueurs = new ArrayList<>();
     private Joueur joueurActif;
     private Joueur prochainJoueur;
     private TasDeCartes sabot;
     private TasDeCartes defausse;
 
-    public Jeu() {}
-
     public Jeu(Joueur... joueurs) {
+        if (joueurs.length < 2) throw new IllegalStateException("Il faut au minimum 2 joueurs pour faire une partie.");
+        if (joueurs.length > 4) throw new IllegalStateException("Le nombre de joueurs ne peut pas excéder 4.");
         ajouteJoueurs(joueurs);
     }
 
     public void ajouteJoueurs(Joueur... joueurs) throws IllegalStateException {
         // Si le prochain joueur est déjà défini, la partie est déjà démarrée
+
+        if (joueurs.length + this.joueurs.size() > 4)
+            throw new IllegalStateException("Le nombre de joueurs ne peut pas excéder 4.");
+
         if (prochainJoueur != null) {
-            throw new IllegalStateException("La partie a déjà commencée!");
+            throw new IllegalStateException("La partie a déjà commencé !");
         } else {
             this.joueurs.addAll(Arrays.asList(joueurs));
         }
@@ -48,28 +55,28 @@ public class Jeu {
             }
         }
 
-        for(int i = 0; i < joueurs.size(); i++) {
+        for (int i = 0; i < joueurs.size(); i++) {
             joueurs.get(i).setProchainJoueur(joueurs.get((i + 1) % joueurs.size()));
         }
 
-        // Le premier joueur commence (on prévoit que le tour va changer)
-        this.joueurActif = this.joueurs.get(joueurs.size() - 1);
+        // Le premier joueur commence
+        prochainJoueur = joueurs.get(0);
     }
 
     @Override
     public String toString() {
         StringBuilder resultat = new StringBuilder();
 
-        // Ajout de tout les joueurs au résultats
         for (Joueur joueur : this.joueurs) {
-            resultat.append(joueur.toString());
+            resultat.append(joueur.toString()).append("\n");
         }
 
         resultat.append("Pioche : ")
-                .append(this.sabot.getNbCartes())
-                .append(" cartes;")
+                .append(getNbCartesSabot() == 0 ? "vide" : getNbCartesSabot())
+                .append("\n")
                 .append("Défausse : ")
-                .append(this.defausse.getNbCartes() == 0 ? "vide" : this.defausse.getNbCartes());
+                .append(this.defausse.getNbCartes() == 0 ? "vide" : this.defausse.getNbCartes())
+                .append("\n");
 
         return resultat.toString();
     }
@@ -79,17 +86,26 @@ public class Jeu {
 
         activeProchainJoueurEtTireCarte();
 
+        System.out.println("\n\n\n");
+        System.out.println(this);
+        System.out.println("\nC'est au tour de " + joueurActif.nom);
+
         System.out.println(joueurActif);
-        System.out.println(joueurActif.getMain());
+        System.out.print("[");
+        for (int i = 0; i < joueurActif.getMain().size(); i++) {
+            System.out.print((i + 1) + ": " + joueurActif.getMain().get(i));
+            if (i < joueurActif.getMain().size() - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]");
         // Tant que la carte n'a pas pu être jouée, on recommence
         do {
-            carteJouee = false;
-
             try {
                 int nCarte = this.joueurActif.choisitCarte();
-                if(nCarte > 0) {
+                if (nCarte > 0) {
                     this.joueurActif.joueCarte(this, nCarte - 1);
-                } else if(nCarte < 0) {
+                } else if (nCarte < 0) {
                     this.joueurActif.defausseCarte(this, -nCarte - 1);
                 }
 
@@ -106,21 +122,18 @@ public class Jeu {
 
 
         // Si le joueur actuel vient de passer les 1000km ou qu'il à pioché la dernière carte, c'est fini
-        if (this.getJoueurActif().getKm() >= 1000 || this.sabot.estVide()) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.getJoueurActif().getKm() >= 1000 || this.sabot.estVide();
     }
 
     public void activeProchainJoueurEtTireCarte() {
-        this.joueurActif = joueurActif.getProchainJoueur();
+        this.joueurActif = prochainJoueur;
 
         while (joueurActif.getMain().size() < 7) {
             if (!estPartieFinie()) {
-                this.joueurActif.prendCarte(sabot.prend());
+                this.joueurActif.prendCarte(pioche());
             }
         }
+        prochainJoueur = joueurActif.getProchainJoueur();
     }
 
     public boolean estPartieFinie() {
@@ -129,6 +142,8 @@ public class Jeu {
             if (!this.sabot.contientBornes()) {
                 return true;
             }
+        } else {
+            return true;
         }
 
         // Si n'importe quel joueur à dépassé les 1000km
@@ -149,12 +164,11 @@ public class Jeu {
     }
 
     public List<Joueur> getGagnant() {
-        if (this.sabot.getNbCartes() != 0) {
+        if (!estPartieFinie()) {
             return null;
         } else {
             // On récupère le nombre de km maximal actuel
             int maxKm = joueurs.stream().mapToInt(Joueur::getKm).max().orElse(Integer.MAX_VALUE);
-
             // On renvoit la liste des joueurs ayant le nom de km max (pour les ex-aequo)
             return joueurs.stream().filter(joueur -> joueur.getKm() == maxKm).collect(Collectors.toList());
         }

@@ -4,6 +4,8 @@ import mille_bornes.cartes.Attaque;
 
 public class Accident extends Attaque {
 
+    private static final long serialVersionUID = 5238001142998587769L;
+
     public Accident() {
         super("Accident");
     }

@@ -5,6 +5,8 @@ import mille_bornes.Jeu;
 import mille_bornes.cartes.Attaque;
 
 public class LimiteVitesse extends Attaque {
+    private static final long serialVersionUID = -6417586415503867598L;
+
     public LimiteVitesse() {
         super("Limite de vitesse");
     }

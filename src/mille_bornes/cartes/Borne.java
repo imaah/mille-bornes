@@ -7,21 +7,23 @@ import mille_bornes.cartes.attaques.FeuRouge;
 import java.util.Objects;
 
 public class Borne extends Carte {
+    private static final long serialVersionUID = -5391072928856424396L;
     public final int km;
 
+
     public Borne(int km) {
-        super(km + "km", Categorie.BORNE);
+        super("\u001B[92m" + km + "km\u001B[0m", Categorie.BORNE);
         this.km = km;
     }
 
     @Override
     public void appliqueEffet(Jeu jeu, EtatJoueur etatjoueur) {
-        if(etatjoueur.getLimiteVitesse() && this.km > EtatJoueur.MAX_VITESSE_SOUS_LIMITE) {
+        if (etatjoueur.getLimiteVitesse() && this.km > EtatJoueur.MAX_VITESSE_SOUS_LIMITE) {
             throw new IllegalStateException(
                     String.format("Vous ne pouvez pas aller au delà de %d km/h !",
-                    EtatJoueur.MAX_VITESSE_SOUS_LIMITE)
+                            EtatJoueur.MAX_VITESSE_SOUS_LIMITE)
             );
-        } else if(etatjoueur.getBataille() instanceof FeuRouge) {
+        } else if (etatjoueur.getBataille() instanceof FeuRouge) {
             throw new IllegalStateException("Vous ne pouvez pas placer de borne, vous êtes à l'arrêt!");
         }
 
