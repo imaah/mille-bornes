@@ -6,5 +6,5 @@ public enum Categorie {
     BOTTE,
     PARADE,
     ATTAQUE,
-    BORNE;
+    BORNE
 }

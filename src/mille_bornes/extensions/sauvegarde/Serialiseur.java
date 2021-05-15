@@ -4,7 +4,7 @@ import mille_bornes.Jeu;
 
 import java.io.*;
 
-public class Saver {
+public class Serialiseur {
     public void saveIntoFile(File file, Serializable object) throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
         oos.writeObject(object);

@@ -2,11 +2,13 @@ package mille_bornes;
 
 import mille_bornes.extensions.bots.DumbBot;
 import mille_bornes.extensions.bots.SmartBot;
-import mille_bornes.extensions.sauvegarde.Saver;
+import mille_bornes.extensions.sauvegarde.Serialiseur;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -19,7 +21,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         File file = new File("save.dat");
         boolean loadFile = false;
-        Saver saver = new Saver();
+        Serialiseur serialiseur = new Serialiseur();
         Jeu jeu;
 
         if (file.exists()) {
@@ -38,7 +40,7 @@ public class Main {
 
         if (loadFile) {
             try {
-                jeu = saver.loadObjectFromFile(file, Jeu.class);
+                jeu = serialiseur.loadObjectFromFile(file, Jeu.class);
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
                 return;
@@ -67,11 +69,11 @@ public class Main {
 
         do {
             try {
-                saver.saveIntoFile(file, jeu);
+                serialiseur.saveIntoFile(file, jeu);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if(jeu.estPartieFinie()) {
+            if (jeu.estPartieFinie()) {
                 System.out.printf("Victoire de %s ! \uD83C\uDF89%n", jeu.getGagnant().stream().map(joueur -> joueur.nom).collect(Collectors.joining(",")));
                 break;
             }
@@ -87,7 +89,7 @@ public class Main {
             try {
                 value = Integer.parseInt(scanner.nextLine());
 
-                if(min <= value && value <= max) {
+                if (min <= value && value <= max) {
                     valid = true;
                 } else {
                     System.err.println(error);
@@ -100,22 +102,18 @@ public class Main {
         return value;
     }
 
-    private int readInt(Scanner scanner, String error) {
-        return readInt(scanner, error, Integer.MIN_VALUE, Integer.MAX_VALUE);
-    }
-
     private Joueur[] creerJoueurs(Scanner scanner, int nombreJoueurs, int nombreBots, List<String> noms) {
         Joueur[] joueurs = new Joueur[nombreJoueurs + nombreBots];
 
         for (int i = 0; i < nombreJoueurs + nombreBots; i++) {
             System.out.print("Entrez le nom du " +
-                    (i < nombreJoueurs ? "joueur" : "bot") +
-                    " n°" + (i + 1) + ": ");
+                             (i < nombreJoueurs ? "joueur" : "bot") +
+                             " n°" + (i + 1) + ": ");
             String nom = scanner.nextLine().trim();
-            if(nom.equalsIgnoreCase("annuler") || nom.equalsIgnoreCase("")) {
+            if (nom.equalsIgnoreCase("annuler") || nom.equalsIgnoreCase("")) {
                 System.err.println("Nom invalide !");
                 i--;
-            } else if(noms.contains(nom.toLowerCase())) {
+            } else if (noms.contains(nom.toLowerCase())) {
                 System.err.println("Le nom entré a déjà été utilisé !");
                 i--;
             } else {
@@ -127,7 +125,7 @@ public class Main {
 
                     int difficulte = readInt(scanner, "Veuillez entrer un entier valide entre 1 et 2", 1, 2);
 
-                    if(difficulte == 1) {
+                    if (difficulte == 1) {
                         joueurs[i] = new DumbBot(nom);
                     } else {
                         joueurs[i] = new SmartBot(nom);

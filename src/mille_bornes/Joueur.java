@@ -146,4 +146,4 @@ public class Joueur implements Serializable {
     public List<Botte> getBottes() {
         return etat.getBottes();
     }
-};
+}
