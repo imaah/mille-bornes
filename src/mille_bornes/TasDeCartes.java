@@ -9,11 +9,13 @@ import mille_bornes.cartes.bottes.Increvable;
 import mille_bornes.cartes.bottes.VehiculePrioritaire;
 import mille_bornes.cartes.parades.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TasDeCartes {
+public class TasDeCartes implements Serializable {
+    private static final long serialVersionUID = 5828284262241991397L;
     private final List<Carte> cartes = new ArrayList<>();
 
     public TasDeCartes(boolean creerLesCartes) {
@@ -85,9 +87,7 @@ public class TasDeCartes {
     }
 
     public Carte prend() {
-        Carte laCarte = this.cartes.get(0);
-        this.cartes.remove(0);
-        return laCarte;
+        return this.cartes.remove(0);
     }
 
     public void pose(Carte carte) {
@@ -100,7 +100,7 @@ public class TasDeCartes {
      */
     public boolean contientBornes() {
         for (Carte carte : cartes) {
-            if(carte instanceof Borne) {
+            if (carte instanceof Borne) {
                 return true;
             }
         }

@@ -4,6 +4,8 @@ import mille_bornes.cartes.Attaque;
 import mille_bornes.cartes.Botte;
 
 public class AsDuVolant extends Botte {
+    private static final long serialVersionUID = 4243382288072889349L;
+
     public AsDuVolant() {
         super("As du volant");
     }

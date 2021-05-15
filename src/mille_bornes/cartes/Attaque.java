@@ -4,8 +4,10 @@ import mille_bornes.EtatJoueur;
 import mille_bornes.Jeu;
 
 public class Attaque extends Bataille {
+    private static final long serialVersionUID = -8149538162471657341L;
+
     public Attaque(String nom) {
-        super(nom, Categorie.ATTAQUE);
+        super("\u001B[31m" + nom + "\u001B[0m", Categorie.ATTAQUE);
     }
 
     @Override

@@ -5,6 +5,8 @@ import mille_bornes.Jeu;
 
 public abstract class Bataille extends Carte {
 
+    private static final long serialVersionUID = 3250528684674187969L;
+
     public Bataille(String nom, Categorie categorie) {
         super(nom, categorie);
     }
