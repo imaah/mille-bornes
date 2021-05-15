@@ -84,6 +84,7 @@ public class Main {
         } while (!jeu.joue());
     }
 
+
     private int readInt(Scanner scanner, String error, int min, int max) {
         boolean valid = false;
         int value = 0;
@@ -91,6 +92,7 @@ public class Main {
         while (!valid) {
             try {
                 value = Integer.parseInt(scanner.nextLine());
+
                 if(min <= value && value <= max) {
                     valid = true;
                 } else {

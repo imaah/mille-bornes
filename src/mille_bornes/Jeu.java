@@ -99,6 +99,7 @@ public class Jeu implements Serializable {
             }
         }
         System.out.println("]");
+
         // Tant que la carte n'a pas pu être jouée, on recommence
         do {
             try {
@@ -107,6 +108,8 @@ public class Jeu implements Serializable {
                     this.joueurActif.joueCarte(this, nCarte - 1);
                 } else if (nCarte < 0) {
                     this.joueurActif.defausseCarte(this, -nCarte - 1);
+                } else {
+                    throw new IllegalStateException("Entrez un numéro de carte entre 1 et 7 inclus (négatif pour défausser)");
                 }
 
                 carteJouee = true;
@@ -120,13 +123,17 @@ public class Jeu implements Serializable {
 
         } while (!carteJouee);
 
-
-        // Si le joueur actuel vient de passer les 1000km ou qu'il à pioché la dernière carte, c'est fini
-        return this.getJoueurActif().getKm() >= 1000 || this.sabot.estVide();
+        // On ne continue que si la partie n'est pas finie
+        return estPartieFinie();
     }
 
     public void activeProchainJoueurEtTireCarte() {
-        this.joueurActif = prochainJoueur;
+        if (this.joueurActif instanceof Bot) {
+            ((Bot) this.joueurActif).remplirNCartesRestantes();
+        }
+
+        this.joueurActif = joueurActif.getProchainJoueur();
+    }
 
         while (joueurActif.getMain().size() < 7) {
             if (!estPartieFinie()) {
@@ -148,7 +155,7 @@ public class Jeu implements Serializable {
 
         // Si n'importe quel joueur à dépassé les 1000km
         for (Joueur joueur : this.joueurs) {
-            if (joueur.getKm() >= 1000) {
+            if (joueur.getKm() == 1000) {
                 return true;
             }
         }
