@@ -10,6 +10,9 @@ import mille_bornes.cartes.bottes.Citerne;
 import mille_bornes.cartes.bottes.Increvable;
 import mille_bornes.cartes.bottes.VehiculePrioritaire;
 
+import static mille_bornes.Jeu.AUTORISE_PLUSIEURS_200_BORNES;
+import static mille_bornes.Jeu.MAX_VITESSE_SOUS_LIMITE;
+
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -17,7 +20,6 @@ import java.util.List;
 import java.util.Stack;
 
 public class EtatJoueur implements Serializable {
-    public static final int MAX_VITESSE_SOUS_LIMITE = 50;
     private static final long serialVersionUID = -8006677368600111361L;
 
     private final Joueur joueur;
@@ -26,6 +28,7 @@ public class EtatJoueur implements Serializable {
     private final List<Botte> bottes = new LinkedList<>();
     private int km = 0;
     private boolean limiteVitesse;
+    private boolean borne200KmUtilisee = false;
 
     public EtatJoueur(Joueur joueur) {
         if (joueur == null) throw new IllegalStateException("joueur ne peut pas être null.");
@@ -47,6 +50,12 @@ public class EtatJoueur implements Serializable {
             throw new IllegalStateException(raison);
         } else if (this.km + km > 1000) {
             throw new IllegalStateException("Vous ne pouvez pas aller plus loin que 1000 km !");
+        } else if (km == 200 && borne200KmUtilisee && !AUTORISE_PLUSIEURS_200_BORNES) {
+            throw new IllegalStateException("Vous avez déjà utilisé une borne de 200km !");
+        }
+
+        if (km == 200) {
+            borne200KmUtilisee = true;
         }
 
         this.km += km;
@@ -127,7 +136,7 @@ public class EtatJoueur implements Serializable {
                     return;
                 }
             }
-        }
+        } // for
 
         // Impossible d'attaquer si la victime potentielle a la botte
         for (Botte botte : bottes) {
@@ -174,8 +183,8 @@ public class EtatJoueur implements Serializable {
             carte.appliqueEffet(jeu, this);
         }
 
-        // Une fois jouée, on retire la carte de la main
-        main.remove(i);
+        // Une fois jouée, on defausse la carte
+        defausseCarte(jeu, i);
     }
 
     public void joueCarte(Jeu jeu, int i, Joueur joueur) {
@@ -203,7 +212,9 @@ public class EtatJoueur implements Serializable {
                 .append("km ");
 
         if (getLimiteVitesse()) {
-            builder.append("(50) ");
+            builder.append("( ")
+                    .append(MAX_VITESSE_SOUS_LIMITE)
+                    .append(") ");
         }
 
         builder.append('[')

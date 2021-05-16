@@ -13,6 +13,10 @@ import java.util.stream.Collectors;
 public class Jeu implements Serializable {
     private static final long serialVersionUID = 7915602017457172577L;
 
+    public static final boolean AUTORISE_PLUSIEURS_200_BORNES = Boolean.parseBoolean(System.getProperty("ap2b", "false"));
+    public static final int MAX_VITESSE_SOUS_LIMITE = Integer.parseInt(System.getProperty("max-limite", "50"));
+    public static final boolean  DEBUG_MODE = Boolean.parseBoolean(System.getProperty("debug", "false"));
+
     private final List<Joueur> joueurs = new ArrayList<>();
     private Joueur joueurActif;
     private Joueur prochainJoueur;
@@ -74,9 +78,9 @@ public class Jeu implements Serializable {
 
         resultat.append("Pioche : ")
                 .append(getNbCartesSabot() == 0 ? "vide" : getNbCartesSabot())
-                .append("\n")
-                .append("Défausse : ")
-                .append(this.defausse.getNbCartes() == 0 ? "vide" : this.defausse.getNbCartes())
+//                .append("\n")
+//                .append("Défausse : ")
+//                .append(this.defausse.getNbCartes() == 0 ? "vide" : this.defausse.getNbCartes())
                 .append("\n");
 
         return resultat.toString();
@@ -98,7 +102,7 @@ public class Jeu implements Serializable {
         // Affichage d'entre-deux-tours
         System.out.println(joueurActif);
 
-        if(!(joueurActif instanceof Bot)) {
+        if(!(joueurActif instanceof Bot) || DEBUG_MODE) {
             System.out.print("[");
             for (int i = 0; i < joueurActif.getMain().size(); i++) {
                 System.out.print((i + 1) + ": " + joueurActif.getMain().get(i));
@@ -129,7 +133,7 @@ public class Jeu implements Serializable {
 
                 carteJouee = true;
             } catch (IllegalStateException e) {
-                if(!(joueurActif instanceof Bot)) {
+                if(!(joueurActif instanceof Bot) || DEBUG_MODE) {
                     System.err.println(e.getMessage());
                 }
                 carteJouee = false;

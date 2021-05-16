@@ -4,17 +4,33 @@ import mille_bornes.extensions.bots.DumbBot;
 import mille_bornes.extensions.bots.SmartBot;
 import mille_bornes.extensions.sauvegarde.Serialiseur;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
         Main main = new Main();
+        main.implementeProprietes(args);
         main.runGame();
+    }
+
+    private void implementeProprietes(String[] args) {
+        Pattern pattern = Pattern.compile("^--(.+)=(.+)$");
+
+        for(String arg : args) {
+            Matcher matcher = pattern.matcher(arg.trim());
+
+            if(matcher.matches()) {
+                System.setProperty(matcher.group(1), matcher.group(2));
+            }
+        }
     }
 
     private void runGame() {

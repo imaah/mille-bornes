@@ -4,6 +4,8 @@ import mille_bornes.EtatJoueur;
 import mille_bornes.Jeu;
 import mille_bornes.cartes.attaques.FeuRouge;
 
+import static mille_bornes.Jeu.MAX_VITESSE_SOUS_LIMITE;
+
 import java.util.Objects;
 
 public class Borne extends Carte {
@@ -18,11 +20,11 @@ public class Borne extends Carte {
 
     @Override
     public void appliqueEffet(Jeu jeu, EtatJoueur etatjoueur) {
-        if (etatjoueur.getLimiteVitesse() && this.km > EtatJoueur.MAX_VITESSE_SOUS_LIMITE) {
+        if (etatjoueur.getLimiteVitesse() && this.km > MAX_VITESSE_SOUS_LIMITE) {
             // Si le joueur a une limitation de vitesse, il ne peut pas la dépasser
             throw new IllegalStateException(
                     String.format("Vous ne pouvez pas aller au delà de %d km/h !",
-                            EtatJoueur.MAX_VITESSE_SOUS_LIMITE)
+                            MAX_VITESSE_SOUS_LIMITE)
             );
         } else if (etatjoueur.getBataille() instanceof FeuRouge) {
             // De même s'il est au feu rouge

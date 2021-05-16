@@ -1,11 +1,14 @@
 package mille_bornes.extensions.bots;
 
-import mille_bornes.EtatJoueur;
 import mille_bornes.cartes.*;
 import mille_bornes.cartes.bottes.VehiculePrioritaire;
 import mille_bornes.cartes.parades.FeuVert;
 import mille_bornes.cartes.parades.FinDeLimite;
 
+import static mille_bornes.Jeu.MAX_VITESSE_SOUS_LIMITE;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class SmartBot extends Bot {
@@ -54,7 +57,7 @@ public class SmartBot extends Bot {
                 return carteAJouer;
             }
 
-            if (getLimiteVitesse() && (carteAJouer = trouveMaxBorne(EtatJoueur.MAX_VITESSE_SOUS_LIMITE)) != -1) {
+            if (getLimiteVitesse() && (carteAJouer = trouveMaxBorne(MAX_VITESSE_SOUS_LIMITE)) != -1) {
                 return carteAJouer;
             }
 
@@ -67,7 +70,7 @@ public class SmartBot extends Bot {
 
         // S'il n'y a rien avancer ...
         if (getLimiteVitesse()) {
-            if ((carteAJouer = trouveMaxBorne(EtatJoueur.MAX_VITESSE_SOUS_LIMITE)) != -1) {
+            if ((carteAJouer = trouveMaxBorne(MAX_VITESSE_SOUS_LIMITE)) != -1) {
                 return carteAJouer;
             }
 
@@ -94,6 +97,10 @@ public class SmartBot extends Bot {
 
         if ((carteADefausser = trouveMinBorne(50, false)) != -1) {
             return -carteADefausser;
+        }
+
+        if((carteADefausser = trouveDuplicata()) != -1) {
+
         }
 
         if ((carteADefausser = trouveCarteDeType(Attaque.class, false)) != -1) {
@@ -139,6 +146,33 @@ public class SmartBot extends Bot {
 
     private int trouveMinBorne(int max) {
         return trouveMinBorne(max, true);
+    }
+
+    private int trouveDuplicata() {
+        Map<Class<? extends Carte>, Integer> montant = new HashMap<>();
+
+        for(Carte carte : getMain()) {
+            if(carte instanceof Borne) continue;
+
+            if(montant.containsKey(carte.getClass())) {
+                montant.put(carte.getClass(), 0);
+            }
+            montant.put(carte.getClass(), montant.get(carte.getClass()) + 1);
+        }
+
+        Class<? extends Carte> max = null;
+
+        for(Map.Entry<Class<? extends Carte>, Integer> entry : montant.entrySet()) {
+            if(max == null || montant.get(max) > entry.getValue() && entry.getValue() > 1) {
+                max = entry.getKey();
+            }
+        }
+
+        if(max == null) {
+            return -1;
+        } else {
+            return trouveCarteDeType(max, false);
+        }
     }
 
     private int trouveMinBorne(int max, boolean check) {
