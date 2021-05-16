@@ -65,14 +65,14 @@ public class Main {
         } else {
             List<String> noms = new ArrayList<>();
 
-            System.out.print("Entrez le nombre de joueurs (entre 1 et " + Jeu.MAX_JOUEURS + ") : ");
+            System.out.println("Entrez le nombre de joueurs (entre 1 et " + Jeu.MAX_JOUEURS + ") : ");
 
             int nombreJoueurs = readInt(scanner, "Veuillez entrer un entier valide entre 1 et " + Jeu.MAX_JOUEURS, 0, Jeu.MAX_JOUEURS);
 
             int nombreBots;
             int nbBotsPotentiels = Jeu.MAX_JOUEURS - nombreJoueurs;
             if (nbBotsPotentiels > 0) {
-                System.out.print("Entrez le nombre de bots (entre 1 et " + nbBotsPotentiels + "): ");
+                System.out.println("Entrez le nombre de bots (entre 1 et " + nbBotsPotentiels + "): ");
                 nombreBots = readInt(scanner, "Veuillez entrer un entier valide entre 1 et " + nbBotsPotentiels + ")", 0, nbBotsPotentiels);
             } else {
                 nombreBots = 0;
