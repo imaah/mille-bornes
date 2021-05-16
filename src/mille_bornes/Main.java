@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
 public class Main {
     public static void main(String[] args) {
         Main main = new Main();
-        main.implementeProprietes(args);
+        main.chargerArguments(args);
         main.runGame();
     }
 
-    private void implementeProprietes(String[] args) {
+    private void chargerArguments(String[] args) {
         Pattern pattern = Pattern.compile("^--(.+)=(.+)$");
 
         for (String arg : args) {
@@ -32,45 +32,92 @@ public class Main {
         }
     }
 
-    private void runGame() {
-        Scanner scanner = new Scanner(System.in);
-        File file = new File("save.dat");
-        boolean loadFile = false;
+    private boolean demanderOuvertureSauvegarde(Scanner scanner) {
+        while (true) {
+            System.out.println("Une partie a été trouvée, voulez-vous la lancer ? [Y/n]: ");
+            System.out.print("\u001B[36m>>\u001B[0m ");
+
+            String line = scanner.nextLine();
+
+            if (line.trim().equalsIgnoreCase("Y")) {
+                return true;
+            } else if (line.trim().equalsIgnoreCase("N")) {
+                return false;
+            }
+        }
+    }
+
+    private Jeu chargerPartie(File sauvegarde) throws IOException, ClassNotFoundException {
         Serialiseur serialiseur = new Serialiseur();
-        Jeu jeu;
+        return serialiseur.chargerDepuisFichier(sauvegarde, Jeu.class);
+    }
 
-        if (file.exists()) {
-            while (true) {
-                System.out.println("Une partie a été trouvée, voulez-vous la lancer ? [Y/n]: ");
-                System.out.print("\u001B[36m>>\u001B[0m ");
+    private void sauvegarderPartie(File sauvegarde, Jeu partie) throws IOException {
+        Serialiseur serialiseur = new Serialiseur();
+        serialiseur.sauvegarderDansUnFichier(sauvegarde, partie);
+    }
 
-                String line = scanner.nextLine();
+    private Joueur[] initialiserJoueurs(Scanner scanner, int nombreDeJoueurs, int nombreDeBots) {
+        List<String> noms = new ArrayList<>();
+        Joueur[] joueurs = new Joueur[nombreDeJoueurs + nombreDeBots];
 
-                if (line.trim().equalsIgnoreCase("Y")) {
-                    loadFile = true;
-                    break;
-                } else if (line.trim().equalsIgnoreCase("N")) {
-                    break;
+        for (int i = 0; i < nombreDeJoueurs + nombreDeBots; i++) {
+            System.out.print("Entrez le nom du " +
+                             (i < nombreDeJoueurs ? "joueur" : "bot") +
+                             " n°" + (i + 1) + ": ");
+            String nom = scanner.nextLine().trim();
+            if (nom.equalsIgnoreCase("annuler") || nom.equalsIgnoreCase("")) {
+                System.err.println("Nom invalide !");
+                i--;
+            } else if (noms.contains(nom.toLowerCase())) {
+                System.err.println("Le nom entré a déjà été utilisé !");
+                i--;
+            } else {
+                if (i < nombreDeJoueurs) {
+                    joueurs[i] = new Joueur(nom);
+                } else {
+                    System.out.println("Entrez la difficulté du bot : \n- Aléatoire (1)\n- Naïf (2)");
+
+                    int difficulte = readInt(scanner, "Veuillez entrer un entier valide entre 1 et 2", 1, 2);
+
+                    if (difficulte == 1) {
+                        joueurs[i] = new DumbBot(nom);
+                    } else {
+                        joueurs[i] = new NaiveBot(nom);
+                    }
                 }
+                noms.add(nom.toLowerCase());
             }
         }
 
-        if (loadFile) {
-            try {
-                jeu = serialiseur.chargerDepuisFichier(file, Jeu.class);
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-                return;
-            }
-        } else {
-            List<String> noms = new ArrayList<>();
+        return joueurs;
+    }
 
+    private void runGame() {
+        Scanner scanner = new Scanner(System.in);
+        File sauvegarde = new File("save.dat");
+        boolean chargerFichier = false;
+        Jeu jeu = null;
+
+        if (sauvegarde.exists()) {
+            chargerFichier = demanderOuvertureSauvegarde(scanner);
+        }
+
+        if (chargerFichier) {
+            try {
+                jeu = chargerPartie(sauvegarde);
+            } catch (IOException | ClassNotFoundException e) {
+                System.err.println("La partie est corrompue. Il est donc impossible de la charger.");
+            }
+        }
+
+        if (jeu == null) {
             System.out.println("Entrez le nombre de joueurs (entre 1 et " + Jeu.MAX_JOUEURS + ") : ");
 
             int nombreJoueurs = readInt(scanner, "Veuillez entrer un entier valide entre 1 et " + Jeu.MAX_JOUEURS, 0, Jeu.MAX_JOUEURS);
-
             int nombreBots;
             int nbBotsPotentiels = Jeu.MAX_JOUEURS - nombreJoueurs;
+
             if (nbBotsPotentiels > 0) {
                 System.out.println("Entrez le nombre de bots (entre 1 et " + nbBotsPotentiels + "): ");
                 nombreBots = readInt(scanner, "Veuillez entrer un entier valide entre 1 et " + nbBotsPotentiels + ")", 0, nbBotsPotentiels);
@@ -78,36 +125,7 @@ public class Main {
                 nombreBots = 0;
             }
 
-            Joueur[] joueurs = new Joueur[nombreJoueurs + nombreBots];
-
-            for (int i = 0; i < nombreJoueurs + nombreBots; i++) {
-                System.out.print("Entrez le nom du " +
-                                 (i < nombreJoueurs ? "joueur" : "bot") +
-                                 " n°" + (i + 1) + ": ");
-                String nom = scanner.nextLine().trim();
-                if (nom.equalsIgnoreCase("annuler") || nom.equalsIgnoreCase("")) {
-                    System.err.println("Nom invalide !");
-                    i--;
-                } else if (noms.contains(nom.toLowerCase())) {
-                    System.err.println("Le nom entré a déjà été utilisé !");
-                    i--;
-                } else {
-                    if (i < nombreJoueurs) {
-                        joueurs[i] = new Joueur(nom);
-                    } else {
-                        System.out.println("Entrez la difficulté du bot : \n- Aléatoire (1)\n- Naïf (2)");
-
-                        int difficulte = readInt(scanner, "Veuillez entrer un entier valide entre 1 et 2", 1, 2);
-
-                        if (difficulte == 1) {
-                            joueurs[i] = new DumbBot(nom);
-                        } else {
-                            joueurs[i] = new NaiveBot(nom);
-                        }
-                    }
-                    noms.add(nom.toLowerCase());
-                }
-            }
+            Joueur[] joueurs = initialiserJoueurs(scanner, nombreJoueurs, nombreBots);
 
             jeu = new Jeu(joueurs);
 
@@ -116,11 +134,12 @@ public class Main {
 
         do {
             try {
-                serialiseur.sauvegarderDansUnFichier(file, jeu);
+                sauvegarderPartie(sauvegarde, jeu);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } while (!jeu.joue());
+
         if (jeu.estPartieFinie()) {
             System.out.printf("------------------------%n%n%n");
             System.out.println(jeu);
