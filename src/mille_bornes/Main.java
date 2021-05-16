@@ -4,7 +4,6 @@ import mille_bornes.extensions.bots.DumbBot;
 import mille_bornes.extensions.bots.SmartBot;
 import mille_bornes.extensions.sauvegarde.Serialiseur;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class Main {
 
         if (loadFile) {
             try {
-                jeu = serialiseur.loadObjectFromFile(file, Jeu.class);
+                jeu = serialiseur.chargerDepuisFichier(file, Jeu.class);
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
                 return;
@@ -115,7 +114,7 @@ public class Main {
 
         do {
             try {
-                serialiseur.saveIntoFile(file, jeu);
+                serialiseur.sauvegarderDansUnFichier(file, jeu);
             } catch (IOException e) {
                 e.printStackTrace();
             }
