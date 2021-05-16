@@ -120,6 +120,13 @@ public class Jeu implements Serializable {
         do {
             try {
                 int nCarte = this.joueurActif.choisitCarte();
+
+                // On s'assure que le joueur ne souhaite pas quitter
+                if (nCarte == 0) {
+                    System.out.println("La partie est mise en pause. Vous pouvez toujours reprendre à votre avancement en relancant l'éxécutable et en tapant 'Y'.");
+                    System.exit(0);
+                }
+
                 Carte carte = this.joueurActif.getMain().get(Math.abs(nCarte) - 1);
 
                 if (nCarte > 0) {

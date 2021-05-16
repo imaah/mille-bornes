@@ -62,7 +62,7 @@ public class Joueur implements Serializable {
                 String line = input.nextLine();
                 valeur = Integer.parseInt(line);
                 // Vérification de la valeur entrée
-                if ((-7 <= valeur && valeur <= 7) && valeur != 0) {
+                if (-7 <= valeur && valeur <= 7) {
                     correcte = true;
                 }
             } catch (NoSuchElementException e) {
