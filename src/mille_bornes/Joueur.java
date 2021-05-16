@@ -58,6 +58,7 @@ public class Joueur implements Serializable {
                            "(-7 <= numéro < 0 pour la défausse, 0 < numéro <= 7 pour jouer)");
         do {
             try {
+                System.out.print("\u001B[36m>>\u001B[0m ");
                 String line = input.nextLine();
                 valeur = Integer.parseInt(line);
                 // Vérification de la valeur entrée
@@ -87,6 +88,7 @@ public class Joueur implements Serializable {
 
         while (!estValide) {
             System.out.println("Quel joueur voulez-vous attaquer ? ([a]nnuler pour annuler) ");
+            System.out.print("\u001B[36m>>\u001B[0m ");
             String nomDuJoueur = input.nextLine().trim();
 
             if (nomDuJoueur.equalsIgnoreCase("annuler") || nomDuJoueur.equalsIgnoreCase("a"))

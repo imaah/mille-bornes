@@ -41,7 +41,9 @@ public class Main {
 
         if (file.exists()) {
             while (true) {
-                System.out.print("Une partie a été trouvée, voulez-vous la lancer ? [Y/n]: ");
+                System.out.println("Une partie a été trouvée, voulez-vous la lancer ? [Y/n]: ");
+                System.out.print("\u001B[36m>>\u001B[0m ");
+
                 String line = scanner.nextLine();
 
                 if (line.trim().equalsIgnoreCase("Y")) {
@@ -93,7 +95,7 @@ public class Main {
                     if (i < nombreJoueurs) {
                         joueurs[i] = new Joueur(nom);
                     } else {
-                        System.out.println("Entrez la difficulté du bot : \n- Random (1)\n- Naïf (2)");
+                        System.out.println("Entrez la difficulté du bot : \n- Aléatoire (1)\n- Naïf (2)");
 
                         int difficulte = readInt(scanner, "Veuillez entrer un entier valide entre 1 et 2", 1, 2);
 
@@ -137,6 +139,7 @@ public class Main {
 
         while (!valid) {
             try {
+                System.out.print("\u001B[36m>>\u001B[0m ");
                 value = Integer.parseInt(scanner.nextLine());
 
                 if (min <= value && value <= max) {
