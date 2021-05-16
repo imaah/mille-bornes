@@ -12,6 +12,6 @@ donnés par les professeurs, nous devions réaliser le jeu des 1000 Bornes.
 
 ### Extensions ajoutées
 * 2 difficultées de bot :
-  * Aléatoire
-  * Un peu plus intelligent.
+  * Random
+  * Methode naive
 * L'implémentation d'une sauvegarde automatique après chaque tour.

@@ -14,7 +14,7 @@ public class Borne extends Carte {
 
 
     public Borne(int km) {
-        super("\u001B[92m" + km + "km\u001B[0m", Categorie.BORNE);
+        super("\u001B[34m" + km + "km\u001B[0m", Categorie.BORNE);
         this.km = km;
     }
 

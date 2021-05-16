@@ -16,6 +16,7 @@ public class Jeu implements Serializable {
     public static final boolean AUTORISE_PLUSIEURS_200_BORNES = Boolean.parseBoolean(System.getProperty("ap2b", "false"));
     public static final int MAX_VITESSE_SOUS_LIMITE = Integer.parseInt(System.getProperty("max-limite", "50"));
     public static final boolean  DEBUG_MODE = Boolean.parseBoolean(System.getProperty("debug", "false"));
+    public static final int MAX_JOUEURS = Integer.parseInt(System.getProperty("max-joueurs", "4"));
 
     private final List<Joueur> joueurs = new ArrayList<>();
     private Joueur joueurActif;
@@ -25,14 +26,14 @@ public class Jeu implements Serializable {
 
     public Jeu(Joueur... joueurs) {
         if (joueurs.length < 2) throw new IllegalStateException("Il faut au minimum 2 joueurs pour faire une partie.");
-        if (joueurs.length > 4) throw new IllegalStateException("Le nombre de joueurs ne peut pas excéder 4.");
+        if (joueurs.length > MAX_JOUEURS) throw new IllegalStateException("Le nombre de joueurs ne peut pas excéder " + MAX_JOUEURS + ".");
         ajouteJoueurs(joueurs);
     }
 
     public void ajouteJoueurs(Joueur... joueurs) throws IllegalStateException {
         // Si le prochain joueur est déjà défini, la partie est déjà démarrée
 
-        if (joueurs.length + this.joueurs.size() > 4)
+        if (joueurs.length + this.joueurs.size() > MAX_JOUEURS)
             throw new IllegalStateException("Le nombre de joueurs ne peut pas excéder 4.");
 
         if (prochainJoueur != null) {
@@ -94,6 +95,8 @@ public class Jeu implements Serializable {
         if(estPartieFinie()) {
             return true;
         }
+
+        System.out.println("-------------------------------------------");
 
         System.out.println("\n");
         System.out.println(this);

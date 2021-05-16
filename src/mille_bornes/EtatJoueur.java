@@ -205,18 +205,18 @@ public class EtatJoueur implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
+        StringBuilder bob = new StringBuilder();
 
-        builder.append(km)
+        bob.append(km)
                 .append("km ");
 
         if (getLimiteVitesse()) {
-            builder.append("( ")
+            bob.append("\u001B[31m(\u001B[0m")
                     .append(MAX_VITESSE_SOUS_LIMITE)
-                    .append(") ");
+                    .append("\u001B[31m)\u001B[0m ");
         }
 
-        builder.append('[')
+        bob.append('[')
                 .append(bottes.contains(new AsDuVolant()) ? 'A' : '.')
                 .append(bottes.contains(new Citerne()) ? 'C' : '.')
                 .append(bottes.contains(new Increvable()) ? 'I' : '.')
@@ -224,9 +224,9 @@ public class EtatJoueur implements Serializable {
                 .append(']');
 
         if (getBataille() != null) {
-            builder.append(", ").append(getBataille().nom);
+            bob.append(", ").append(getBataille().nom);
         }
 
-        return builder.toString();
+        return bob.toString();
     }
 }

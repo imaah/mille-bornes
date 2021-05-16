@@ -29,6 +29,7 @@ public abstract class Bot extends Joueur {
 
     @Override
     public Joueur choisitAdversaire(Carte carte) {
+        // Après la désérialisation random sera null, alors on verifie s'il est null.
         if(random == null) random = new Random();
         // Tout les joueurs sont pour l'instant des cibles potentielles
         List<Joueur> ciblesPossibles = new ArrayList<>();
@@ -53,8 +54,7 @@ public abstract class Bot extends Joueur {
                 }
             }
         }
-
-        if (ciblesPossibles.isEmpty()) throw new IllegalStateException();
+        if (ciblesPossibles.isEmpty()) throw new IllegalStateException("Attaque annulée");
 
         // Retour d'un joueur au hasard
         return ciblesPossibles.get(random.nextInt(ciblesPossibles.size()));

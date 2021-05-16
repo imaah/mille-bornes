@@ -7,7 +7,7 @@ public abstract class Parade extends Bataille {
     private static final long serialVersionUID = -1307910562516914625L;
 
     public Parade(String nom) {
-        super("\u001B[34m" + nom + "\u001B[0m", Categorie.PARADE);
+        super("\u001B[92m" + nom + "\u001B[0m", Categorie.PARADE);
     }
 
     @Override

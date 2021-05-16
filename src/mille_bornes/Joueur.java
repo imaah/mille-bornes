@@ -43,8 +43,7 @@ public class Joueur implements Serializable {
         return etat.getLimiteVitesse();
     }
 
-
-    // Cette methode permet de vérifier si le scanner n'est pas null.
+    // Après la désérialisation input sera null, alors on verifie s'il est null.
     private void checkScanner() {
         if(input == null) {
             input = new Scanner(System.in);
@@ -91,7 +90,7 @@ public class Joueur implements Serializable {
             String nomDuJoueur = input.nextLine().trim();
 
             if (nomDuJoueur.equalsIgnoreCase("annuler") || nomDuJoueur.equalsIgnoreCase("a"))
-                throw new IllegalStateException();
+                throw new IllegalStateException("Attaque annulée");
 
             cible = getProchainJoueur();
 

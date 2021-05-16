@@ -1,7 +1,7 @@
 package mille_bornes;
 
 import mille_bornes.extensions.bots.DumbBot;
-import mille_bornes.extensions.bots.SmartBot;
+import mille_bornes.extensions.bots.NaiveBot;
 import mille_bornes.extensions.sauvegarde.Serialiseur;
 
 import java.io.File;
@@ -23,10 +23,10 @@ public class Main {
     private void implementeProprietes(String[] args) {
         Pattern pattern = Pattern.compile("^--(.+)=(.+)$");
 
-        for(String arg : args) {
+        for (String arg : args) {
             Matcher matcher = pattern.matcher(arg.trim());
 
-            if(matcher.matches()) {
+            if (matcher.matches()) {
                 System.setProperty(matcher.group(1), matcher.group(2));
             }
         }
@@ -63,12 +63,12 @@ public class Main {
         } else {
             List<String> noms = new ArrayList<>();
 
-            System.out.print("Entrez le nombre de joueurs (entre 1 et 4): ");
+            System.out.print("Entrez le nombre de joueurs (entre 1 et " + Jeu.MAX_JOUEURS + ") : ");
 
-            int nombreJoueurs = readInt(scanner, "Veuillez entrer un entier valide entre 1 et 4", 1, 4);
+            int nombreJoueurs = readInt(scanner, "Veuillez entrer un entier valide entre 1 et " + Jeu.MAX_JOUEURS, 0, Jeu.MAX_JOUEURS);
 
             int nombreBots;
-            int nbBotsPotentiels = 4 - nombreJoueurs;
+            int nbBotsPotentiels = Jeu.MAX_JOUEURS - nombreJoueurs;
             if (nbBotsPotentiels > 0) {
                 System.out.print("Entrez le nombre de bots (entre 1 et " + nbBotsPotentiels + "): ");
                 nombreBots = readInt(scanner, "Veuillez entrer un entier valide entre 1 et " + nbBotsPotentiels + ")", 0, nbBotsPotentiels);
@@ -80,27 +80,27 @@ public class Main {
 
             for (int i = 0; i < nombreJoueurs + nombreBots; i++) {
                 System.out.print("Entrez le nom du " +
-                        (i < nombreJoueurs ? "joueur" : "bot") +
-                        " n°" + (i + 1) + ": ");
+                                 (i < nombreJoueurs ? "joueur" : "bot") +
+                                 " n°" + (i + 1) + ": ");
                 String nom = scanner.nextLine().trim();
-                if(nom.equalsIgnoreCase("annuler") || nom.equalsIgnoreCase("")) {
+                if (nom.equalsIgnoreCase("annuler") || nom.equalsIgnoreCase("")) {
                     System.err.println("Nom invalide !");
                     i--;
-                } else if(noms.contains(nom.toLowerCase())) {
+                } else if (noms.contains(nom.toLowerCase())) {
                     System.err.println("Le nom entré a déjà été utilisé !");
                     i--;
                 } else {
                     if (i < nombreJoueurs) {
                         joueurs[i] = new Joueur(nom);
                     } else {
-                        System.out.println("Entrez la difficulté du bot : \n- Facile (1)\n- Difficile (2)");
+                        System.out.println("Entrez la difficulté du bot : \n- Random (1)\n- Naïf (2)");
 
                         int difficulte = readInt(scanner, "Veuillez entrer un entier valide entre 1 et 2", 1, 2);
 
                         if (difficulte == 1) {
                             joueurs[i] = new DumbBot(nom);
                         } else {
-                            joueurs[i] = new SmartBot(nom);
+                            joueurs[i] = new NaiveBot(nom);
                         }
                     }
                     noms.add(nom.toLowerCase());
@@ -120,7 +120,9 @@ public class Main {
             }
         } while (!jeu.joue());
         if (jeu.estPartieFinie()) {
-            System.out.printf("Victoire de %s ! \uD83C\uDF89%n", jeu.getGagnant().stream().map(joueur -> joueur.nom).collect(Collectors.joining(",")));
+            System.out.printf("------------------------%n%n%n");
+            System.out.println(jeu);
+            System.out.printf("%nVictoire de %s ! \uD83C\uDF89%n", jeu.getGagnant().stream().map(joueur -> joueur.nom).collect(Collectors.joining(",")));
         }
     }
 

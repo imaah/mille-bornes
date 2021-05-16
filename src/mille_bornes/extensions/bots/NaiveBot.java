@@ -11,11 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class SmartBot extends Bot {
+public class NaiveBot extends Bot {
     private static final long serialVersionUID = -2895798750732205816L;
     private final Random random = new Random();
 
-    public SmartBot(String nom) {
+    public NaiveBot(String nom) {
         super(nom);
     }
 
@@ -38,8 +38,11 @@ public class SmartBot extends Bot {
     private int jouCarte() {
         int carteAJouer;
         if (getBataille() == null) { // n'a pas demarré
-            if ((carteAJouer = trouveCarteDeType(VehiculePrioritaire.class)) != -1
-                || (carteAJouer = trouveCarteDeType(FeuVert.class)) != -1) { // Si le joueur a de quoi demarrer alors on l'utilise.
+            if ((carteAJouer = trouveCarteDeType(VehiculePrioritaire.class)) != -1) {
+                return carteAJouer;
+            }
+
+            if((carteAJouer = trouveCarteDeType(FeuVert.class)) != -1) {
                 return carteAJouer;
             }
 
@@ -100,7 +103,7 @@ public class SmartBot extends Bot {
         }
 
         if((carteADefausser = trouveDuplicata()) != -1) {
-
+            return -carteADefausser;
         }
 
         if ((carteADefausser = trouveCarteDeType(Attaque.class, false)) != -1) {
@@ -154,7 +157,7 @@ public class SmartBot extends Bot {
         for(Carte carte : getMain()) {
             if(carte instanceof Borne) continue;
 
-            if(montant.containsKey(carte.getClass())) {
+            if(!montant.containsKey(carte.getClass())) {
                 montant.put(carte.getClass(), 0);
             }
             montant.put(carte.getClass(), montant.get(carte.getClass()) + 1);
