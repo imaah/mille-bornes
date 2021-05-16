@@ -128,10 +128,6 @@ public class Main {
         }
     }
 
-    private int readInt(Scanner scanner, String error) {
-        return readInt(scanner, error, Integer.MIN_VALUE, Integer.MAX_VALUE);
-    }
-
     // Pour la praticité de lecture d'entiers
     private int readInt(Scanner scanner, String error, int min, int max) {
         boolean valid = false;
