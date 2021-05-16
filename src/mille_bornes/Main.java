@@ -20,6 +20,11 @@ public class Main {
         main.runGame();
     }
 
+    /**
+     * Permet de charger les différents arguments passés au lancemant
+     *
+     * @param args les arguments passés au lancement
+     */
     private void chargerArguments(String[] args) {
         Pattern pattern = Pattern.compile("^--(.+)=(.+)$");
 
@@ -32,6 +37,12 @@ public class Main {
         }
     }
 
+    /**
+     * Demande à l'utilisateur s'il veut charger la partie sauvegardée
+     *
+     * @param scanner un {@link Scanner} vers l'utilisateur.
+     * @return s'il faut charger ou non le fichier.
+     */
     private boolean demanderOuvertureSauvegarde(Scanner scanner) {
         while (true) {
             System.out.println("Une partie a été trouvée, voulez-vous la lancer ? [Y/n]: ");
@@ -47,16 +58,65 @@ public class Main {
         }
     }
 
+    /**
+     * Charge la partie enregistrée dans le fichier de sauvegarde.
+     *
+     * @param sauvegarde fichier de sauvegarde
+     * @return La partie enregistrée dans le fichier de sauvegarde
+     * @throws IOException            S'il y a une problème lors de la lecture du fichier
+     * @throws ClassNotFoundException Si la classe {@link Jeu} n'existe pas
+     */
     private Jeu chargerPartie(File sauvegarde) throws IOException, ClassNotFoundException {
         Serialiseur serialiseur = new Serialiseur();
         return serialiseur.chargerDepuisFichier(sauvegarde, Jeu.class);
     }
 
+    /**
+     * Enregistre l'état de la partie dans un fichier de sauvegarde
+     *
+     * @param sauvegarde fichier de sauvegarde
+     * @param partie     la partie à enregistrer
+     * @throws IOException S'il y a un problème lors de l'écriture du fichier
+     */
     private void sauvegarderPartie(File sauvegarde, Jeu partie) throws IOException {
         Serialiseur serialiseur = new Serialiseur();
         serialiseur.sauvegarderDansUnFichier(sauvegarde, partie);
     }
 
+    /**
+     * Demande à l'utilisateur les le nombre de joueurs et de bots dans la partie.
+     * Et crée la partie.
+     *
+     * @param scanner un {@link Scanner} vers l'utilisateur.
+     * @return la partie créée.
+     */
+    private Jeu initialiserPartie(Scanner scanner) {
+        System.out.println("Entrez le nombre de joueurs (entre 1 et " + Jeu.MAX_JOUEURS + ") : ");
+
+        int nombreJoueurs = readInt(scanner, "Veuillez entrer un entier valide entre 1 et " + Jeu.MAX_JOUEURS, 0, Jeu.MAX_JOUEURS);
+        int nombreBots;
+        int nbBotsPotentiels = Jeu.MAX_JOUEURS - nombreJoueurs;
+
+        if (nbBotsPotentiels > 0) {
+            System.out.println("Entrez le nombre de bots (entre 1 et " + nbBotsPotentiels + "): ");
+            nombreBots = readInt(scanner, "Veuillez entrer un entier valide entre 1 et " + nbBotsPotentiels + ")", 0, nbBotsPotentiels);
+        } else {
+            nombreBots = 0;
+        }
+
+        Joueur[] joueurs = initialiserJoueurs(scanner, nombreJoueurs, nombreBots);
+
+        return new Jeu(joueurs);
+    }
+
+    /**
+     * Demande le nom de chaque joueurs et pour les bots demande la difficultée
+     *
+     * @param scanner         un {@link Scanner} vers l'utilisateur.
+     * @param nombreDeJoueurs Le nombre de joueurs
+     * @param nombreDeBots    Le nombre de bots
+     * @return un tableau de joueurs.
+     */
     private Joueur[] initialiserJoueurs(Scanner scanner, int nombreDeJoueurs, int nombreDeBots) {
         List<String> noms = new ArrayList<>();
         Joueur[] joueurs = new Joueur[nombreDeJoueurs + nombreDeBots];
@@ -93,6 +153,9 @@ public class Main {
         return joueurs;
     }
 
+    /**
+     * Lance une partie.
+     */
     private void runGame() {
         Scanner scanner = new Scanner(System.in);
         File sauvegarde = new File("save.dat");
@@ -112,23 +175,7 @@ public class Main {
         }
 
         if (jeu == null) {
-            System.out.println("Entrez le nombre de joueurs (entre 1 et " + Jeu.MAX_JOUEURS + ") : ");
-
-            int nombreJoueurs = readInt(scanner, "Veuillez entrer un entier valide entre 1 et " + Jeu.MAX_JOUEURS, 0, Jeu.MAX_JOUEURS);
-            int nombreBots;
-            int nbBotsPotentiels = Jeu.MAX_JOUEURS - nombreJoueurs;
-
-            if (nbBotsPotentiels > 0) {
-                System.out.println("Entrez le nombre de bots (entre 1 et " + nbBotsPotentiels + "): ");
-                nombreBots = readInt(scanner, "Veuillez entrer un entier valide entre 1 et " + nbBotsPotentiels + ")", 0, nbBotsPotentiels);
-            } else {
-                nombreBots = 0;
-            }
-
-            Joueur[] joueurs = initialiserJoueurs(scanner, nombreJoueurs, nombreBots);
-
-            jeu = new Jeu(joueurs);
-
+            jeu = initialiserPartie(scanner);
             jeu.prepareJeu();
         }
 
@@ -147,7 +194,15 @@ public class Main {
         }
     }
 
-    // Pour la praticité de lecture d'entiers
+    /**
+     * Permet une lecture d'entier plus facile avec vérification.
+     *
+     * @param scanner un {@link Scanner} vers l'utilisateur.
+     * @param error   Le message à afficher en cas d'erreur.
+     * @param min     Le minimum
+     * @param max     Le maximum
+     * @return l'entier entré.
+     */
     private int readInt(Scanner scanner, String error, int min, int max) {
         boolean valid = false;
         int value = 0;
