@@ -93,8 +93,7 @@ public class EtatJoueur implements Serializable {
     }
 
     public void defausseBataille(Jeu jeu) {
-        Bataille bataille = pileBataille.pop();
-        jeu.defausse(bataille);
+        jeu.defausse(pileBataille.pop());
     }
 
     public List<Carte> getMain() {

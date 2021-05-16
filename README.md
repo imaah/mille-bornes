@@ -7,9 +7,11 @@ A partir des [resources](res/) et de la [documentation Java](https://myimah.gith
 donnés par les professeurs, nous devions réaliser le jeu des 1000 Bornes.
 
 ### Libertées prises par rapport au ressources
-* ajout de la methode [TasDeCartes#contientBornes()](https://github.com/myimah/mille-bornes/blob/main/src/mille_bornes/TasDeCartes.java#L103)
-* 
+* ajout de la methode `TasDeCartes#contientBornes()` qui permet de voir si le tas de cartes contient des bornes.
+* La methode `Botte#appliqueEffet(Jeu, EtatJoueur)` n'est pas en abstract car elle est la même dans toutes les bottes sauf une.
 
 ### Extensions ajoutées
-* 2 difficultées de bot
+* 2 difficultées de bot :
+  * Aléatoire
+  * Un peu plus intelligent.
 * L'implémentation d'une sauvegarde automatique après chaque tour.
