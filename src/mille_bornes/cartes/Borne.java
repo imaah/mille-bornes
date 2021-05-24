@@ -1,5 +1,6 @@
 package mille_bornes.cartes;
 
+import com.google.gson.JsonObject;
 import mille_bornes.EtatJoueur;
 import mille_bornes.Jeu;
 import mille_bornes.cartes.attaques.FeuRouge;
@@ -42,5 +43,12 @@ public class Borne extends Carte {
         if (!super.equals(o)) return false;
         Borne borne = (Borne) o;
         return km == borne.km;
+    }
+
+    @Override
+    public JsonObject sauvegarder() {
+        JsonObject json = super.sauvegarder();
+        json.addProperty("km", km);
+        return json;
     }
 }
