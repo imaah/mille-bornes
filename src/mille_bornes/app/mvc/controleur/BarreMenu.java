@@ -3,21 +3,23 @@ package mille_bornes.app.mvc.controleur;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import mille_bornes.Jeu;
+import mille_bornes.Joueur;
 import mille_bornes.app.mvc.vue.APropos;
 import mille_bornes.app.mvc.vue.MilleBornes;
-import javafx.scene.layout.FlowPane;
-import javafx.geometry.Insets;
-import javafx.scene.control.Label;
+import mille_bornes.extensions.bots.DumbBot;
+import mille_bornes.extensions.bots.NaiveBot;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -30,6 +32,25 @@ public class BarreMenu {
     public BarreMenu() {
     }
 
+
+    private class ChoixJoueur extends FlowPane {
+        final ComboBox<String> type = new ComboBox<>();
+        final TextField nom = new TextField();
+        final Label num = new Label();
+
+        public ChoixJoueur(int num) {
+            this.num.setText("Joueur n°" + (num + 1));
+
+            this.type.getItems().addAll("Humain", "IA - Aléatoire", "IA - Naïf");
+            this.type.getSelectionModel().select(0);
+
+            this.nom.setPromptText("Nom du joueur");
+        }
+
+        public ComboBox getComboBox() {return this.type;}
+        public TextField getTextField() {return this.nom;}
+        public Label getLabel() {return this.num;}
+    }
     /**
      * Permet de créer une nouvelle partie avec des options
      */
@@ -39,13 +60,17 @@ public class BarreMenu {
         alert.setTitle("Choix du nombre de joueurs");
         alert.setHeaderText("Combien de joueurs ?");
 
-        ComboBox<Integer> nbJoueurs = new ComboBox<>();
-        nbJoueurs.getItems().addAll(1, 2, 3, 4);
-
+        // Panneau qui va contenir la liste et le label
         FlowPane choixJoueurs = new FlowPane();
         choixJoueurs.setPadding(new Insets(5));
         choixJoueurs.setHgap(5);
 
+        // La liste
+        ComboBox<Integer> nbJoueurs = new ComboBox<>();
+        nbJoueurs.getItems().addAll(2, 3, 4);
+        nbJoueurs.getSelectionModel().select(0);
+
+        // Le label
         choixJoueurs.getChildren().add(new Label("Combien de joueurs ?"));
         choixJoueurs.getChildren().add(nbJoueurs);
 
@@ -56,24 +81,60 @@ public class BarreMenu {
         Optional<ButtonType> reponse = alert.showAndWait();
 
         if (reponse.orElse(null) == ButtonType.OK) {
+            // Nouvelle boite de dialogue
             Alert choixTypesJoueurs = new Alert(Alert.AlertType.CONFIRMATION);
             choixTypesJoueurs.setTitle("Nouveaux joueurs");
             choixTypesJoueurs.setHeaderText("Indiquez le type et le nom de chaque joueur");
 
-            FlowPane joueurs = new FlowPane();
-            joueurs.setPadding(new Insets(5));
-            joueurs.setHgap(5);
+            // Une ArrayList de FlowPane total, qui va contenir les differentes lignes pour y accéder plus tard
+            ArrayList<ChoixJoueur> total = new ArrayList<>();
 
-            for (int i = 1; i <= nbJoueurs.getValue(); i++) {
-                // Ajout des labels
-                joueurs.getChildren().add(new Label("Joueur n°" + i));
 
-                // Ajout des listes
-                ComboBox<String> type = new ComboBox<>();
-                type.getItems().addAll("IA", "Humain");
-                joueurs.getChildren().add(type);
+            FlowPane affichage = new FlowPane();
+            // Pour chaque joueur
+            for (int i = 0; i < nbJoueurs.getValue(); i++) {
+                ChoixJoueur joueur = new ChoixJoueur(i);
+                total.add(joueur);
 
-                // Ajout du choix des noms
+                FlowPane l = new FlowPane();
+                l.setAlignment(Pos.CENTER);
+                l.setPadding(new Insets(5));
+                l.setHgap(5);
+                l.getChildren().addAll(joueur.getLabel(), joueur.getComboBox(), joueur.getTextField());
+
+                affichage.getChildren().add(l);
+            }
+
+            // Affichage
+            choixTypesJoueurs.getDialogPane().setContent(affichage);
+
+            // On récupère la réponse
+            Optional<ButtonType> confirmation = choixTypesJoueurs.showAndWait();
+
+            if (confirmation.orElse(null) == ButtonType.OK) {
+                ArrayList<Joueur> joueurs = new ArrayList<>();
+
+                for (ChoixJoueur j: total) {
+                    Object value = j.getComboBox().getValue();
+                    // On évite les noms vides
+                    String nom;
+                    if ((nom = j.getTextField().getText()).equals("")) {
+                        nom = "Joueur n°" + (total.indexOf(j) + 1);
+                    }
+
+                    if ("IA - Aléatoire".equals(value)) {
+                        joueurs.add(new DumbBot(nom));
+                    } else if ("IA - Naïf".equals(value)) {
+                        joueurs.add(new NaiveBot(nom));
+                    } else {
+                        joueurs.add(new Joueur(nom));
+                    }
+
+                    System.out.println(nom);
+                }
+
+                // return joueurs;
+                // Ou faire quelque chose avec la liste des joueurs et des bots
             }
         }
     }
@@ -175,3 +236,4 @@ public class BarreMenu {
         alert.showAndWait();
     }
 }
+
