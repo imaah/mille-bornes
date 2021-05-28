@@ -20,6 +20,7 @@ public class MilleBornes {
     public MilleBornes() throws IOException {
         contenu = new BorderPane();
         jeu = new Jeu(new Joueur("bob"), new Joueur("bob2"));
+        jeu.prepareJeu();
         sabot = new Sabot(jeu);
         FXMLLoader loader = new FXMLLoader(MilleBornes.class.getResource("barre-menu.fxml"));
         Object controller = loader.getController();
@@ -34,10 +35,10 @@ public class MilleBornes {
 
         vBox.getChildren().addAll(loader.load(), contenu);
         contenu.setCenter(sabot);
-        contenu.setTop(new Sabot(jeu));
-        contenu.setBottom(new Sabot(jeu));
-        contenu.setRight(new Sabot(jeu));
-        contenu.setLeft(new Sabot(jeu));
+//        contenu.setTop(new Sabot(jeu));
+//        contenu.setBottom(new Sabot(jeu));
+//        contenu.setRight(new Sabot(jeu));
+//        contenu.setLeft(new Sabot(jeu));
     }
 
     public Jeu getJeu() {
