@@ -5,7 +5,10 @@ module milles.bornes {
     requires javafx.fxml;
     requires com.google.gson;
 
-    exports mille_bornes.app;
-    exports mille_bornes.app.mvc.controleur;
-    opens mille_bornes.app.mvc.vue;
+    exports mille_bornes.controleur;
+    opens mille_bornes.vue;
+    opens mille_bornes.modele;
+    opens mille_bornes.vue.joueur;
+    exports mille_bornes;
+    opens mille_bornes.vue.jeu;
 }
