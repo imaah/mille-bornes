@@ -11,7 +11,7 @@ import mille_bornes.vue.Updatable;
 
 public class Sabot extends GridPane implements Updatable {
     private final CarteVue pioche = new CarteVue(DefaultCarte.DEFAULT, false);
-    private final CarteVue defausse = new CarteVue(null, false);
+    private final CarteVue defausse = new CarteVue(DefaultCarte.VIDE, false);
     private final Label piocheLabel = new Label("Pioche : 0");
     private final Jeu jeu;
 
@@ -22,6 +22,9 @@ public class Sabot extends GridPane implements Updatable {
         setGridLinesVisible(true);
         Label piocheHeader = new Label("Pioche");
         Label defausseHeader = new Label("Défausse");
+
+        setVgap(5);
+        setHgap(5);
 
         addRow(0, piocheHeader, defausseHeader);
         addRow(1, pioche, defausse);
