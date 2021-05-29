@@ -4,6 +4,6 @@
 	<classpathentry kind="src" path="/projet-java-fx/resources"/>
 	<classpathentry kind="src" path="/projet-java-fx/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/gson"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx-swt"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
