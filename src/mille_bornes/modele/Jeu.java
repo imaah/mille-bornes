@@ -8,10 +8,7 @@ import mille_bornes.modele.extensions.sauvegarde.Sauvegardable;
 import mille_bornes.modele.utils.JsonUtils;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Jeu implements Serializable, Sauvegardable {
@@ -289,14 +286,17 @@ public class Jeu implements Serializable, Sauvegardable {
 
     /**
      * Renvoie le nombre de joueurs dans la partie
-     * @return le nombre de joeuurs
+     * @return le nombre de joueurs
      */
     public int getNbJoueurs() {
         return joueurs.size();
     }
 
     public List<Joueur> getJoueurs() {
-        return Collections.unmodifiableList(joueurs);
+        // On doit créer une nouvelle liste sinon celle de jeu va être triée et les joueurs n'auront plus le bon ordre
+        List<Joueur> temp = this.joueurs;
+        Collections.sort(temp, Comparator.comparing(Joueur::getNom));
+        return temp;
     }
 
     public int getNbCartesDefausse() {
