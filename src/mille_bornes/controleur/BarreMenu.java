@@ -15,10 +15,12 @@ import mille_bornes.vue.APropos;
 import mille_bornes.vue.MilleBornes;
 import mille_bornes.modele.extensions.bots.DumbBot;
 import mille_bornes.modele.extensions.bots.NaiveBot;
+import mille_bornes.modele.utils.JsonUtils;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -116,8 +118,8 @@ public class BarreMenu {
                     System.out.println(nom);
                 }
 
-                Jeu jeu = new Jeu(joueurs.toArray(new Joueur[0]));
-                gui.setJeu(jeu);
+                this.partie = new Jeu(joueurs.toArray(new Joueur[0]));
+                gui.setJeu(this.partie);
             }
         }
     }
@@ -143,10 +145,9 @@ public class BarreMenu {
         // Si on a un fichier, alors on créé un nouveau jeu
         if (fichier != null) {
             try {
-                Gson gson = new Gson();
-                // TODO: Faire ça proprement
-
-                this.partie = new Jeu((JsonObject) gson.fromJson(String.valueOf(fichier), Object.class));
+                new JsonUtils();
+                this.partie = JsonUtils.chargerJeuDepuisFichier(fichier);
+                System.out.println("Partie chargée");
             } catch (Exception e) {
                 // Si on a pas pu reprendre le jeu, alors on affiche une erreur
                 Alert erreur = new Alert(Alert.AlertType.ERROR);
