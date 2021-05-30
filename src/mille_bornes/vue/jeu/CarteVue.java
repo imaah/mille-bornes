@@ -82,6 +82,7 @@ public class CarteVue extends Rectangle {
     }
 
     private void onClick(MouseEvent event) {
+        System.out.println(event.getButton());
         if (survolActif && (event.getButton() == MouseButton.PRIMARY || event.getButton() == MouseButton.SECONDARY)) {
             milleBornes.carteCliquee(this.carte, event.getButton() == MouseButton.SECONDARY);
         }

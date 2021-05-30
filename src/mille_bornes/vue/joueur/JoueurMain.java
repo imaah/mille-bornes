@@ -53,7 +53,6 @@ public abstract class JoueurMain extends GridPane implements Updatable {
     }
 
     public void update() {
-        if (cacher) return;
         for (int i = 0; i < cartes.length; i++) {
             if (i < joueur.getMain().size()) {
                 cartes[i].changeCarte(joueur.getMain().get(i));
@@ -68,6 +67,10 @@ public abstract class JoueurMain extends GridPane implements Updatable {
             } else {
                 bottes[i].changeCarte(null);
             }
+        }
+
+        if(cacher) {
+            cacher();
         }
 
         statusLabel.setText(String.format("%s\n%d km", joueur.nom, joueur.getKm()));

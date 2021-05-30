@@ -2,6 +2,7 @@ package mille_bornes;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import mille_bornes.vue.MilleBornes;
 
@@ -23,6 +24,7 @@ public class App extends Application {
         stage.setTitle("1000 bornes");
         stage.setResizable(false);
         stage.setWidth(APP_WIDTH);
+        stage.getIcons().add(new Image(getClass().getResource("/assets/Mille_Bornes.png").toString()));
         stage.setHeight(APP_HEIGHT);
         stage.show();
     }

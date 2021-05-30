@@ -65,15 +65,15 @@ public class MilleBornes {
         // Selection manuelle des emplacements des joueurs selon le nombre total
         switch (jeu.getNbJoueurs()) {
             case 2:
-                mains[2] = new HJoueurMain(this, jeu.getJoueurs().get(1), false);
+                mains[2] = new HJoueurMain(this, jeu.getJoueurs().get(1), false, true);
                 break;
             case 3:
-                mains[1] = new VJoueurMain(this, jeu.getJoueurs().get(1), false);
+                mains[1] = new VJoueurMain(this, jeu.getJoueurs().get(1), false, true);
                 mains[3] = new VJoueurMain(this, jeu.getJoueurs().get(2), false);
                 break;
             case 4:
-                mains[1] = new VJoueurMain(this, jeu.getJoueurs().get(1), false);
-                mains[2] = new HJoueurMain(this, jeu.getJoueurs().get(2), false);
+                mains[1] = new VJoueurMain(this, jeu.getJoueurs().get(1), false, true);
+                mains[2] = new HJoueurMain(this, jeu.getJoueurs().get(2), false, true);
                 mains[3] = new VJoueurMain(this, jeu.getJoueurs().get(3), false);
                 break;
         }
@@ -92,9 +92,11 @@ public class MilleBornes {
     public void tournerJoueurs() {
         Joueur joueur = jeu.getJoueurActif();
 
+        System.out.println(joueur.nom);
+
         mains[0].setJoueur(joueur);
 
-        for (int i = 0; i < mains.length; i++) {
+        for (int i = 1; i < mains.length; i++) {
             if (mains[i] == null) continue;
             joueur = joueur.getProchainJoueur();
             mains[i].setJoueur(joueur);
@@ -128,12 +130,14 @@ public class MilleBornes {
                 }
             }
             jeu.activeProchainJoueurEtTireCarte();
+            sabot.update();
             tournerJoueurs();
         } catch (IllegalStateException e) {
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("Erreur");
             error.setHeaderText("Vous ne pouvez pas faire cette action");
             error.setContentText(e.getMessage());
+            error.showAndWait();
         }
     }
 }

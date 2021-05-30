@@ -140,7 +140,7 @@ public class Joueur implements Serializable, Sauvegardable {
         int index = getMain().indexOf(carte);
 
         if(index != -1) {
-            joueCarte(jeu, index);
+            joueCarte(jeu, index, joueur);
         } else {
             throw new IllegalStateException("La main du joueur ne contient pas cette carte");
         }
