@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -98,14 +99,23 @@ public class BarreMenu {
 
             if (confirmation.orElse(null) == ButtonType.OK) {
                 List<Joueur> joueurs = new ArrayList<>();
-
                 for (ChoixJoueur j : total) {
                     Object value = j.getComboBox().getValue();
                     // On évite les noms vides
-                    String nom;
-                    if ((nom = j.getTextField().getText()).equals("")) {
-                        nom = "Joueur n°" + (total.indexOf(j) + 1);
+                    String tempNom;
+                    if ((tempNom = j.getTextField().getText().trim()).equals("")) {
+                        tempNom = "Joueur n°" + (total.indexOf(j) + 1);
                     }
+                    String nom = tempNom;
+
+                    int n = 1;
+
+                    tempNom = nom;
+                    while(joueurs.stream().map(Joueur::getNom).collect(Collectors.toList()).contains(tempNom)) {
+                        tempNom = nom + " " + (++n);
+                    }
+
+                    nom = tempNom;
 
                     if ("IA - Aléatoire".equals(value)) {
                         joueurs.add(new DumbBot(nom));
@@ -114,8 +124,6 @@ public class BarreMenu {
                     } else {
                         joueurs.add(new Joueur(nom));
                     }
-
-                    System.out.println(nom);
                 }
 
                 this.partie = new Jeu(joueurs.toArray(new Joueur[0]));
@@ -124,7 +132,6 @@ public class BarreMenu {
         }
     }
 
-    @SuppressWarnings("ClassEscapesDefinedScope")
     public void setGui(MilleBornes gui) {
         System.out.println("Bonsoir");
         this.gui = gui;
@@ -145,9 +152,8 @@ public class BarreMenu {
         // Si on a un fichier, alors on créé un nouveau jeu
         if (fichier != null) {
             try {
-                new JsonUtils();
                 this.partie = JsonUtils.chargerJeuDepuisFichier(fichier);
-                this.gui.setJeu(this.partie);
+                this.gui.setJeu(this.partie, true);
 
                 System.out.println("Partie chargée");
             } catch (Exception e) {

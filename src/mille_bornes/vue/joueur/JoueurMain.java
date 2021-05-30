@@ -44,17 +44,21 @@ public abstract class JoueurMain extends GridPane implements Updatable {
                 bottes[i] = new CarteVue(null, milleBornes, false);
             }
             bottes[i].setRatio(.7);
+            bottes[i].setAfficherSiNull(true);
         }
 
         limite.setRatio(.7);
         bataille.setRatio(.7);
-
+        limite.setAfficherSiNull(true);
+        bataille.setAfficherSiNull(true);
         update();
     }
 
     public void update() {
         for (int i = 0; i < cartes.length; i++) {
-            if (i < joueur.getMain().size()) {
+            if (i < joueur
+                    .getMain()
+                    .size()) {
                 cartes[i].changeCarte(joueur.getMain().get(i));
             } else {
                 cartes[i].changeCarte(null);

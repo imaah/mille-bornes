@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import mille_bornes.modele.cartes.Carte;
+import mille_bornes.modele.cartes.DefaultCarte;
 import mille_bornes.vue.MilleBornes;
 
 public class CarteVue extends Rectangle {
@@ -36,11 +37,16 @@ public class CarteVue extends Rectangle {
 
     public void changeCarte(Carte carte) {
         double size = DEFAULT_SIZE * ratio;
+
+        if(carte == null && afficherSiNull) {
+            carte = DefaultCarte.VIDE;
+        }
+
         this.carte = carte;
         Image image;
 
-        if (carte != null) {
-            image = new Image(carte.getImagePath());
+        if (this.carte != null) {
+            image = new Image(this.carte.getImagePath());
         } else {
             setHeight(0);
             setWidth(0);
@@ -82,7 +88,6 @@ public class CarteVue extends Rectangle {
     }
 
     private void onClick(MouseEvent event) {
-        System.out.println(event.getButton());
         if (survolActif && (event.getButton() == MouseButton.PRIMARY || event.getButton() == MouseButton.SECONDARY)) {
             milleBornes.carteCliquee(this.carte, event.getButton() == MouseButton.SECONDARY);
         }

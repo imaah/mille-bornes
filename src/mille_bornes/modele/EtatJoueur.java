@@ -158,7 +158,8 @@ public class EtatJoueur implements Serializable, Sauvegardable {
                     defausseCarte(jeu, i);
                     jeu.setProchainJoueur(this.joueur);
                     jeu.defausse(attaque);
-                    return;
+
+                    throw new CoupFourreException();
                 }
             }
         } // for
@@ -219,7 +220,13 @@ public class EtatJoueur implements Serializable, Sauvegardable {
         if (carte instanceof Attaque) {
             // Si c'est une attaque, on l'applique au joueur cible
             Attaque attaque = (Attaque) carte;
-            joueur.attaque(jeu, attaque);
+            try {
+                joueur.attaque(jeu, attaque);
+                main.remove(i);
+            } catch (CoupFourreException e) {
+                defausseCarte(jeu, i);
+                throw new CoupFourreException();
+            }
         } else {
             throw new IllegalStateException("La carte n'est pas une attaque, donc ne peut pas être utilisée sur un autre joueur!");
         }

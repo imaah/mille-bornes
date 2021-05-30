@@ -7,6 +7,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import mille_bornes.controleur.BarreMenu;
+import mille_bornes.modele.CoupFourreException;
 import mille_bornes.modele.Jeu;
 import mille_bornes.modele.Joueur;
 import mille_bornes.modele.cartes.Attaque;
@@ -56,8 +57,12 @@ public class MilleBornes {
     }
 
     public void setJeu(Jeu jeu) {
+        setJeu(jeu, false);
+    }
+
+    public void setJeu(Jeu jeu, boolean partieChargee) {
         this.jeu = jeu;
-        this.jeu.prepareJeu();
+        if(!partieChargee) this.jeu.prepareJeu();
         sabot.setJeu(jeu);
         Arrays.fill(mains, null);
         mains[0] = new HJoueurMain(this, jeu.getJoueurs().get(0), true);
@@ -83,16 +88,15 @@ public class MilleBornes {
         }
 
         contenu.setBottom(mains[0]);
-        contenu.setLeft(mains[1]);
+        contenu.setRight(mains[1]);
         contenu.setTop(mains[2]);
-        contenu.setRight(mains[3]);
+        contenu.setLeft(mains[3]);
         jeu.activeProchainJoueurEtTireCarte();
+        tournerJoueurs();
     }
 
     public void tournerJoueurs() {
         Joueur joueur = jeu.getJoueurActif();
-
-        System.out.println(joueur.nom);
 
         mains[0].setJoueur(joueur);
 
@@ -124,6 +128,8 @@ public class MilleBornes {
                     // afficher alert
                     Joueur cible = new ChoisitDestination(jeu, (Attaque) carte).getCible();
 
+                    if(cible == null) return;
+
                     jeu.getJoueurActif().joueCarte(jeu, carte, cible);
                 } else {
                     jeu.getJoueurActif().joueCarte(jeu, carte);
@@ -138,6 +144,15 @@ public class MilleBornes {
             error.setHeaderText("Vous ne pouvez pas faire cette action");
             error.setContentText(e.getMessage());
             error.showAndWait();
+        } catch (CoupFourreException e) {
+            Alert coupFourre = new Alert(Alert.AlertType.INFORMATION);
+            coupFourre.setTitle("Coup Fourré !");
+            coupFourre.setHeaderText("Votre adversaire sort un coup-fourré!");
+            coupFourre.setContentText("Votre attaque n'a aucun effet et il récupère la main.");
+            coupFourre.showAndWait();
+            jeu.activeProchainJoueurEtTireCarte();
+            sabot.update();
+            tournerJoueurs();
         }
     }
 }
