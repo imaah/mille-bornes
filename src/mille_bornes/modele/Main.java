@@ -73,7 +73,6 @@ public class Main {
     private Jeu chargerPartie(File sauvegarde) throws IOException, ClassNotFoundException {
         Gson gson = new Gson();
         FileReader lecteur = new FileReader(sauvegarde);
-
         JsonObject json = gson.fromJson(lecteur, JsonObject.class);
         return new Jeu(json);
 //        Serialiseur serialiseur = new Serialiseur();

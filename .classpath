@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="/projet-java-fx/resources"/>
-	<classpathentry kind="src" path="/projet-java-fx/src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/gson"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx"/>
-	<classpathentry kind="output" path="bin"/>
-</classpath>
