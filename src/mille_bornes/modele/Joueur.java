@@ -203,4 +203,8 @@ public class Joueur implements Serializable, Sauvegardable {
 
         return json;
     }
+
+    public String getNom() {
+        return this.nom;
+    }
 }
