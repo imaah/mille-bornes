@@ -147,9 +147,13 @@ public class BarreMenu {
             try {
                 new JsonUtils();
                 this.partie = JsonUtils.chargerJeuDepuisFichier(fichier);
+                this.gui.setJeu(this.partie);
+
                 System.out.println("Partie chargée");
             } catch (Exception e) {
                 // Si on a pas pu reprendre le jeu, alors on affiche une erreur
+                System.out.println(e);
+
                 Alert erreur = new Alert(Alert.AlertType.ERROR);
                 erreur.setTitle("Ouverture d'une partie");
                 erreur.setHeaderText(null);

@@ -197,8 +197,6 @@ public class Jeu implements Serializable, Sauvegardable {
         while (joueurActif.getMain().size() < 7) {
             if (!estPartieFinie()) {
                 this.joueurActif.prendCarte(pioche());
-            } else {
-                break;
             }
         }
         prochainJoueur = joueurActif.getProchainJoueur();

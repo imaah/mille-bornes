@@ -28,18 +28,22 @@ public class ChoisitDestination extends Alert {
         List<RadioButton> boutons = new ArrayList<>();
         FlowPane affichage = new FlowPane();
         ToggleGroup groupe = new ToggleGroup();
-        affichage.setPadding(new Insets(5));
         affichage.setAlignment(Pos.BASELINE_LEFT);
 
         // Chaque joueur de la partie obtiens un bouton
         for (Joueur joueur : jeu.getJoueurs()) {
             if (joueur.equals(jeu.getJoueurActif())) continue;
 
+            FlowPane l = new FlowPane();
+            l.setPadding(new Insets(5));
+
             RadioButton btn = new RadioButton(joueur.nom);
             btn.setToggleGroup(groupe);
             joueurMap.put(joueur.nom, joueur);
             boutons.add(btn);
-            affichage.getChildren().add(btn);
+
+            l.getChildren().add(btn);
+            affichage.getChildren().add(l);
         }
 
         this.getDialogPane().setContent(affichage);
