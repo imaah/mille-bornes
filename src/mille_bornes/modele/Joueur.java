@@ -126,12 +126,42 @@ public class Joueur implements Serializable, Sauvegardable {
         etat.prendCarte(carte);
     }
 
+    public void joueCarte(Jeu jeu, Carte carte) {
+        int index = getMain().indexOf(carte);
+
+        if (index != -1) {
+            joueCarte(jeu, index);
+        } else {
+            throw new IllegalStateException("La main du joueur ne contient pas cette carte");
+        }
+    }
+
+    public void joueCarte(Jeu jeu, Carte carte, Joueur joueur) {
+        int index = getMain().indexOf(carte);
+
+        if(index != -1) {
+            joueCarte(jeu, index);
+        } else {
+            throw new IllegalStateException("La main du joueur ne contient pas cette carte");
+        }
+    }
+
     public void joueCarte(Jeu jeu, int i) {
         etat.joueCarte(jeu, i);
     }
 
     public void joueCarte(Jeu jeu, int i, Joueur joueur) {
         etat.joueCarte(jeu, i, joueur);
+    }
+
+    public void defausseCarte(Jeu jeu, Carte carte) {
+        int index = getMain().indexOf(carte);
+
+        if(index != -1) {
+            defausseCarte(jeu, index);
+        } else {
+            throw new IllegalStateException("La main du joueur ne contient pas cette carte");
+        }
     }
 
     public void defausseCarte(Jeu jeu, int i) {

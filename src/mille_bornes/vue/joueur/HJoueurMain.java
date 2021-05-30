@@ -2,31 +2,32 @@ package mille_bornes.vue.joueur;
 
 import javafx.geometry.Pos;
 import mille_bornes.modele.Joueur;
+import mille_bornes.vue.MilleBornes;
 
 public class HJoueurMain extends JoueurMain {
 
-    public HJoueurMain(Joueur joueur, boolean survolActif) {
-        this(joueur, survolActif, false);
+    public HJoueurMain(MilleBornes milleBornes, Joueur joueur, boolean survolActif) {
+        this(milleBornes, joueur, survolActif, false);
     }
 
-    public HJoueurMain(Joueur joueur, boolean survolActif, boolean invert) {
-        super(joueur, survolActif);
+    public HJoueurMain(MilleBornes milleBornes, Joueur joueur, boolean survolActif, boolean invert) {
+        super(milleBornes, joueur, survolActif);
 
-        pane.setAlignment(Pos.CENTER);
+        setAlignment(Pos.CENTER);
 
-        pane.add(limite, 1, 2);
-        pane.add(bataille, 0, 2);
+        add(limite, 1, 2);
+        add(bataille, 0, 2);
 
         if (invert) {
-            pane.addRow(1, cartes);
-            pane.addRow(3, statusLabel);
+            addRow(1, cartes);
+            addRow(3, statusLabel);
         } else {
-            pane.addRow(3, cartes);
-            pane.addRow(1, statusLabel);
+            addRow(3, cartes);
+            addRow(1, statusLabel);
         }
 
         for (int i = 0; i < bottes.length; i++) {
-            pane.add(bottes[i], 2 + i, 2);
+            add(bottes[i], 2 + i, 2);
         }
     }
 }

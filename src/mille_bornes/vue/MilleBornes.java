@@ -2,25 +2,22 @@ package mille_bornes.vue;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.MenuBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import mille_bornes.controleur.BarreMenu;
 import mille_bornes.modele.Jeu;
 import mille_bornes.modele.Joueur;
-import mille_bornes.controleur.BarreMenu;
+import mille_bornes.modele.cartes.Attaque;
+import mille_bornes.modele.cartes.Carte;
 import mille_bornes.vue.jeu.Sabot;
 import mille_bornes.vue.joueur.HJoueurMain;
 import mille_bornes.vue.joueur.JoueurMain;
 import mille_bornes.vue.joueur.VJoueurMain;
-import mille_bornes.modele.cartes.attaques.Accident;
-import mille_bornes.modele.cartes.attaques.Crevaison;
-import mille_bornes.modele.cartes.attaques.FeuRouge;
-import mille_bornes.modele.cartes.bottes.AsDuVolant;
-import mille_bornes.modele.cartes.bottes.Citerne;
-import mille_bornes.modele.cartes.bottes.Increvable;
-import mille_bornes.modele.cartes.bottes.VehiculePrioritaire;
-import mille_bornes.modele.cartes.parades.FeuVert;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class MilleBornes {
 
@@ -29,17 +26,14 @@ public class MilleBornes {
     private final Sabot sabot;
     private Jeu jeu;
 
+    private JoueurMain[] mains = new JoueurMain[4];
+
     public MilleBornes(double width, double height) throws IOException {
         contenu = new BorderPane();
-        Joueur bob = new Joueur("bob");
-        Joueur bob2 = new Joueur("bob2");
-        Joueur bob3 = new Joueur("bob3");
-        Joueur bob4 = new Joueur("bob4");
+        sabot = new Sabot(null, this);
 
-        jeu = new Jeu(bob, bob2, bob3, bob4);
-        jeu.prepareJeu();
-        sabot = new Sabot(jeu);
         FXMLLoader loader = new FXMLLoader(MilleBornes.class.getResource("/fxml/barre-menu.fxml"));
+        MenuBar barreMenu = loader.load();
         Object controller = loader.getController();
 
         if (controller instanceof BarreMenu) {
@@ -49,60 +43,12 @@ public class MilleBornes {
         vBox = new VBox();
 
         contenu.setBackground(new Background(new BackgroundFill(Color.rgb(158, 251, 144), CornerRadii.EMPTY, Insets.EMPTY)));
-        vBox.getChildren().addAll(loader.load(), contenu);
+        vBox.getChildren().addAll(barreMenu, contenu);
 
         contenu.setPrefWidth(width);
         contenu.setPrefHeight(height);
         contenu.setPadding(new Insets(5, 5, 5, 5));
         contenu.setCenter(sabot);
-
-        JoueurMain main1 = new HJoueurMain(bob, true);
-        JoueurMain main2 = new HJoueurMain(bob2, false, true);
-        JoueurMain main3 = new VJoueurMain(bob3, false);
-        JoueurMain main4 = new VJoueurMain(bob4, false, true);
-
-        bob.getEtat().setLimiteVitesse(true);
-        bob2.getEtat().setLimiteVitesse(true);
-        bob.prendCarte(new Citerne());
-
-//        bob.getEtat().addBotte(new VehiculePrioritaire());
-        bob.getEtat().addBotte(new Citerne());
-//        bob.getEtat().addBotte(new Increvable());
-        bob.getEtat().addBotte(new AsDuVolant());
-
-//        bob2.getEtat().addBotte(new VehiculePrioritaire());
-//        bob2.getEtat().addBotte(new Citerne());
-//        bob2.getEtat().addBotte(new Increvable());
-//        bob2.getEtat().addBotte(new AsDuVolant());
-
-        bob3.getEtat().addBotte(new VehiculePrioritaire());
-//        bob3.getEtat().addBotte(new Citerne());
-//        bob3.getEtat().addBotte(new Increvable());
-//        bob3.getEtat().addBotte(new AsDuVolant());
-
-//        bob4.getEtat().addBotte(new VehiculePrioritaire());
-//        bob4.getEtat().addBotte(new Citerne());
-        bob4.getEtat().addBotte(new Increvable());
-//        bob4.getEtat().addBotte(new AsDuVolant());
-
-        bob.getEtat().setBataille(new FeuVert());
-        bob2.getEtat().setBataille(new Accident());
-        bob3.getEtat().setBataille(new Crevaison());
-        bob4.getEtat().setBataille(new FeuRouge());
-
-        main1.update();
-        main2.update();
-        main3.update();
-        main4.update();
-
-        main2.cacher();
-        main3.cacher();
-        main4.cacher();
-
-        contenu.setBottom(main1.getHolder());
-        contenu.setTop(main2.getHolder());
-        contenu.setLeft(main3.getHolder());
-        contenu.setRight(main4.getHolder());
     }
 
     public Jeu getJeu() {
@@ -111,7 +57,48 @@ public class MilleBornes {
 
     public void setJeu(Jeu jeu) {
         this.jeu = jeu;
-        // TODO: 24/05/2021 Mettre à jour les différentes vues.
+        this.jeu.prepareJeu();
+        sabot.setJeu(jeu);
+        Arrays.fill(mains, null);
+        mains[0] = new HJoueurMain(this, jeu.getJoueurs().get(0), true);
+
+        // Selection manuelle des emplacements des joueurs selon le nombre total
+        switch (jeu.getNbJoueurs()) {
+            case 2:
+                mains[2] = new HJoueurMain(this, jeu.getJoueurs().get(1), false);
+                break;
+            case 3:
+                mains[1] = new VJoueurMain(this, jeu.getJoueurs().get(1), false);
+                mains[3] = new VJoueurMain(this, jeu.getJoueurs().get(2), false);
+                break;
+            case 4:
+                mains[1] = new VJoueurMain(this, jeu.getJoueurs().get(1), false);
+                mains[2] = new HJoueurMain(this, jeu.getJoueurs().get(2), false);
+                mains[3] = new VJoueurMain(this, jeu.getJoueurs().get(3), false);
+                break;
+        }
+
+        for (int i = 1; i < mains.length; i++) {
+            if (mains[i] != null) mains[i].cacher();
+        }
+
+        contenu.setBottom(mains[0]);
+        contenu.setLeft(mains[1]);
+        contenu.setTop(mains[2]);
+        contenu.setRight(mains[3]);
+        jeu.activeProchainJoueurEtTireCarte();
+    }
+
+    public void tournerJoueurs() {
+        Joueur joueur = jeu.getJoueurActif();
+
+        mains[0].setJoueur(joueur);
+
+        for (int i = 0; i < mains.length; i++) {
+            if (mains[i] == null) continue;
+            joueur = joueur.getProchainJoueur();
+            mains[i].setJoueur(joueur);
+        }
     }
 
     public Sabot getSabot() {
@@ -124,5 +111,29 @@ public class MilleBornes {
 
     public VBox getHolder() {
         return vBox;
+    }
+
+    public void carteCliquee(Carte carte, boolean clicDroit) {
+        try {
+            if (clicDroit) {
+                jeu.getJoueurActif().defausseCarte(jeu, carte);
+            } else {
+                if (carte instanceof Attaque) {
+                    // afficher alert
+                    Joueur cible = new ChoisitDestination(jeu, (Attaque) carte).getCible();
+
+                    jeu.getJoueurActif().joueCarte(jeu, carte, cible);
+                } else {
+                    jeu.getJoueurActif().joueCarte(jeu, carte);
+                }
+            }
+            jeu.activeProchainJoueurEtTireCarte();
+            tournerJoueurs();
+        } catch (IllegalStateException e) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Erreur");
+            error.setHeaderText("Vous ne pouvez pas faire cette action");
+            error.setContentText(e.getMessage());
+        }
     }
 }

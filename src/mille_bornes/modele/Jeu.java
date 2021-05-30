@@ -287,6 +287,18 @@ public class Jeu implements Serializable, Sauvegardable {
         return json;
     }
 
+    /**
+     * Renvoie le nombre de joueurs dans la partie
+     * @return le nombre de joeuurs
+     */
+    public int getNbJoueurs() {
+        return joueurs.size();
+    }
+
+    public List<Joueur> getJoueurs() {
+        return Collections.unmodifiableList(joueurs);
+    }
+
     public int getNbCartesDefausse() {
         return defausse.getNbCartes();
     }

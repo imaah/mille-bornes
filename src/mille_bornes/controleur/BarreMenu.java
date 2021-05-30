@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,14 +116,15 @@ public class BarreMenu {
                     System.out.println(nom);
                 }
 
-                // return joueurs;
-                // Ou faire quelque chose avec la liste des joueurs et des bots
+                Jeu jeu = new Jeu(joueurs.toArray(new Joueur[0]));
+                gui.setJeu(jeu);
             }
         }
     }
 
     @SuppressWarnings("ClassEscapesDefinedScope")
     public void setGui(MilleBornes gui) {
+        System.out.println("Bonsoir");
         this.gui = gui;
     }
 
