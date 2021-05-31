@@ -11,18 +11,16 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import mille_bornes.modele.Jeu;
 import mille_bornes.modele.Joueur;
-import mille_bornes.vue.APropos;
-import mille_bornes.vue.MilleBornes;
 import mille_bornes.modele.extensions.bots.DumbBot;
 import mille_bornes.modele.extensions.bots.NaiveBot;
 import mille_bornes.modele.utils.JsonUtils;
+import mille_bornes.vue.APropos;
+import mille_bornes.vue.MilleBornes;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -111,7 +109,7 @@ public class BarreMenu {
                     // On évite les doublons
                     int n = 1;
                     tempNom = nom;
-                    while(joueurs.stream().map(Joueur::getNom).collect(Collectors.toList()).contains(tempNom)) {
+                    while (joueurs.stream().map(Joueur::getNom).collect(Collectors.toList()).contains(tempNom)) {
                         tempNom = nom + " " + (++n);
                     }
 

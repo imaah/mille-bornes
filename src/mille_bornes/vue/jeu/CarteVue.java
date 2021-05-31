@@ -38,7 +38,7 @@ public class CarteVue extends Rectangle {
     public void changeCarte(Carte carte) {
         double size = DEFAULT_SIZE * ratio;
 
-        if(carte == null && afficherSiNull) {
+        if (carte == null && afficherSiNull) {
             carte = DefaultCarte.VIDE;
         }
 

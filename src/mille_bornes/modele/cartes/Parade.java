@@ -4,10 +4,8 @@ import mille_bornes.modele.EtatJoueur;
 import mille_bornes.modele.Jeu;
 
 public abstract class Parade extends Bataille {
-    private static final long serialVersionUID = -1307910562516914625L;
-
     public Parade(String nom, String imagePath) {
-        super("\u001B[92m" + nom + "\u001B[0m", Categorie.PARADE, imagePath);
+        super(nom, Categorie.PARADE, imagePath);
     }
 
     @Override
@@ -27,5 +25,10 @@ public abstract class Parade extends Bataille {
             throw new IllegalStateException("Cette carte ne peut pas être jouée maintenant");
         }
         joueur.setBataille(this);
+    }
+
+    @Override
+    public String nomColore() {
+        return "\u001B[92m" + nom + "\u001B[0m";
     }
 }

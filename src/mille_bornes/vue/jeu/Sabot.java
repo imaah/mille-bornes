@@ -42,7 +42,7 @@ public class Sabot extends GridPane implements Updatable {
 
     @Override
     public void update() {
-        if(jeu == null) return;
+        if (jeu == null) return;
         Carte carteDefausse = jeu.regardeDefausse();
 
         if (carteDefausse != null) {

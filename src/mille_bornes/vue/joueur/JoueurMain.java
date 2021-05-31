@@ -4,11 +4,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import mille_bornes.modele.Joueur;
-import mille_bornes.vue.MilleBornes;
-import mille_bornes.vue.jeu.CarteVue;
-import mille_bornes.vue.Updatable;
 import mille_bornes.modele.cartes.DefaultCarte;
 import mille_bornes.modele.cartes.attaques.LimiteVitesse;
+import mille_bornes.vue.MilleBornes;
+import mille_bornes.vue.Updatable;
+import mille_bornes.vue.jeu.CarteVue;
 
 public abstract class JoueurMain extends GridPane implements Updatable {
     protected final CarteVue[] cartes = new CarteVue[7];
@@ -38,7 +38,7 @@ public abstract class JoueurMain extends GridPane implements Updatable {
             cartes[i].setRatio(.7);
         }
 
-        for(int i = 0; i < bottes.length; i++) {
+        for (int i = 0; i < bottes.length; i++) {
             if (i < joueur.getBottes().size()) {
                 bottes[i] = new CarteVue(joueur.getBottes().get(i), milleBornes, false);
             } else {
@@ -74,7 +74,7 @@ public abstract class JoueurMain extends GridPane implements Updatable {
             }
         }
 
-        if(cacher) {
+        if (cacher) {
             cacher();
         }
 

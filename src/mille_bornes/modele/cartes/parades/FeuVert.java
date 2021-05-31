@@ -7,10 +7,9 @@ import mille_bornes.modele.cartes.Bataille;
 import mille_bornes.modele.cartes.Parade;
 
 public class FeuVert extends Parade {
-    private static final long serialVersionUID = 4173338254788305506L;
 
     public FeuVert() {
-        super("Feu vert", "assets/cartes/Roulez.jpg");
+        super("Feu vert", "images/cartes/Roulez.jpg");
     }
 
     @Override

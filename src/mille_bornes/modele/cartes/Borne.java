@@ -8,12 +8,11 @@ import mille_bornes.modele.cartes.attaques.FeuRouge;
 import static mille_bornes.modele.Jeu.MAX_VITESSE_SOUS_LIMITE;
 
 public class Borne extends Carte {
-    private static final long serialVersionUID = -5391072928856424396L;
     public final int km;
 
 
     public Borne(int km, String imagePath) {
-        super("\u001B[34m" + km + "km\u001B[0m", Categorie.BORNE, imagePath);
+        super(String.valueOf(km), Categorie.BORNE, imagePath);
         this.km = km;
     }
 
@@ -28,13 +27,25 @@ public class Borne extends Carte {
         } else if (etatjoueur.getBataille() instanceof FeuRouge) {
             // De même s'il est au feu rouge
             throw new IllegalStateException("Vous ne pouvez pas placer de borne, vous êtes à l'arrêt!");
-        } else if(etatjoueur.getKm() + this.km > 1000) {
+        } else if (etatjoueur.getKm() + this.km > 1000) {
             // De même si le total avec la carte à jouer fait un total de + de 1000km
             throw new IllegalStateException("Vous ne pouvez pas dépasser les 1000 bornes! " +
-                    "Vous devez atteindre exactement ce score.");
+                                            "Vous devez atteindre exactement ce score.");
         }
 
         etatjoueur.ajouteKm(km);
+    }
+
+    @Override
+    public String nomColore() {
+        return "\u001B[34m" + nom + "km\u001B[0m";
+    }
+
+    @Override
+    public JsonObject sauvegarder() {
+        JsonObject json = super.sauvegarder();
+        json.addProperty("km", km);
+        return json;
     }
 
     @Override
@@ -43,12 +54,5 @@ public class Borne extends Carte {
         if (!super.equals(o)) return false;
         Borne borne = (Borne) o;
         return km == borne.km;
-    }
-
-    @Override
-    public JsonObject sauvegarder() {
-        JsonObject json = super.sauvegarder();
-        json.addProperty("km", km);
-        return json;
     }
 }

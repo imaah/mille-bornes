@@ -8,14 +8,11 @@ import mille_bornes.modele.cartes.Carte;
 import mille_bornes.modele.extensions.sauvegarde.Sauvegardable;
 import mille_bornes.modele.utils.JsonUtils;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class Joueur implements Serializable, Sauvegardable {
-    private static final long serialVersionUID = 3926516591482943201L;
-
+public class Joueur implements Sauvegardable {
     public final String nom;
     private final EtatJoueur etat;
     private final Scanner input = new Scanner(System.in);
@@ -139,7 +136,7 @@ public class Joueur implements Serializable, Sauvegardable {
     public void joueCarte(Jeu jeu, Carte carte, Joueur joueur) {
         int index = getMain().indexOf(carte);
 
-        if(index != -1) {
+        if (index != -1) {
             joueCarte(jeu, index, joueur);
         } else {
             throw new IllegalStateException("La main du joueur ne contient pas cette carte");
@@ -157,7 +154,7 @@ public class Joueur implements Serializable, Sauvegardable {
     public void defausseCarte(Jeu jeu, Carte carte) {
         int index = getMain().indexOf(carte);
 
-        if(index != -1) {
+        if (index != -1) {
             defausseCarte(jeu, index);
         } else {
             throw new IllegalStateException("La main du joueur ne contient pas cette carte");

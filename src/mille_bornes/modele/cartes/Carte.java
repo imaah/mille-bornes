@@ -7,11 +7,9 @@ import mille_bornes.modele.extensions.sauvegarde.Sauvegardable;
 
 import static mille_bornes.modele.utils.JsonUtils.verifieExiste;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class Carte implements Serializable, Sauvegardable {
-    private static final long serialVersionUID = -3871654206865696965L;
+public abstract class Carte implements Sauvegardable {
     public final String nom;
     public final Categorie categorie;
     private final String imagePath;
@@ -57,6 +55,8 @@ public abstract class Carte implements Serializable, Sauvegardable {
     }
 
     public abstract void appliqueEffet(Jeu jeu, EtatJoueur joueur) throws IllegalStateException;
+
+    public abstract String nomColore();
 
     public String getImagePath() {
         return getClass().getResource(imagePath).toString();

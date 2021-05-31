@@ -12,8 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class Bot extends Joueur {
-    private static final long serialVersionUID = 3357922195600973159L;
-    protected transient Random random = new Random();
+    protected Random random = new Random();
     protected List<Integer> nCartesRestantes;
 
     public Bot(String nom) {
@@ -30,7 +29,7 @@ public abstract class Bot extends Joueur {
     @Override
     public Joueur choisitAdversaire(Carte carte) {
         // Après la désérialisation random sera null, alors on verifie s'il est null.
-        if(random == null) random = new Random();
+        if (random == null) random = new Random();
         // Tout les joueurs sont pour l'instant des cibles potentielles
         List<Joueur> ciblesPossibles = new ArrayList<>();
         Joueur cible = this;
@@ -45,7 +44,7 @@ public abstract class Bot extends Joueur {
                     }
                 }
 
-                if(carte instanceof LimiteVitesse && cible.getLimiteVitesse()) {
+                if (carte instanceof LimiteVitesse && cible.getLimiteVitesse()) {
                     attaquable = false;
                 }
 

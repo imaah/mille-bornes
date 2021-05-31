@@ -1,17 +1,16 @@
 package mille_bornes.modele.extensions.bots;
 
+import mille_bornes.modele.Jeu;
+import mille_bornes.modele.cartes.*;
 import mille_bornes.modele.cartes.bottes.VehiculePrioritaire;
 import mille_bornes.modele.cartes.parades.FeuVert;
 import mille_bornes.modele.cartes.parades.FinDeLimite;
-import mille_bornes.modele.Jeu;
-import mille_bornes.modele.cartes.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 public class NaiveBot extends Bot {
-    private static final long serialVersionUID = -2895798750732205816L;
     private final Random random = new Random();
 
     public NaiveBot(String nom) {
@@ -41,7 +40,7 @@ public class NaiveBot extends Bot {
                 return carteAJouer;
             }
 
-            if((carteAJouer = trouveCarteDeType(FeuVert.class)) != -1) {
+            if ((carteAJouer = trouveCarteDeType(FeuVert.class)) != -1) {
                 return carteAJouer;
             }
 
@@ -101,7 +100,7 @@ public class NaiveBot extends Bot {
             return -carteADefausser;
         }
 
-        if((carteADefausser = trouveDuplicata()) != -1) {
+        if ((carteADefausser = trouveDuplicata()) != -1) {
             return -carteADefausser;
         }
 
@@ -153,10 +152,10 @@ public class NaiveBot extends Bot {
     private int trouveDuplicata() {
         Map<Class<? extends Carte>, Integer> montant = new HashMap<>();
 
-        for(Carte carte : getMain()) {
-            if(carte instanceof Borne) continue;
+        for (Carte carte : getMain()) {
+            if (carte instanceof Borne) continue;
 
-            if(!montant.containsKey(carte.getClass())) {
+            if (!montant.containsKey(carte.getClass())) {
                 montant.put(carte.getClass(), 0);
             }
             montant.put(carte.getClass(), montant.get(carte.getClass()) + 1);
@@ -164,13 +163,13 @@ public class NaiveBot extends Bot {
 
         Class<? extends Carte> max = null;
 
-        for(Map.Entry<Class<? extends Carte>, Integer> entry : montant.entrySet()) {
-            if(max == null || montant.get(max) > entry.getValue() && entry.getValue() > 1) {
+        for (Map.Entry<Class<? extends Carte>, Integer> entry : montant.entrySet()) {
+            if (max == null || montant.get(max) > entry.getValue() && entry.getValue() > 1) {
                 max = entry.getKey();
             }
         }
 
-        if(max == null) {
+        if (max == null) {
             return -1;
         } else {
             return trouveCarteDeType(max, false);

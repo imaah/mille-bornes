@@ -17,15 +17,12 @@ import static mille_bornes.modele.Jeu.AUTORISE_PLUSIEURS_200_BORNES;
 import static mille_bornes.modele.Jeu.MAX_VITESSE_SOUS_LIMITE;
 import static mille_bornes.modele.utils.JsonUtils.verifieExiste;
 
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-public class EtatJoueur implements Serializable, Sauvegardable {
-    private static final long serialVersionUID = -8006677368600111361L;
-
+public class EtatJoueur implements Sauvegardable {
     private final Joueur joueur;
     private final Stack<Bataille> pileBataille = new Stack<>();
     private final List<Carte> main = new LinkedList<>();
@@ -47,10 +44,10 @@ public class EtatJoueur implements Serializable, Sauvegardable {
             JsonArray pb = json.getAsJsonArray("pileBataille");
             pb.forEach(element -> pileBataille.push((Bataille) Carte.deserialize(element.getAsJsonObject())));
 
-            JsonArray m  = json.getAsJsonArray("main");
+            JsonArray m = json.getAsJsonArray("main");
             m.forEach(element -> main.add(Carte.deserialize(element.getAsJsonObject())));
 
-            JsonArray b  = json.getAsJsonArray("bottes");
+            JsonArray b = json.getAsJsonArray("bottes");
             b.forEach(element -> bottes.add((Botte) Carte.deserialize(element.getAsJsonObject())));
 
             km = json.get("km").getAsInt();
@@ -258,7 +255,7 @@ public class EtatJoueur implements Serializable, Sauvegardable {
                 .append(']');
 
         if (getBataille() != null) {
-            bob.append(", ").append(getBataille().nom);
+            bob.append(", ").append(getBataille().nomColore());
         }
 
         return bob.toString();

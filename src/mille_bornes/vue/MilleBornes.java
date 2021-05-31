@@ -19,15 +19,16 @@ import mille_bornes.vue.joueur.VJoueurMain;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MilleBornes {
 
     private final BorderPane contenu;
     private final VBox vBox;
     private final Sabot sabot;
-    private Jeu jeu;
-
     private final JoueurMain[] mains = new JoueurMain[4];
+    private Jeu jeu;
 
     public MilleBornes(double width, double height) throws IOException {
         contenu = new BorderPane();
@@ -62,7 +63,7 @@ public class MilleBornes {
 
     public void setJeu(Jeu jeu, boolean partieChargee) {
         this.jeu = jeu;
-        if(!partieChargee) this.jeu.prepareJeu();
+        if (!partieChargee) this.jeu.prepareJeu();
         sabot.setJeu(jeu);
         Arrays.fill(mains, null);
         mains[0] = new HJoueurMain(this, jeu.getJoueurs().get(0), true);
@@ -128,14 +129,34 @@ public class MilleBornes {
                     // afficher alert
                     Joueur cible = new ChoisitDestination(jeu, (Attaque) carte).getCible();
 
-                    if(cible == null) return;
+                    if (cible == null) return;
 
                     jeu.getJoueurActif().joueCarte(jeu, carte, cible);
                 } else {
                     jeu.getJoueurActif().joueCarte(jeu, carte);
                 }
             }
+            if (jeu.estPartieFinie()) {
+                Alert victoire = new Alert(Alert.AlertType.INFORMATION);
+                victoire.setTitle("Fin de partie");
+                victoire.setHeaderText("Victoire !");
+                List<Joueur> gagnants = jeu.getGagnant();
+                if (gagnants.size() == 1) {
+                    victoire.setContentText(gagnants.get(0).nom + " remporte la partie !");
+                } else {
+                    victoire.setContentText("Le gagnant de cette partie sont : \n- " + gagnants.stream().map(Joueur::getNom).collect(Collectors.joining("\n- ")));
+                }
+                victoire.showAndWait();
+                return;
+            }
+
             jeu.activeProchainJoueurEtTireCarte();
+
+            Alert changementJoueur = new Alert(Alert.AlertType.INFORMATION);
+            changementJoueur.setTitle("Changement de joueur");
+            changementJoueur.setHeaderText("");
+            changementJoueur.setContentText("C'est au tour de " + jeu.getJoueurActif().nom);
+            changementJoueur.showAndWait();
             sabot.update();
             tournerJoueurs();
         } catch (IllegalStateException e) {

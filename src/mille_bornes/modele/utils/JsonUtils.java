@@ -10,8 +10,8 @@ import java.io.FileReader;
 
 public class JsonUtils {
     public static boolean verifieExiste(JsonObject jsonObject, String... proprietes) {
-        for(String prop : proprietes) {
-            if(!jsonObject.has(prop)) return false;
+        for (String prop : proprietes) {
+            if (!jsonObject.has(prop)) return false;
         }
         return true;
     }

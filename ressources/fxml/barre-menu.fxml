@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<MenuBar xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"
+         fx:controller="mille_bornes.controleur.BarreMenu">
+    <Menu text="Partie">
+        <MenuItem onAction="#onCreerNouvellePartie" text="Nouvelle"/>
+        <SeparatorMenuItem/>
+        <MenuItem onAction="#onChargerPartie" text="Charger"/>
+        <MenuItem onAction="#onSauverPartie" text="Sauvegarder"/>
+        <SeparatorMenuItem/>
+        <MenuItem onAction="#onQuitter" text="Quitter"/>
+    </Menu>
+    <Menu text="Aide">
+        <MenuItem onAction="#onAPropos" text="À propos"/>
+    </Menu>
+</MenuBar>

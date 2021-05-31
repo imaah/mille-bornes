@@ -9,11 +9,11 @@ public class Serialiseur {
 
     /**
      * Sauvegarde l'etat de l'objet dans un fichier.
-     * @param file le fichier dans lequel enregistrer l'objet.
-     * @param object L'objet à sauvegarder
-     * @throws IOException S'il y a un problème lors de l'écriture du fichier.
      *
+     * @param file   le fichier dans lequel enregistrer l'objet.
+     * @param object L'objet à sauvegarder
      * @return Un booléen vrai ou faux si l'opération à réussie ou non
+     * @throws IOException S'il y a un problème lors de l'écriture du fichier.
      */
     public boolean sauvegarderDansUnFichier(File file, Serializable object) throws IOException {
         try {
@@ -30,9 +30,10 @@ public class Serialiseur {
 
     /**
      * Charge le fichier depuis un fichier.
+     *
      * @param file Le fichier à lire
      * @return L'objet lu dans le fichier
-     * @throws IOException S'il y a un problème lors de la lecture du fichier.
+     * @throws IOException            S'il y a un problème lors de la lecture du fichier.
      * @throws ClassNotFoundException Si la classe de l'objet stocké dans le fichier est inconnue.
      */
     public Object chargerDepuisFichier(File file) throws IOException, ClassNotFoundException {
@@ -44,15 +45,16 @@ public class Serialiseur {
 
     /**
      * Charge le fichier depuis un fichier.
-     * @param file Le fichier à lire
+     *
+     * @param file  Le fichier à lire
      * @param clazz la classe supposée de l'objet stocké dans le fichier.
-     * @param <T> Le type de l'objet supposé.
+     * @param <T>   Le type de l'objet supposé.
      * @return L'objet lu dans le fichier
-     * @throws IOException S'il y a un problème lors de la lecture du fichier.
+     * @throws IOException            S'il y a un problème lors de la lecture du fichier.
      * @throws ClassNotFoundException Si la classe de l'objet stocké dans le fichier est inconnue.
-     * @throws IllegalStateException Si la classe lu n'est pas de type T
+     * @throws IllegalStateException  Si la classe lu n'est pas de type T
      */
-      public <T extends Serializable> T chargerDepuisFichier(File file, Class<T> clazz) throws IOException, ClassNotFoundException {
+    public <T extends Serializable> T chargerDepuisFichier(File file, Class<T> clazz) throws IOException, ClassNotFoundException {
         Object object = chargerDepuisFichier(file);
         if (object != null && clazz.isAssignableFrom(object.getClass())) {
             return clazz.cast(object);

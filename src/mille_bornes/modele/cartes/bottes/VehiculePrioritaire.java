@@ -6,10 +6,8 @@ import mille_bornes.modele.cartes.Attaque;
 import mille_bornes.modele.cartes.Botte;
 
 public class VehiculePrioritaire extends Botte {
-    private static final long serialVersionUID = 7199288912826231138L;
-
     public VehiculePrioritaire() {
-        super("Vehicule Prioritaire", "assets/cartes/Prioritaire.jpg");
+        super("Vehicule Prioritaire", "images/cartes/Prioritaire.jpg");
     }
 
     @Override

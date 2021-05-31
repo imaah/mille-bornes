@@ -7,10 +7,8 @@ import mille_bornes.modele.cartes.Parade;
 
 public class FinDeLimite extends Parade {
 
-    private static final long serialVersionUID = 885026341013870691L;
-
     public FinDeLimite() {
-        super("Fin de limite", "assets/cartes/Fin_limite.jpg");
+        super("Fin de limite", "images/cartes/Fin_limite.jpg");
     }
 
     @Override
@@ -21,7 +19,7 @@ public class FinDeLimite extends Parade {
     @Override
     public void appliqueEffet(Jeu jeu, EtatJoueur joueur) {
         // On ne peut enlever une limite de vitesse que si nous en avons une
-        if(!joueur.getLimiteVitesse()) {
+        if (!joueur.getLimiteVitesse()) {
             throw new IllegalStateException("Vous n'avez pas de limite de vitesse!");
         }
 

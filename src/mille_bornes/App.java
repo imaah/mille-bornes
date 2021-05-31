@@ -24,7 +24,7 @@ public class App extends Application {
         stage.setTitle("1000 bornes");
         stage.setResizable(false);
         stage.setWidth(APP_WIDTH);
-        stage.getIcons().add(new Image(getClass().getResource("/assets/Mille_Bornes.png").toString()));
+        stage.getIcons().add(new Image(getClass().getResource("/images/Mille_Bornes.png").toString()));
         stage.setHeight(APP_HEIGHT);
         stage.show();
     }

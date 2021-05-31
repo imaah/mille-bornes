@@ -5,10 +5,8 @@ import mille_bornes.modele.Jeu;
 import mille_bornes.modele.cartes.Attaque;
 
 public class LimiteVitesse extends Attaque {
-    private static final long serialVersionUID = -6417586415503867598L;
-
     public LimiteVitesse() {
-        super("Limite de vitesse", "assets/cartes/Limite_50.jpg");
+        super("Limite de vitesse", "images/cartes/Limite_50.jpg");
     }
 
     @Override
@@ -24,7 +22,7 @@ public class LimiteVitesse extends Attaque {
     @Override
     public void appliqueEffet(Jeu jeu, EtatJoueur joueur) {
         // Un joueur ne peut avoir qu'une limite de vitesse au maximum
-        if(joueur.getLimiteVitesse()) {
+        if (joueur.getLimiteVitesse()) {
             throw new IllegalStateException("Le joueur a déjà une limite de vitesse!");
         }
 

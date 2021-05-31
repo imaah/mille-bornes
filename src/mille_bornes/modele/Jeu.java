@@ -7,13 +7,10 @@ import mille_bornes.modele.extensions.bots.Bot;
 import mille_bornes.modele.extensions.sauvegarde.Sauvegardable;
 import mille_bornes.modele.utils.JsonUtils;
 
-import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Jeu implements Serializable, Sauvegardable {
-    private static final long serialVersionUID = 7915602017457172577L;
-
+public class Jeu implements Sauvegardable {
     public static final boolean AUTORISE_PLUSIEURS_200_BORNES = Boolean.parseBoolean(System.getProperty("multiple-200", "false"));
     public static final boolean DEBUG_BOT_MODE = Boolean.parseBoolean(System.getProperty("debug-bot", "false"));
     public static final int MAX_VITESSE_SOUS_LIMITE = Integer.parseInt(System.getProperty("max-limite", "50"));
@@ -27,7 +24,8 @@ public class Jeu implements Serializable, Sauvegardable {
 
     public Jeu(Joueur... joueurs) {
         if (joueurs.length < 2) throw new IllegalStateException("Il faut au minimum 2 joueurs pour faire une partie.");
-        if (joueurs.length > MAX_JOUEURS) throw new IllegalStateException("Le nombre de joueurs ne peut pas excéder " + MAX_JOUEURS + ".");
+        if (joueurs.length > MAX_JOUEURS)
+            throw new IllegalStateException("Le nombre de joueurs ne peut pas excéder " + MAX_JOUEURS + ".");
         ajouteJoueurs(joueurs);
     }
 
@@ -36,7 +34,7 @@ public class Jeu implements Serializable, Sauvegardable {
             JsonArray ja = json.getAsJsonArray("joueurs");
             ja.forEach(element -> joueurs.add(new Joueur(element.getAsJsonObject())));
 
-            for(Joueur joueur : joueurs) {
+            for (Joueur joueur : joueurs) {
                 joueur.setProchainJoueur(trouveJoueur(joueur.getProchainJoueurNom()));
             }
 
@@ -51,8 +49,8 @@ public class Jeu implements Serializable, Sauvegardable {
     }
 
     private Joueur trouveJoueur(String nom) {
-        for(Joueur joueur : joueurs) {
-            if(joueur.nom.equals(nom)) {
+        for (Joueur joueur : joueurs) {
+            if (joueur.nom.equals(nom)) {
                 return joueur;
             }
         }
@@ -121,7 +119,7 @@ public class Jeu implements Serializable, Sauvegardable {
 
         activeProchainJoueurEtTireCarte();
 
-        if(estPartieFinie()) {
+        if (estPartieFinie()) {
             return true;
         }
 
@@ -134,10 +132,10 @@ public class Jeu implements Serializable, Sauvegardable {
         // Affichage d'entre-deux-tours
         System.out.println(joueurActif);
 
-        if(!(joueurActif instanceof Bot) || DEBUG_BOT_MODE) {
+        if (!(joueurActif instanceof Bot) || DEBUG_BOT_MODE) {
             System.out.print("[");
             for (int i = 0; i < joueurActif.getMain().size(); i++) {
-                System.out.print((i + 1) + ": " + joueurActif.getMain().get(i));
+                System.out.print((i + 1) + ": " + joueurActif.getMain().get(i).nomColore());
                 if (i < joueurActif.getMain().size() - 1) {
                     System.out.print(", ");
                 }
@@ -166,13 +164,13 @@ public class Jeu implements Serializable, Sauvegardable {
                     throw new IllegalStateException("Entrez un numéro de carte entre 1 et 7 inclus (négatif pour défausser)");
                 }
 
-                if(joueurActif instanceof Bot) {
+                if (joueurActif instanceof Bot) {
                     System.out.println(joueurActif.nom + " à " + (nCarte < 0 ? "défaussé " : "joué ") + carte);
                 }
 
                 carteJouee = true;
             } catch (IllegalStateException e) {
-                if(!(joueurActif instanceof Bot) || DEBUG_BOT_MODE) {
+                if (!(joueurActif instanceof Bot) || DEBUG_BOT_MODE) {
                     System.err.println(e.getMessage());
                 }
                 carteJouee = false;
@@ -263,13 +261,13 @@ public class Jeu implements Serializable, Sauvegardable {
 
         this.joueurs.stream().map(Joueur::sauvegarder).forEach(joueursArray::add);
 
-        if(joueurActif != null) {
+        if (joueurActif != null) {
             json.addProperty("joueurActif", joueurActif.nom);
         } else {
             json.addProperty("joueurActif", joueurs.get(0).nom);
         }
 
-        if(prochainJoueur != null) {
+        if (prochainJoueur != null) {
             json.addProperty("prochainJoueur", prochainJoueur.nom);
         } else {
             json.addProperty("joueurActif", joueurs.get(1).nom);
@@ -284,6 +282,7 @@ public class Jeu implements Serializable, Sauvegardable {
 
     /**
      * Renvoie le nombre de joueurs dans la partie
+     *
      * @return le nombre de joueurs
      */
     public int getNbJoueurs() {

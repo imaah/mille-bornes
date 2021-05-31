@@ -17,7 +17,7 @@ public class APropos extends Alert {
 
         this.setTitle("À propos");
 
-        ImageView headerImage = new ImageView(getClass().getResource("/assets/boite.jpg").toString());
+        ImageView headerImage = new ImageView(getClass().getResource("/images/boite.jpg").toString());
         headerImage.setPreserveRatio(true);
         headerImage.setFitWidth(512);
 

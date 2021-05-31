@@ -12,13 +12,11 @@ import mille_bornes.modele.cartes.bottes.VehiculePrioritaire;
 import mille_bornes.modele.cartes.parades.*;
 import mille_bornes.modele.extensions.sauvegarde.Sauvegardable;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TasDeCartes implements Serializable, Sauvegardable {
-    private static final long serialVersionUID = 5828284262241991397L;
+public class TasDeCartes implements Sauvegardable {
     private final List<Carte> cartes = new ArrayList<>();
 
     public TasDeCartes(boolean creerLesCartes) {
@@ -53,7 +51,7 @@ public class TasDeCartes implements Serializable, Sauvegardable {
             }
 
             if (i < 4) {
-                cartes.add(new Borne(200, "assets/cartes/Speed200.jpg"));
+                cartes.add(new Borne(200, "images/cartes/Speed200.jpg"));
                 cartes.add(new LimiteVitesse());
             }
 
@@ -69,13 +67,13 @@ public class TasDeCartes implements Serializable, Sauvegardable {
             }
 
             if (i < 10) {
-                cartes.add(new Borne(25, "assets/cartes/Speed25.jpg"));
-                cartes.add(new Borne(50, "assets/cartes/Speed50.jpg"));
-                cartes.add(new Borne(75, "assets/cartes/Speed75.jpg"));
+                cartes.add(new Borne(25, "images/cartes/Speed25.jpg"));
+                cartes.add(new Borne(50, "images/cartes/Speed50.jpg"));
+                cartes.add(new Borne(75, "images/cartes/Speed75.jpg"));
             }
 
             if (i < 12) {
-                cartes.add(new Borne(100, "assets/cartes/Speed100.jpg"));
+                cartes.add(new Borne(100, "images/cartes/Speed100.jpg"));
             }
 
             cartes.add(new FeuVert());
