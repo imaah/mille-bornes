@@ -155,7 +155,8 @@ public class EtatJoueur implements Serializable, Sauvegardable {
                     System.out.println("Votre adversaire sort un coup-fourré! Votre attaque " +
                                        "n'a aucun effet et il récupère la main.");
                     botte.appliqueEffet(jeu, this);
-                    defausseCarte(jeu, i);
+                    main.remove(i);
+//                    defausseCarte(jeu, i);
                     jeu.setProchainJoueur(this.joueur);
                     jeu.defausse(attaque);
 
@@ -209,8 +210,8 @@ public class EtatJoueur implements Serializable, Sauvegardable {
             carte.appliqueEffet(jeu, this);
         }
 
-        // Une fois jouée, on defausse la carte
-        defausseCarte(jeu, i);
+        // Une fois jouée, on retire la carte
+        main.remove(i);
     }
 
     public void joueCarte(Jeu jeu, int i, Joueur joueur) {

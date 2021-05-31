@@ -27,7 +27,7 @@ public class MilleBornes {
     private final Sabot sabot;
     private Jeu jeu;
 
-    private JoueurMain[] mains = new JoueurMain[4];
+    private final JoueurMain[] mains = new JoueurMain[4];
 
     public MilleBornes(double width, double height) throws IOException {
         contenu = new BorderPane();

@@ -25,6 +25,7 @@ public abstract class JoueurMain extends GridPane implements Updatable {
         bataille = new CarteVue(null, milleBornes, false);
 
         setAlignment(Pos.CENTER);
+
         setHgap(3);
         setVgap(3);
 

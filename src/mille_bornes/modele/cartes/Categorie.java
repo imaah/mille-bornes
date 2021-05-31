@@ -5,5 +5,5 @@ public enum Categorie {
     PARADE,
     ATTAQUE,
     BORNE,
-    DEFAULT;
+    DEFAULT
 }

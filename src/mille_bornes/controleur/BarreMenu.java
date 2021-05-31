@@ -82,13 +82,13 @@ public class BarreMenu {
                 ChoixJoueur joueur = new ChoixJoueur(i);
                 total.add(joueur);
 
-                FlowPane l = new FlowPane();
-                l.setAlignment(Pos.CENTER);
-                l.setPadding(new Insets(5));
-                l.setHgap(5);
-                l.getChildren().addAll(joueur.getLabel(), joueur.getComboBox(), joueur.getTextField());
+                FlowPane ligne = new FlowPane();
+                ligne.setAlignment(Pos.CENTER);
+                ligne.setPadding(new Insets(5));
+                ligne.setHgap(5);
+                ligne.getChildren().addAll(joueur.getLabel(), joueur.getComboBox(), joueur.getTextField());
 
-                affichage.getChildren().add(l);
+                affichage.getChildren().add(ligne);
             }
 
             // Affichage
@@ -108,8 +108,8 @@ public class BarreMenu {
                     }
                     String nom = tempNom;
 
+                    // On évite les doublons
                     int n = 1;
-
                     tempNom = nom;
                     while(joueurs.stream().map(Joueur::getNom).collect(Collectors.toList()).contains(tempNom)) {
                         tempNom = nom + " " + (++n);
