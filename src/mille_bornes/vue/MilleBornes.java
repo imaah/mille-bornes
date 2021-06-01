@@ -14,6 +14,7 @@ import mille_bornes.modele.Jeu;
 import mille_bornes.modele.Joueur;
 import mille_bornes.modele.cartes.Attaque;
 import mille_bornes.modele.cartes.Carte;
+import mille_bornes.modele.extensions.bots.Bot;
 import mille_bornes.vue.jeu.Sabot;
 import mille_bornes.vue.joueur.HJoueurMain;
 import mille_bornes.vue.joueur.JoueurMain;
@@ -30,8 +31,8 @@ public class MilleBornes {
     private final VBox vBox;
     private final Sabot sabot;
     private final JoueurMain[] mains = new JoueurMain[4];
-    private Jeu jeu;
     private final Controleur controleur = new Controleur(this);
+    private Jeu jeu;
 
     public MilleBornes(double width, double height) throws IOException {
         contenu = new BorderPane();
@@ -129,14 +130,7 @@ public class MilleBornes {
         try {
             jeu.getJoueurActif().defausseCarte(jeu, carte);
 
-            if(testVictoire()) {
-                controleur.demanderRejouer();
-                return;
-            }
-
-            jeu.activeProchainJoueurEtTireCarte();
-            sabot.update();
-            tournerJoueurs();
+            finDeTour();
         } catch (IllegalStateException e) {
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("Erreur");
@@ -179,6 +173,56 @@ public class MilleBornes {
         return alert;
     }
 
+    private void finDeTour() {
+        if (testVictoire()) {
+            controleur.demanderRejouer();
+            return;
+        }
+
+        jeu.activeProchainJoueurEtTireCarte();
+        sabot.update();
+
+        tournerJoueurs();
+        if (jeu.getJoueurActif() instanceof Bot) {
+            mains[0].cacher();
+            botJoue();
+            return;
+        }
+        mains[0].montrer();
+    }
+
+    private void botJoue() {
+        boolean carteJouee;
+        if(!(jeu.getJoueurActif() instanceof Bot)) {
+            throw new IllegalStateException("Le joueur Actif n'est pas de type Bot");
+        }
+        mains[0].cacher();
+
+        Bot bot = (Bot) jeu.getJoueurActif();
+
+        do {
+            try {
+                int nCarte = bot.choisitCarte();
+
+                if (nCarte > 0) {
+                    bot.joueCarte(jeu, nCarte - 1);
+                } else if (nCarte < 0) {
+                    bot.defausseCarte(jeu, -nCarte - 1);
+                } else {
+                    throw new IllegalStateException("Entrez un numéro de carte entre 1 et 7 inclus (négatif pour défausser)");
+                }
+
+                carteJouee = true;
+            } catch (IllegalStateException e) {
+                System.out.println(e.getMessage());
+                carteJouee = false;
+            }
+
+         } while (!carteJouee);
+
+        finDeTour();
+    }
+
     public void joueCarte(Carte carte) {
         try {
             if (carte instanceof Attaque) {
@@ -191,15 +235,7 @@ public class MilleBornes {
             } else {
                 jeu.getJoueurActif().joueCarte(jeu, carte);
             }
-
-            if(testVictoire()) {
-                controleur.demanderRejouer();
-                return;
-            }
-
-            jeu.activeProchainJoueurEtTireCarte();
-            sabot.update();
-            tournerJoueurs();
+            finDeTour();
         } catch (IllegalStateException e) {
             Alert error = genererAlert(Alert.AlertType.ERROR,
                     "Erreur", "Vous ne pouvez pas faire cette action.", e.getMessage());
