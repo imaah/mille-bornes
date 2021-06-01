@@ -157,7 +157,7 @@ public class Controleur {
                 milleBornes.setJeu(partie);
             }
         }
-    }
+    } // nouvellePartie
 
     public void sauvegarder() {
         FileChooser enregistreur = new FileChooser();
@@ -190,7 +190,7 @@ public class Controleur {
                 erreur.showAndWait();
             }
         }
-    }
+    } // sauvegarder
 
     public void quitterClique() {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
