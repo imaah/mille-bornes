@@ -9,7 +9,7 @@ module milles.bornes {
     exports mille_bornes.vue;
     exports mille_bornes.vue.jeu;
     exports mille_bornes.modele.cartes;
-    exports mille_bornes;
+    exports mille_bornes.application;
 
     opens mille_bornes.vue;
     opens mille_bornes.modele;
