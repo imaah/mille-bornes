@@ -6,6 +6,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import mille_bornes.vue.MilleBornes;
 
+import java.net.URL;
+
 public class App extends Application {
 
     private static final int APP_WIDTH = 1200;
@@ -24,7 +26,12 @@ public class App extends Application {
         stage.setTitle("1000 bornes");
         stage.setResizable(false);
         stage.setWidth(APP_WIDTH);
-        stage.getIcons().add(new Image(getClass().getResource("/images/Mille_Bornes.png").toString()));
+
+        URL iconUrl = getClass().getResource("/images/Mille_Bornes.png");
+
+        if(iconUrl != null) {
+            stage.getIcons().add(new Image(iconUrl.toString()));
+        }
         stage.setHeight(APP_HEIGHT);
         stage.show();
     }

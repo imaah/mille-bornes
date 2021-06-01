@@ -4,10 +4,16 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import mille_bornes.modele.Joueur;
+import mille_bornes.modele.cartes.Botte;
 import mille_bornes.modele.cartes.DefaultCarte;
 import mille_bornes.modele.cartes.attaques.LimiteVitesse;
+import mille_bornes.modele.cartes.bottes.AsDuVolant;
+import mille_bornes.modele.cartes.bottes.Citerne;
+import mille_bornes.modele.cartes.bottes.Increvable;
+import mille_bornes.modele.cartes.bottes.VehiculePrioritaire;
 import mille_bornes.vue.MilleBornes;
 import mille_bornes.vue.Updatable;
+import mille_bornes.vue.jeu.BotteVue;
 import mille_bornes.vue.jeu.CarteVue;
 
 public abstract class JoueurMain extends GridPane implements Updatable {
@@ -15,7 +21,7 @@ public abstract class JoueurMain extends GridPane implements Updatable {
     protected final Label statusLabel = new Label();
     protected final CarteVue limite;
     protected final CarteVue bataille;
-    protected final CarteVue[] bottes = new CarteVue[4];
+    protected final BotteVue[] bottes = new BotteVue[4];
     private Joueur joueur;
     private boolean cacher = false;
 
@@ -38,14 +44,14 @@ public abstract class JoueurMain extends GridPane implements Updatable {
             cartes[i].setRatio(.7);
         }
 
-        for (int i = 0; i < bottes.length; i++) {
-            if (i < joueur.getBottes().size()) {
-                bottes[i] = new CarteVue(joueur.getBottes().get(i), milleBornes, false);
-            } else {
-                bottes[i] = new CarteVue(null, milleBornes, false);
-            }
-            bottes[i].setRatio(.7);
-            bottes[i].setAfficherSiNull(true);
+        bottes[0] = new BotteVue(new VehiculePrioritaire(), milleBornes, true);
+        bottes[1] = new BotteVue(new AsDuVolant(), milleBornes, true);
+        bottes[2] = new BotteVue(new Citerne(), milleBornes, true);
+        bottes[3] = new BotteVue(new Increvable(), milleBornes, true);
+
+        for (BotteVue botte : bottes) {
+            botte.setRatio(.7);
+            botte.setAfficherSiNull(true);
         }
 
         limite.setRatio(.7);
@@ -66,12 +72,8 @@ public abstract class JoueurMain extends GridPane implements Updatable {
             }
         }
 
-        for (int i = 0; i < bottes.length; i++) {
-            if (i < joueur.getBottes().size()) {
-                bottes[i].changeCarte(joueur.getBottes().get(i));
-            } else {
-                bottes[i].changeCarte(null);
-            }
+        for (BotteVue botteVue : bottes) {
+            botteVue.setGrisee(joueur.getBottes().contains((Botte) botteVue.getCarte()));
         }
 
         if (cacher) {

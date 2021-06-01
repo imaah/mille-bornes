@@ -156,7 +156,7 @@ public class BarreMenu {
                 System.out.println("Partie chargée");
             } catch (Exception e) {
                 // Si on a pas pu reprendre le jeu, alors on affiche une erreur
-                System.out.println(e);
+                System.out.println(e.getMessage());
 
                 Alert erreur = new Alert(Alert.AlertType.ERROR);
                 erreur.setTitle("Ouverture d'une partie");
