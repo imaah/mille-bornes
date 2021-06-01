@@ -234,6 +234,19 @@ public class Controleur {
         }
     }
 
+    public void demanderRejouer() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, null, ButtonType.YES, ButtonType.NO);
+        alert.setHeaderText("Voulez vous rejouer ?");
+        alert.setTitle("Rejouer ?");
+        Optional<ButtonType> res = alert.showAndWait();
+
+        if(res.orElse(ButtonType.NO) == ButtonType.YES) {
+            nouvellePartie();
+        } else {
+            quitterClique();
+        }
+    }
+
     private static class ChoixJoueur extends FlowPane {
         final ComboBox<String> type = new ComboBox<>();
         final TextField nom = new TextField();

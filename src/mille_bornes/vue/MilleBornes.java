@@ -3,10 +3,12 @@ package mille_bornes.vue;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import mille_bornes.controleur.BarreMenu;
+import mille_bornes.controleur.Controleur;
 import mille_bornes.modele.CoupFourreException;
 import mille_bornes.modele.Jeu;
 import mille_bornes.modele.Joueur;
@@ -29,6 +31,7 @@ public class MilleBornes {
     private final Sabot sabot;
     private final JoueurMain[] mains = new JoueurMain[4];
     private Jeu jeu;
+    private final Controleur controleur = new Controleur(this);
 
     public MilleBornes(double width, double height) throws IOException {
         contenu = new BorderPane();
@@ -121,7 +124,57 @@ public class MilleBornes {
     }
 
     public void defausseCarte(Carte carte) {
-        jeu.getJoueurActif().defausseCarte(jeu, carte);
+        try {
+            jeu.getJoueurActif().defausseCarte(jeu, carte);
+
+            if(testVictoire()) {
+                controleur.demanderRejouer();
+                return;
+            }
+
+            jeu.activeProchainJoueurEtTireCarte();
+            sabot.update();
+            tournerJoueurs();
+        } catch (IllegalStateException e) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Erreur");
+            error.setHeaderText("Vous ne pouvez pas faire cette action");
+            error.setContentText(e.getMessage());
+            error.showAndWait();
+        }
+    }
+
+    public boolean testVictoire() {
+        if (jeu.estPartieFinie()) {
+            String content;
+            List<Joueur> gagnants = jeu.getGagnant();
+
+            if (gagnants.size() == 1) {
+                content = gagnants.get(0).nom + " remporte la partie !";
+            } else {
+                content = "Le gagnant de cette partie sont : \n- " + gagnants.stream()
+                        .map(Joueur::getNom).collect(Collectors.joining("\n- "));
+            }
+
+            Alert alert = genererAlert(
+                    Alert.AlertType.INFORMATION,
+                    "Fin de partie",
+                    "Victoire !",
+                    content);
+
+            alert.showAndWait();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private Alert genererAlert(Alert.AlertType type, String titre, String header, String content, ButtonType... buttons) {
+        Alert alert = new Alert(type, content, buttons);
+        alert.setTitle(titre);
+        alert.setHeaderText(header);
+        return alert;
     }
 
     public void joueCarte(Carte carte) {
@@ -136,17 +189,9 @@ public class MilleBornes {
             } else {
                 jeu.getJoueurActif().joueCarte(jeu, carte);
             }
-            if (jeu.estPartieFinie()) {
-                Alert victoire = new Alert(Alert.AlertType.INFORMATION);
-                victoire.setTitle("Fin de partie");
-                victoire.setHeaderText("Victoire !");
-                List<Joueur> gagnants = jeu.getGagnant();
-                if (gagnants.size() == 1) {
-                    victoire.setContentText(gagnants.get(0).nom + " remporte la partie !");
-                } else {
-                    victoire.setContentText("Le gagnant de cette partie sont : \n- " + gagnants.stream().map(Joueur::getNom).collect(Collectors.joining("\n- ")));
-                }
-                victoire.showAndWait();
+
+            if(testVictoire()) {
+                controleur.demanderRejouer();
                 return;
             }
 

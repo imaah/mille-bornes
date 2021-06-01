@@ -8,9 +8,13 @@ public class ControleurClavier {
 
     private final Controleur controleur;
 
-    public ControleurClavier(Scene scene, MilleBornes milleBornes) {
+    private ControleurClavier(Scene scene, MilleBornes milleBornes) {
         this.controleur = new Controleur(milleBornes);
         scene.setOnKeyPressed(this::touchePressee);
+    }
+
+    public static void init(Scene scene, MilleBornes app) {
+        new ControleurClavier(scene, app);
     }
 
     private void touchePressee(KeyEvent keyEvent) {

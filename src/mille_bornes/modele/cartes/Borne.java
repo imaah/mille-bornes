@@ -10,9 +10,8 @@ import static mille_bornes.modele.Jeu.MAX_VITESSE_SOUS_LIMITE;
 public class Borne extends Carte {
     public final int km;
 
-
-    public Borne(int km, String imagePath) {
-        super(String.valueOf(km), Categorie.BORNE, imagePath);
+    public Borne(int km) {
+        super(String.valueOf(km), Categorie.BORNE, String.format("/images/cartes/Speed%d.jpg", km));
         this.km = km;
     }
 
