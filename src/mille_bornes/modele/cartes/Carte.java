@@ -36,8 +36,8 @@ public abstract class Carte implements Sauvegardable {
 
                         if (json.has("km")) {
                             return Borne.class
-                                    .getConstructor(Integer.TYPE, String.class)
-                                    .newInstance(json.get("km").getAsInt(), json.get("imagePath").getAsString());
+                                    .getConstructor(Integer.TYPE)
+                                    .newInstance(json.get("km").getAsInt());
                         }
 
                     } else {

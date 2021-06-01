@@ -51,7 +51,7 @@ public class TasDeCartes implements Sauvegardable {
             }
 
             if (i < 4) {
-                cartes.add(new Borne(200, "images/cartes/Speed200.jpg"));
+                cartes.add(new Borne(200));
                 cartes.add(new LimiteVitesse());
             }
 
@@ -67,13 +67,13 @@ public class TasDeCartes implements Sauvegardable {
             }
 
             if (i < 10) {
-                cartes.add(new Borne(25, "images/cartes/Speed25.jpg"));
-                cartes.add(new Borne(50, "images/cartes/Speed50.jpg"));
-                cartes.add(new Borne(75, "images/cartes/Speed75.jpg"));
+                cartes.add(new Borne(25));
+                cartes.add(new Borne(50));
+                cartes.add(new Borne(75));
             }
 
             if (i < 12) {
-                cartes.add(new Borne(100, "images/cartes/Speed100.jpg"));
+                cartes.add(new Borne(100));
             }
 
             cartes.add(new FeuVert());
