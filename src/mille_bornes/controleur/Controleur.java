@@ -39,6 +39,9 @@ public class Controleur {
         milleBornes.defausseCarte(carte);
     }
 
+    /**
+     * Demande confirmation avant de quitter l'application ou de changer de partie
+     */
     public boolean confirmation(String title, String header, String content) {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setTitle(title);
@@ -247,6 +250,9 @@ public class Controleur {
         }
     }
 
+    /**
+     * Permet de lister les joueurs pour l'ajout. On peut ensuite récupérer les valeurs entrées
+     */
     private static class ChoixJoueur extends FlowPane {
         final ComboBox<String> type = new ComboBox<>();
         final TextField nom = new TextField();
