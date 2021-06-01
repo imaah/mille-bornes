@@ -120,21 +120,21 @@ public class MilleBornes {
         return vBox;
     }
 
-    public void carteCliquee(Carte carte, boolean clicDroit) {
+    public void defausseCarte(Carte carte) {
+        jeu.getJoueurActif().defausseCarte(jeu, carte);
+    }
+
+    public void joueCarte(Carte carte) {
         try {
-            if (clicDroit) {
-                jeu.getJoueurActif().defausseCarte(jeu, carte);
+            if (carte instanceof Attaque) {
+                // afficher alert
+                Joueur cible = new ChoisitDestination(jeu, (Attaque) carte).getCible();
+
+                if (cible == null) return;
+
+                jeu.getJoueurActif().joueCarte(jeu, carte, cible);
             } else {
-                if (carte instanceof Attaque) {
-                    // afficher alert
-                    Joueur cible = new ChoisitDestination(jeu, (Attaque) carte).getCible();
-
-                    if (cible == null) return;
-
-                    jeu.getJoueurActif().joueCarte(jeu, carte, cible);
-                } else {
-                    jeu.getJoueurActif().joueCarte(jeu, carte);
-                }
+                jeu.getJoueurActif().joueCarte(jeu, carte);
             }
             if (jeu.estPartieFinie()) {
                 Alert victoire = new Alert(Alert.AlertType.INFORMATION);
