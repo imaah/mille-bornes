@@ -47,7 +47,9 @@ public class MilleBornes {
 
         vBox = new VBox();
 
-        contenu.setBackground(new Background(new BackgroundFill(Color.rgb(158, 251, 144), CornerRadii.EMPTY, Insets.EMPTY)));
+        contenu.setBackground(new Background(
+                new BackgroundFill(Color.rgb(158, 251, 144), CornerRadii.EMPTY, Insets.EMPTY)
+        ));
         vBox.getChildren().addAll(barreMenu, contenu);
 
         contenu.setPrefWidth(width);
@@ -199,16 +201,13 @@ public class MilleBornes {
             sabot.update();
             tournerJoueurs();
         } catch (IllegalStateException e) {
-            Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setTitle("Erreur");
-            error.setHeaderText("Vous ne pouvez pas faire cette action");
-            error.setContentText(e.getMessage());
+            Alert error = genererAlert(Alert.AlertType.ERROR,
+                    "Erreur", "Vous ne pouvez pas faire cette action.", e.getMessage());
             error.showAndWait();
         } catch (CoupFourreException e) {
-            Alert coupFourre = new Alert(Alert.AlertType.INFORMATION);
-            coupFourre.setTitle("Coup Fourré !");
-            coupFourre.setHeaderText("Votre adversaire sort un coup-fourré!");
-            coupFourre.setContentText("Votre attaque n'a aucun effet et il récupère la main.");
+            Alert coupFourre = genererAlert(Alert.AlertType.INFORMATION, "Coup Fourré !",
+                    "Votre adversaire sort un coup-fourré !",
+                    "Votre attaque n'a aucun effet et il récupère la main.");
             coupFourre.showAndWait();
             jeu.activeProchainJoueurEtTireCarte();
             sabot.update();
