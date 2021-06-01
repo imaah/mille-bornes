@@ -39,7 +39,33 @@ public class Controleur {
         milleBornes.defausseCarte(carte);
     }
 
+    public boolean confirmation(String title, String header, String content) {
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setTitle(title);
+        confirmation.setHeaderText(header);
+        confirmation.setContentText(content);
+
+        Optional<ButtonType> reponse = confirmation.showAndWait();
+
+        if (reponse.orElse(null) == ButtonType.CANCEL) {
+            return false;
+        } else {
+            System.out.println("Fermeture du MilleBornes.");
+            return true;
+        }
+    }
+
     public void nouvellePartie() {
+        // On vérifie d'abord qu'aucune partie n'est en cours
+        if (!(milleBornes.getJeu() == null || milleBornes.getJeu().estPartieFinie())) {
+            // Si il ne souhaite pas recréer de partie, alors on annule
+            if (!confirmation(
+                    "Nouvelle partie",
+                    "Une partie est déjà en cours, êtes-vous sûr de vouloir créer une nouvelle partie ?",
+                    "Si vous créez une nouvelle partie, l'état de celle en cours ne sera pas sauvegardé!"
+            )) return;
+        }
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Choix du nombre de joueurs");
         alert.setHeaderText("Combien de joueurs ?");

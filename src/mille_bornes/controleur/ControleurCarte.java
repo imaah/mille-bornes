@@ -40,10 +40,10 @@ public class ControleurCarte {
     }
 
     private void onClick(MouseEvent event) {
-        if(carte.estGrisee()) {
-            if(event.getButton() == MouseButton.PRIMARY) {
+        if (carte.estSurvolActif()) {
+            if (event.getButton() == MouseButton.PRIMARY) {
                 controleur.joueCarte(this.carte.getCarte());
-            } else if(event.getButton() == MouseButton.SECONDARY) {
+            } else if (event.getButton() == MouseButton.SECONDARY) {
                 controleur.defausseCarte(this.carte.getCarte());
             }
         }

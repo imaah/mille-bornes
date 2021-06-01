@@ -2,21 +2,17 @@ package mille_bornes.vue.jeu;
 
 import javafx.scene.SnapshotParameters;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import mille_bornes.controleur.ControleurCarte;
 import mille_bornes.modele.cartes.Carte;
 import mille_bornes.modele.cartes.DefaultCarte;
 import mille_bornes.vue.MilleBornes;
 
 public class CarteVue extends Rectangle {
     private static final double DEFAULT_SIZE = 140;
-    private final MilleBornes milleBornes;
     protected boolean survolActif = true;
     private double ratio = 1.0;
     private CarteRotation rotation = CarteRotation.DEG_0;
@@ -35,7 +31,7 @@ public class CarteVue extends Rectangle {
     }
 
     public CarteVue(Carte carte, MilleBornes milleBornes) {
-        this.milleBornes = milleBornes;
+        new ControleurCarte(this, milleBornes);
         changeCarte(carte);
     }
 
@@ -84,7 +80,6 @@ public class CarteVue extends Rectangle {
 
     public void setGrisee(boolean grisee) {
         this.grisee = grisee;
-        System.out.println(this.grisee);
         if (this.grisee) {
             ColorAdjust adjust = new ColorAdjust();
             adjust.setSaturation(-.9);
