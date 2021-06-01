@@ -1,25 +1,23 @@
 package mille_bornes.vue.jeu;
 
 import javafx.scene.SnapshotParameters;
-import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import mille_bornes.controleur.ControleurCarte;
 import mille_bornes.modele.cartes.Carte;
 import mille_bornes.modele.cartes.DefaultCarte;
 import mille_bornes.vue.MilleBornes;
 
 public class CarteVue extends Rectangle {
     private static final double DEFAULT_SIZE = 140;
-    private final MilleBornes milleBornes;
-    private boolean survolActif = true;
+    protected boolean survolActif = true;
     private double ratio = 1.0;
     private CarteRotation rotation = CarteRotation.DEG_0;
     private boolean afficherSiNull = false;
+    private boolean grisee = false;
     private Carte carte;
 
     public CarteVue(Carte carte, MilleBornes milleBornes, boolean survolActif) {
@@ -27,12 +25,14 @@ public class CarteVue extends Rectangle {
         setSurvolActif(survolActif);
     }
 
+    public CarteVue(Carte carte, MilleBornes milleBornes, boolean survolActif, boolean grisee) {
+        this(carte, milleBornes, survolActif);
+        setGrisee(grisee);
+    }
+
     public CarteVue(Carte carte, MilleBornes milleBornes) {
-        this.milleBornes = milleBornes;
+        new ControleurCarte(this, milleBornes);
         changeCarte(carte);
-        setOnMouseEntered(this::onEnter);
-        setOnMouseExited(this::onExit);
-        setOnMouseClicked(this::onClick);
     }
 
     public void changeCarte(Carte carte) {
@@ -70,6 +70,7 @@ public class CarteVue extends Rectangle {
 
         ImageView view = new ImageView(image);
         view.setRotate(rotation.angle);
+        setGrisee(grisee);
         ImagePattern pattern = new ImagePattern(view.snapshot(new SnapshotParameters(), null));
         setFill(pattern);
 
@@ -77,19 +78,14 @@ public class CarteVue extends Rectangle {
         setArcWidth(10);
     }
 
-    private void onExit(MouseEvent event) {
-        setEffect(null);
-    }
-
-    private void onEnter(MouseEvent event) {
-        if (survolActif) {
-            setEffect(new DropShadow(3d, Color.BLACK));
-        }
-    }
-
-    private void onClick(MouseEvent event) {
-        if (survolActif && (event.getButton() == MouseButton.PRIMARY || event.getButton() == MouseButton.SECONDARY)) {
-            milleBornes.carteCliquee(this.carte, event.getButton() == MouseButton.SECONDARY);
+    public void setGrisee(boolean grisee) {
+        this.grisee = grisee;
+        if (this.grisee) {
+            ColorAdjust adjust = new ColorAdjust();
+            adjust.setSaturation(-.9);
+            setEffect(adjust);
+        } else {
+            setEffect(null);
         }
     }
 
@@ -113,6 +109,14 @@ public class CarteVue extends Rectangle {
 
     public void setAfficherSiNull(boolean afficherSiNull) {
         this.afficherSiNull = afficherSiNull;
+    }
+
+    public boolean estGrisee() {
+        return grisee;
+    }
+
+    public boolean estSurvolActif() {
+        return survolActif;
     }
 
     public enum CarteRotation {

@@ -3,10 +3,12 @@ package mille_bornes.vue;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import mille_bornes.controleur.BarreMenu;
+import mille_bornes.controleur.Controleur;
 import mille_bornes.modele.CoupFourreException;
 import mille_bornes.modele.Jeu;
 import mille_bornes.modele.Joueur;
@@ -29,6 +31,7 @@ public class MilleBornes {
     private final Sabot sabot;
     private final JoueurMain[] mains = new JoueurMain[4];
     private Jeu jeu;
+    private final Controleur controleur = new Controleur(this);
 
     public MilleBornes(double width, double height) throws IOException {
         contenu = new BorderPane();
@@ -44,7 +47,9 @@ public class MilleBornes {
 
         vBox = new VBox();
 
-        contenu.setBackground(new Background(new BackgroundFill(Color.rgb(158, 251, 144), CornerRadii.EMPTY, Insets.EMPTY)));
+        contenu.setBackground(new Background(
+                new BackgroundFill(Color.rgb(158, 251, 144), CornerRadii.EMPTY, Insets.EMPTY)
+        ));
         vBox.getChildren().addAll(barreMenu, contenu);
 
         contenu.setPrefWidth(width);
@@ -120,43 +125,16 @@ public class MilleBornes {
         return vBox;
     }
 
-    public void carteCliquee(Carte carte, boolean clicDroit) {
+    public void defausseCarte(Carte carte) {
         try {
-            if (clicDroit) {
-                jeu.getJoueurActif().defausseCarte(jeu, carte);
-            } else {
-                if (carte instanceof Attaque) {
-                    // afficher alert
-                    Joueur cible = new ChoisitDestination(jeu, (Attaque) carte).getCible();
+            jeu.getJoueurActif().defausseCarte(jeu, carte);
 
-                    if (cible == null) return;
-
-                    jeu.getJoueurActif().joueCarte(jeu, carte, cible);
-                } else {
-                    jeu.getJoueurActif().joueCarte(jeu, carte);
-                }
-            }
-            if (jeu.estPartieFinie()) {
-                Alert victoire = new Alert(Alert.AlertType.INFORMATION);
-                victoire.setTitle("Fin de partie");
-                victoire.setHeaderText("Victoire !");
-                List<Joueur> gagnants = jeu.getGagnant();
-                if (gagnants.size() == 1) {
-                    victoire.setContentText(gagnants.get(0).nom + " remporte la partie !");
-                } else {
-                    victoire.setContentText("Le gagnant de cette partie sont : \n- " + gagnants.stream().map(Joueur::getNom).collect(Collectors.joining("\n- ")));
-                }
-                victoire.showAndWait();
+            if(testVictoire()) {
+                controleur.demanderRejouer();
                 return;
             }
 
             jeu.activeProchainJoueurEtTireCarte();
-
-            Alert changementJoueur = new Alert(Alert.AlertType.INFORMATION);
-            changementJoueur.setTitle("Changement de joueur");
-            changementJoueur.setHeaderText("");
-            changementJoueur.setContentText("C'est au tour de " + jeu.getJoueurActif().nom);
-            changementJoueur.showAndWait();
             sabot.update();
             tournerJoueurs();
         } catch (IllegalStateException e) {
@@ -165,11 +143,71 @@ public class MilleBornes {
             error.setHeaderText("Vous ne pouvez pas faire cette action");
             error.setContentText(e.getMessage());
             error.showAndWait();
+        }
+    }
+
+    public boolean testVictoire() {
+        if (jeu.estPartieFinie()) {
+            String content;
+            List<Joueur> gagnants = jeu.getGagnant();
+
+            if (gagnants.size() == 1) {
+                content = gagnants.get(0).nom + " remporte la partie !";
+            } else {
+                content = "Le gagnant de cette partie sont : \n- " + gagnants.stream()
+                        .map(Joueur::getNom).collect(Collectors.joining("\n- "));
+            }
+
+            Alert alert = genererAlert(
+                    Alert.AlertType.INFORMATION,
+                    "Fin de partie",
+                    "Victoire !",
+                    content);
+
+            alert.showAndWait();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private Alert genererAlert(Alert.AlertType type, String titre, String header, String content, ButtonType... buttons) {
+        Alert alert = new Alert(type, content, buttons);
+        alert.setTitle(titre);
+        alert.setHeaderText(header);
+        return alert;
+    }
+
+    public void joueCarte(Carte carte) {
+        try {
+            if (carte instanceof Attaque) {
+                // afficher alert
+                Joueur cible = new ChoisitDestination(jeu, (Attaque) carte).getCible();
+
+                if (cible == null) return;
+
+                jeu.getJoueurActif().joueCarte(jeu, carte, cible);
+            } else {
+                jeu.getJoueurActif().joueCarte(jeu, carte);
+            }
+
+            if(testVictoire()) {
+                controleur.demanderRejouer();
+                return;
+            }
+
+            jeu.activeProchainJoueurEtTireCarte();
+            sabot.update();
+            tournerJoueurs();
+        } catch (IllegalStateException e) {
+            Alert error = genererAlert(Alert.AlertType.ERROR,
+                    "Erreur", "Vous ne pouvez pas faire cette action.", e.getMessage());
+            error.showAndWait();
         } catch (CoupFourreException e) {
-            Alert coupFourre = new Alert(Alert.AlertType.INFORMATION);
-            coupFourre.setTitle("Coup Fourré !");
-            coupFourre.setHeaderText("Votre adversaire sort un coup-fourré!");
-            coupFourre.setContentText("Votre attaque n'a aucun effet et il récupère la main.");
+            Alert coupFourre = genererAlert(Alert.AlertType.INFORMATION, "Coup Fourré !",
+                    "Votre adversaire sort un coup-fourré !",
+                    "Votre attaque n'a aucun effet et il récupère la main.");
             coupFourre.showAndWait();
             jeu.activeProchainJoueurEtTireCarte();
             sabot.update();
