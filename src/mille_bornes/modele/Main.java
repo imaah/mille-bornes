@@ -75,8 +75,6 @@ public class Main {
         FileReader lecteur = new FileReader(sauvegarde);
         JsonObject json = gson.fromJson(lecteur, JsonObject.class);
         return new Jeu(json);
-//        Serialiseur serialiseur = new Serialiseur();
-//        return serialiseur.chargerDepuisFichier(sauvegarde, Jeu.class);
     }
 
     /**
@@ -94,8 +92,6 @@ public class Main {
 
         ecrivain.flush();
         ecrivain.close();
-//        Serialiseur serialiseur = new Serialiseur();
-//        serialiseur.sauvegarderDansUnFichier(sauvegarde, partie);
     }
 
     /**

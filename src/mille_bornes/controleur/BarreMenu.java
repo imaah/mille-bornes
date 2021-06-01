@@ -29,11 +29,12 @@ import java.util.stream.Collectors;
  *
  */
 public class BarreMenu {
+    // La partie active
     private Jeu partie;
+
+    // La fenêtre active
     private MilleBornes gui;
 
-    public BarreMenu() {
-    }
 
     /**
      * Permet de créer une nouvelle partie avec des options
@@ -147,6 +148,7 @@ public class BarreMenu {
         this.gui = gui;
     }
 
+
     /**
      * Ouvre une partie et créé un nouveau jeu à partir du contenu du fichier lu
      */
@@ -180,6 +182,7 @@ public class BarreMenu {
 
         }
     }
+
 
     /**
      * Permet de sauvegarder l'état d'une partie au format JSON
@@ -217,6 +220,7 @@ public class BarreMenu {
         }
     }
 
+
     /**
      * Appelle la même fonction onQuitter, mais avec des paramètres par défaut
      */
@@ -226,6 +230,7 @@ public class BarreMenu {
                 "Vous êtes sur le point de quitter l'application. Si vous confirmez, la partie en cours ne sera pas sauvegardée!"
          )) System.exit(0);
     }
+
 
     /**
      * Demande confirmation avant de quitter l'application ou de changer de partie
@@ -254,6 +259,7 @@ public class BarreMenu {
         Alert alert = new APropos();
         alert.showAndWait();
     }
+
 
     /**
      * Permet de lister les joueurs pour l'ajout. On peut ensuite récupérer les valeurs entrées

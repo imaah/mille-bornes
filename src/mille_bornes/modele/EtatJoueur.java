@@ -128,7 +128,7 @@ public class EtatJoueur implements Sauvegardable {
 
         bottes.add(botte);
         // Si on a bien une attaque sur le joueur...
-        if (getBataille() != null && getBataille() instanceof Attaque) {
+        if (getBataille() instanceof Attaque) {
             if (botte.contre((Attaque) getBataille())) {
                 // ... et qu'on la contre, on la retire
                 pileBataille.pop();
@@ -153,7 +153,7 @@ public class EtatJoueur implements Sauvegardable {
                                        "n'a aucun effet et il récupère la main.");
                     botte.appliqueEffet(jeu, this);
                     main.remove(i);
-//                    defausseCarte(jeu, i);
+
                     jeu.setProchainJoueur(this.joueur);
                     jeu.defausse(attaque);
 
@@ -265,9 +265,9 @@ public class EtatJoueur implements Sauvegardable {
     public JsonObject sauvegarder() {
         JsonObject json = new JsonObject();
 
-        JsonArray pileArray = new JsonArray(),
-                mainArray = new JsonArray(),
-                botteArray = new JsonArray();
+        JsonArray pileArray = new JsonArray();
+        JsonArray mainArray = new JsonArray();
+        JsonArray botteArray = new JsonArray();
 
         pileBataille.stream().map(Carte::sauvegarder).forEach(pileArray::add);
         main.stream().map(Carte::sauvegarder).forEach(mainArray::add);

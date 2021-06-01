@@ -15,7 +15,7 @@ public class Serialiseur {
      * @return Un booléen vrai ou faux si l'opération à réussie ou non
      * @throws IOException S'il y a un problème lors de l'écriture du fichier.
      */
-    public boolean sauvegarderDansUnFichier(File file, Serializable object) throws IOException {
+    public boolean sauvegarderDansUnFichier(File file, Serializable object) {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
             oos.writeObject(object);

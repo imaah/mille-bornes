@@ -76,6 +76,7 @@ public abstract class Carte implements Sauvegardable {
 
     @Override
     public boolean equals(Object o) {
+        if (o == null) return false;
         if (!getClass().isAssignableFrom(o.getClass())) return false;
         Carte carte = (Carte) o;
         return Objects.equals(nom, carte.nom) && categorie == carte.categorie;

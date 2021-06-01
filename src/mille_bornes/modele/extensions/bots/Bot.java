@@ -24,6 +24,7 @@ public abstract class Bot extends Joueur {
         this.nCartesRestantes = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
     }
 
+    @Override
     public abstract int choisitCarte();
 
     @Override

@@ -78,7 +78,7 @@ public abstract class JoueurMain extends GridPane implements Updatable {
             cacher();
         }
 
-        statusLabel.setText(String.format("%s\n%d km", joueur.nom, joueur.getKm()));
+        statusLabel.setText(String.format("%s%n%d km", joueur.nom, joueur.getKm()));
         bataille.changeCarte(joueur.getBataille());
 
         if (joueur.getLimiteVitesse()) {
