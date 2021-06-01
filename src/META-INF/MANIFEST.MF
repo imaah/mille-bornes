@@ -1,2 +1,2 @@
 Manifest-Version: 1.0
-Main-Class: mille_bornes.App
+Main-Class: mille_bornes.application.App

@@ -1,4 +1,4 @@
-package mille_bornes;
+package mille_bornes.application;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -11,6 +11,9 @@ import java.net.URL;
 
 public class App extends Application {
 
+    /**
+     * La taille de la fenetre, à ne pas modifier !
+     */
     private static final int APP_WIDTH = 1200;
     private static final int APP_HEIGHT = 1000;
 
@@ -34,7 +37,7 @@ public class App extends Application {
         }
         stage.setHeight(APP_HEIGHT);
 
-        new ControleurClavier(scene, app);
+        ControleurClavier.init(scene, app);
 
         stage.show();
     }
