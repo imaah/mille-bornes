@@ -39,6 +39,17 @@ public class BarreMenu {
      * Permet de créer une nouvelle partie avec des options
      */
     public void onCreerNouvellePartie() {
+        // On vérifie d'abord qu'aucune partie n'est en cours
+        if (!(this.partie == null || this.partie.estPartieFinie())) {
+        // Si il ne souhaite pas recréer de partie, alors on annule
+            if (!onQuitter(
+                    "Nouvelle partie",
+                    "Une partie est déjà en cours, êtes-vous sûr de vouloir créer une nouvelle partie ?",
+                    "Si vous créez une nouvelle partie, l'état de celle en cours ne sera pas sauvegardé!"
+            )) return;
+        }
+
+
         // Choix du nombre de joueurs
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Choix du nombre de joueurs");
@@ -70,7 +81,7 @@ public class BarreMenu {
             choixTypesJoueurs.setTitle("Nouveaux joueurs");
             choixTypesJoueurs.setHeaderText("Indiquez le type et le nom de chaque joueur");
 
-            // Une ArrayList de FlowPane total, qui va contenir les differentes lignes pour y accéder plus tard
+            // Une ArrayList de FlowPane total, qui va contenir les différentes lignes pour y accéder plus tard
             List<ChoixJoueur> total = new ArrayList<>();
 
 
@@ -80,6 +91,7 @@ public class BarreMenu {
                 ChoixJoueur joueur = new ChoixJoueur(i);
                 total.add(joueur);
 
+                // Un flowpane contient une ligne complète
                 FlowPane ligne = new FlowPane();
                 ligne.setAlignment(Pos.CENTER);
                 ligne.setPadding(new Insets(5));
@@ -115,6 +127,7 @@ public class BarreMenu {
 
                     nom = tempNom;
 
+                    // On créer tout les joueurs
                     if ("IA - Aléatoire".equals(value)) {
                         joueurs.add(new DumbBot(nom));
                     } else if ("IA - Naïf".equals(value)) {
@@ -131,7 +144,6 @@ public class BarreMenu {
     }
 
     public void setGui(MilleBornes gui) {
-        System.out.println("Bonsoir");
         this.gui = gui;
     }
 
@@ -156,7 +168,7 @@ public class BarreMenu {
                 System.out.println("Partie chargée");
             } catch (Exception e) {
                 // Si on a pas pu reprendre le jeu, alors on affiche une erreur
-                System.out.println(e);
+                e.printStackTrace();
 
                 Alert erreur = new Alert(Alert.AlertType.ERROR);
                 erreur.setTitle("Ouverture d'une partie");
@@ -206,22 +218,34 @@ public class BarreMenu {
     }
 
     /**
-     * Demande confirmation avant de quitter l'application
+     * Appelle la même fonction onQuitter, mais avec des paramètres par défaut
      */
     public void onQuitter() {
+         if (onQuitter("Quitter",
+                "Voulez-vous vraiment quitter ?",
+                "Vous êtes sur le point de quitter l'application. Si vous confirmez, la partie en cours ne sera pas sauvegardée!"
+         )) System.exit(0);
+    }
+
+    /**
+     * Demande confirmation avant de quitter l'application ou de changer de partie
+     */
+    public boolean onQuitter(String title, String header, String content) {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmation.setTitle("Quitter");
-        confirmation.setHeaderText("Voulez-vous vraiment quitter ?");
-        confirmation.setContentText("Vous êtes sur le point de quitter l'application. Si vous confirmez, " +
-                                    "la partie en cours ne sera pas sauvegardée!");
+        confirmation.setTitle(title);
+        confirmation.setHeaderText(header);
+        confirmation.setContentText(content);
 
         Optional<ButtonType> reponse = confirmation.showAndWait();
 
-        if (reponse.orElse(null) == ButtonType.OK) {
+        if (reponse.orElse(null) == ButtonType.CANCEL) {
+            return false;
+        } else {
             System.out.println("Fermeture du MilleBornes.");
-            System.exit(0);
+            return true;
         }
     }
+
 
     /**
      * Créé un nouvel objet APropos pour afficher la fenêtre
@@ -231,6 +255,9 @@ public class BarreMenu {
         alert.showAndWait();
     }
 
+    /**
+     * Permet de lister les joueurs pour l'ajout. On peut ensuite récupérer les valeurs entrées
+     */
     private static class ChoixJoueur extends FlowPane {
         final ComboBox<String> type = new ComboBox<>();
         final TextField nom = new TextField();
