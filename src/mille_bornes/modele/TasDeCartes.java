@@ -26,8 +26,10 @@ public class TasDeCartes implements Sauvegardable {
     }
 
     public TasDeCartes(JsonObject json) {
-        if (json.has("cartes")) {
-            JsonArray ca = json.getAsJsonArray("cartes");
+        String lookingFor = "cartes";
+
+        if (json.has(lookingFor)) {
+            JsonArray ca = json.getAsJsonArray(lookingFor);
             ca.forEach(element -> cartes.add(Carte.deserialize(element.getAsJsonObject())));
         } else {
             throw new IllegalArgumentException("Propriétés manquantes dans l'objet json.");

@@ -4,7 +4,7 @@ import mille_bornes.modele.EtatJoueur;
 import mille_bornes.modele.Jeu;
 
 public abstract class Parade extends Bataille {
-    public Parade(String nom, String imagePath) {
+    protected Parade(String nom, String imagePath) {
         super(nom, Categorie.PARADE, imagePath);
     }
 

@@ -12,7 +12,7 @@ public class DumbBot extends Bot {
         // Après la désérialisation random sera null, alors on verifie s'il est null.
         if (random == null) random = new Random();
         // Si il reste des cartes non testées
-        if (nCartesRestantes.size() != 0) {
+        if (!(nCartesRestantes.isEmpty())) {
             int n = nCartesRestantes.get(random.nextInt(nCartesRestantes.size()));
             nCartesRestantes.remove(Integer.valueOf(n));
             return n;

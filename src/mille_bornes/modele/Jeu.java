@@ -292,7 +292,7 @@ public class Jeu implements Sauvegardable {
     public List<Joueur> getJoueurs() {
         // On doit créer une nouvelle liste sinon celle de jeu va être triée et les joueurs n'auront plus le bon ordre
         List<Joueur> temp = this.joueurs;
-        Collections.sort(temp, Comparator.comparing(Joueur::getNom));
+        temp.sort(Comparator.comparing(Joueur::getNom));
         return temp;
     }
 
