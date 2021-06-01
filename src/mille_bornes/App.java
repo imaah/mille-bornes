@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import mille_bornes.controleur.ControleurClavier;
 import mille_bornes.vue.MilleBornes;
 
 import java.net.URL;
@@ -20,7 +21,6 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         MilleBornes app = new MilleBornes(APP_WIDTH, APP_HEIGHT);
-
         Scene scene = new Scene(app.getHolder());
         stage.setScene(scene);
         stage.setTitle("1000 bornes");
@@ -29,10 +29,13 @@ public class App extends Application {
 
         URL iconUrl = getClass().getResource("/images/Mille_Bornes.png");
 
-        if(iconUrl != null) {
+        if (iconUrl != null) {
             stage.getIcons().add(new Image(iconUrl.toString()));
         }
         stage.setHeight(APP_HEIGHT);
+
+        new ControleurClavier(scene, app);
+
         stage.show();
     }
 }

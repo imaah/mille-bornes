@@ -1,7 +1,6 @@
 package mille_bornes.controleur;
 
 import javafx.scene.control.Alert;
-import mille_bornes.modele.Jeu;
 import mille_bornes.vue.APropos;
 import mille_bornes.vue.MilleBornes;
 
@@ -41,7 +40,10 @@ public class BarreMenu {
      * Demande confirmation avant de quitter l'application
      */
     public void onQuitter() {
-        controleur.quitterClique();
+        if (controleur.confirmation("Quitter",
+                "Voulez-vous vraiment quitter ?",
+                "Vous êtes sur le point de quitter l'application. Si vous confirmez, la partie en cours ne sera pas sauvegardée!"
+        )) System.exit(0);
     }
 
     /**

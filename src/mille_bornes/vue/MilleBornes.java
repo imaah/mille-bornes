@@ -151,12 +151,6 @@ public class MilleBornes {
             }
 
             jeu.activeProchainJoueurEtTireCarte();
-
-            Alert changementJoueur = new Alert(Alert.AlertType.INFORMATION);
-            changementJoueur.setTitle("Changement de joueur");
-            changementJoueur.setHeaderText("");
-            changementJoueur.setContentText("C'est au tour de " + jeu.getJoueurActif().nom);
-            changementJoueur.showAndWait();
             sabot.update();
             tournerJoueurs();
         } catch (IllegalStateException e) {

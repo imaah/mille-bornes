@@ -1,20 +1,21 @@
 package mille_bornes.controleur;
 
+import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import mille_bornes.vue.MilleBornes;
 
-public class ControlerClavier {
+public class ControleurClavier {
 
     private final Controleur controleur;
 
-    public ControlerClavier(MilleBornes milleBornes) {
+    public ControleurClavier(Scene scene, MilleBornes milleBornes) {
         this.controleur = new Controleur(milleBornes);
-        milleBornes.getHolder().setOnKeyPressed(this::touchePressee);
+        scene.setOnKeyPressed(this::touchePressee);
     }
 
     private void touchePressee(KeyEvent keyEvent) {
-        if(keyEvent.isControlDown()) {
-            char c = keyEvent.getCharacter().toLowerCase().charAt(0);
+        if (keyEvent.isControlDown() && keyEvent.getText().length() > 0) {
+            char c = keyEvent.getText().toLowerCase().charAt(0);
 
             switch (c) {
                 case 'n':
