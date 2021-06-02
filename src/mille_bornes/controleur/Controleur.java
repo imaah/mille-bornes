@@ -325,7 +325,7 @@ public class Controleur {
         alert.setTitle("Rejouer ?");
         Optional<ButtonType> res = alert.showAndWait();
 
-        if (res.orElse(ButtonType.NO) == ButtonType.YES) {
+        if (res.orElse(null) == ButtonType.YES) {
             nouvellePartie();
         } else {
             quitterClique();

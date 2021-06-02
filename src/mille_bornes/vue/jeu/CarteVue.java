@@ -58,6 +58,10 @@ public class CarteVue extends Rectangle {
         this.index = index;
     }
 
+    /**
+     * Permet de changer le visuel d'une carte
+     * @param carte Le nouveau visuel à affecter
+     */
     public void changeCarte(Carte carte) {
         double size = DEFAULT_SIZE * ratio;
 
@@ -83,6 +87,7 @@ public class CarteVue extends Rectangle {
 
         double width = size * (image.getWidth() / image.getHeight());
 
+        // Si la carte est horizontale, on l'affiche "normalement", sinon on inverse sa largeur et sa longueur
         switch (rotation) {
             case DEG_0:
             case DEG_180:
@@ -108,6 +113,10 @@ public class CarteVue extends Rectangle {
         setArcWidth(10);
     }
 
+    /**
+     * Permet de griser ou dégriser la carte
+     * @param grisee true si on veut griser la carte, false sinon
+     */
     public void setGrisee(boolean grisee) {
         this.grisee = grisee;
         if (this.grisee) {
@@ -119,40 +128,76 @@ public class CarteVue extends Rectangle {
         }
     }
 
+    /**
+     * Permet de définir le ratio de la carte (sa taille en quelque sorte)
+     * @param ratio Le ratio de la carte
+     */
     public void setRatio(double ratio) {
         this.ratio = ratio;
         this.changeCarte(carte);
     }
 
+    /**
+     * Permet de tourner une carte d'une certaine orientation
+     * @param rotation L'orientation à appliquer. Provient de CarteRotation
+     */
     public void tourner(CarteRotation rotation) {
         this.rotation = rotation;
         changeCarte(carte);
     }
 
+    /**
+     * Permet d'activer ou de désactiver le survol
+     * @param survolActif true si le survol doit être actif, false sinon
+     */
     public void setSurvolActif(boolean survolActif) {
         this.survolActif = survolActif;
     }
 
+    /**
+     * Retourne la carte
+     * @return La carte
+     */
     public Carte getCarte() {
         return carte;
     }
 
+    /**
+     * Précise si la carte doit être affichée même si elle est nulle
+     * @param afficherSiNull true si elle doit l'être, false sinon
+     */
     public void setAfficherSiNull(boolean afficherSiNull) {
         this.afficherSiNull = afficherSiNull;
     }
 
+    /**
+     * Permet de savoir si une carte est grisée
+     * @return true si elle est grisée, false sinon
+     */
     public boolean estGrisee() {
         return grisee;
     }
 
+    /**
+     * Permet de savoir si le survol est actif
+     * @return true s'il l'est, false sinon
+     */
     public boolean estSurvolActif() {
         return survolActif;
     }
 
+    /**
+     * Permet de connaître le ratio de la carte
+     * @return Le ratio de la carte
+     */
     public double getRatio() {
         return ratio;
     }
 
+    /**
+     * Permet de connaître la rotation de la carte
+     * @return La rotation de la carte. Provient de RotationCarte
+     */
     public CarteRotation getRotation() {
         return rotation;
     }
@@ -170,8 +215,8 @@ public class CarteVue extends Rectangle {
      */
     public enum CarteRotation {
         DEG_0(0),
-        DEG_180(180),
         DEG_90(90),
+        DEG_180(180),
         DEG_270(270);
 
         public final double angle;
