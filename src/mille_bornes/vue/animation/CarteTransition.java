@@ -1,6 +1,7 @@
 package mille_bornes.vue.animation;
 
 import javafx.animation.ParallelTransition;
+import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Point2D;
@@ -18,10 +19,6 @@ public class CarteTransition {
     public static TranslateTransition getTranslateAnimation(CarteVue from, CarteVue to, Duration duration) {
         TranslateTransition translate = new TranslateTransition(duration, from);
 
-        from.setViewOrder(Double.MAX_VALUE);
-//        to.getParent().toBack();
-        from.toFront();
-
         System.out.println("AAAAAAA " + from.localToScene(from.getX(), from.getY()));
         Point2D positionDepart = from.localToScene(from.getX(), from.getY());
         Point2D positionArrivee = to.localToScene(to.getX(), to.getY());
@@ -35,6 +32,9 @@ public class CarteTransition {
 
         translate.setToX(from.getX() - dX);
         translate.setToY(from.getY() - dY);
+        translate.setToZ(-2);
+
+        from.setSurvolActif(false);
 
         return translate;
     }
@@ -66,7 +66,16 @@ public class CarteTransition {
         return new ParallelTransition(from,
                 getTranslateAnimation(from, to, duration),
                 getScaleAnimation(from, to, duration)
+//                getRotateAnimation(from, to, duration)
         );
+    }
+
+    public static RotateTransition getRotateAnimation(CarteVue from, CarteVue to, Duration duration) {
+        RotateTransition rotate = new RotateTransition(duration, from);
+
+        rotate.setToAngle(to.getRotation().angle);
+
+        return rotate;
     }
 
 }

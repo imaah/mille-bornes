@@ -21,8 +21,6 @@ public class Sabot extends GridPane implements Updatable {
         defausse = new CarteVue(DefaultCarte.VIDE, milleBornes, false);
         defausse.setAfficherSiNull(false);
 
-        toBack();
-
         Label piocheHeader = new Label("Pioche");
         Label defausseHeader = new Label("Défausse");
 

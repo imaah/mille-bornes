@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-
-<?import javafx.scene.input.KeyCodeCombination?>
-<MenuBar xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mille_bornes.controleur.BarreMenu">
+<MenuBar xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="mille_bornes.controleur.BarreMenu" translateZ="-1">
     <Menu text="Partie">
         <MenuItem onAction="#onCreerNouvellePartie" text="Nouvelle" accelerator="ctrl+n"/>
         <SeparatorMenuItem/>
@@ -13,6 +12,6 @@
         <MenuItem onAction="#onQuitter" text="Quitter" accelerator="alt+f4"/>
     </Menu>
     <Menu text="Aide">
-        <MenuItem onAction="#onAPropos" text="À propos" />
+        <MenuItem onAction="#onAPropos" text="À propos"/>
     </Menu>
 </MenuBar>

@@ -33,7 +33,6 @@ public class CarteVue extends Rectangle {
     public CarteVue(Carte carte, MilleBornes milleBornes) {
         new ControleurCarte(this, milleBornes);
         changeCarte(carte);
-        toBack();
     }
 
     public void changeCarte(Carte carte) {
@@ -47,9 +46,9 @@ public class CarteVue extends Rectangle {
         Image image;
         setTranslateX(0);
         setTranslateY(0);
+        setTranslateZ(-1);
         setScaleX(1);
         setScaleY(1);
-        toBack();
 
         if (this.carte != null) {
             image = new Image(this.carte.getImagePath());
@@ -129,13 +128,17 @@ public class CarteVue extends Rectangle {
         return ratio;
     }
 
+    public CarteRotation getRotation() {
+        return rotation;
+    }
+
     public enum CarteRotation {
         DEG_0(0),
         DEG_180(180),
         DEG_90(90),
         DEG_270(270);
 
-        private final double angle;
+        public final double angle;
 
         CarteRotation(double angle) {
             this.angle = angle;

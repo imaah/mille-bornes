@@ -242,12 +242,12 @@ public class MilleBornes {
         mains[0].montrer(Math.abs(nCarte) - 1);
 
         if(nCarte < 0) {
-            Animation animation = CarteTransition.getCombinedTransition(vue, sabot.getDefausse(), Duration.millis(3000));
+            Animation animation = CarteTransition.getCombinedTransition(vue, sabot.getDefausse(), Duration.millis(1500));
             animation.setOnFinished(e -> finDeTour());
             animation.play();
         } else if(carte instanceof Attaque) {
             JoueurMain main = trouverMainDepuisJoueur(cible);
-            Animation animation = CarteTransition.getCombinedTransition(vue, main.getBataille(), Duration.millis(3000));
+            Animation animation = CarteTransition.getCombinedTransition(vue, main.getBataille(), Duration.millis(1500));
             animation.setOnFinished(e -> {
                 System.out.println("fini");
                 finDeTour();
