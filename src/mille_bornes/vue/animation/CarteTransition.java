@@ -19,7 +19,6 @@ public class CarteTransition {
     public static TranslateTransition getTranslateAnimation(CarteVue from, CarteVue to, Duration duration) {
         TranslateTransition translate = new TranslateTransition(duration, from);
 
-        System.out.println("AAAAAAA " + from.localToScene(from.getX(), from.getY()));
         Point2D positionDepart = from.localToScene(from.getX(), from.getY());
         Point2D positionArrivee = to.localToScene(to.getX(), to.getY());
         double ratio = to.getRatio() / from.getRatio();
@@ -64,8 +63,8 @@ public class CarteTransition {
      */
     public static ParallelTransition getCombinedTransition(CarteVue from, CarteVue to, Duration duration) {
         return new ParallelTransition(from,
-                getTranslateAnimation(from, to, duration),
-                getScaleAnimation(from, to, duration)
+                getScaleAnimation(from, to, duration),
+                getTranslateAnimation(from, to, duration)
 //                getRotateAnimation(from, to, duration)
         );
     }
