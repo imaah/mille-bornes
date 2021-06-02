@@ -11,8 +11,9 @@ import mille_bornes.vue.jeu.CarteVue;
 public class CarteTransition {
     /**
      * Permet de changer la position d'une carte en correspondance avec la destination
-     * @param from La carte de départ
-     * @param to La carte d'arrivée
+     *
+     * @param from     La carte de départ
+     * @param to       La carte d'arrivée
      * @param duration La durée de la transition
      * @return La transition générée
      */
@@ -41,8 +42,9 @@ public class CarteTransition {
 
     /**
      * Permet de changer la taille d'une carte en correspondance avec la destination
-     * @param from Carte de départ
-     * @param to Carte d'arrivée
+     *
+     * @param from     Carte de départ
+     * @param to       Carte d'arrivée
      * @param duration Durée de la transformation
      * @return Une ScaleTransition
      */
@@ -57,16 +59,17 @@ public class CarteTransition {
 
     /**
      * Combine les deux transitions précédentes
-     * @param from La carte de départ
-     * @param to La carte d'arrivée
+     *
+     * @param from     La carte de départ
+     * @param to       La carte d'arrivée
      * @param duration La durée de la transition
      * @return La transition complète
      */
     public static ParallelTransition getCombinedTransition(CarteVue from, CarteVue to, Duration duration) {
         return new ParallelTransition(from,
+                getRotateAnimation(from, to, duration),
                 getTranslateAnimation(from, to, duration),
                 getScaleAnimation(from, to, duration)
-//                getRotateAnimation(from, to, duration)
         );
     }
 

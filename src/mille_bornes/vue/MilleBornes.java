@@ -16,6 +16,9 @@ import mille_bornes.modele.Jeu;
 import mille_bornes.modele.Joueur;
 import mille_bornes.modele.cartes.Attaque;
 import mille_bornes.modele.cartes.Carte;
+import mille_bornes.modele.cartes.Parade;
+import mille_bornes.modele.cartes.attaques.LimiteVitesse;
+import mille_bornes.modele.cartes.parades.FinDeLimite;
 import mille_bornes.modele.extensions.bots.Bot;
 import mille_bornes.vue.animation.CarteTransition;
 import mille_bornes.vue.jeu.CarteVue;
@@ -121,7 +124,7 @@ public class MilleBornes {
             mains[i].setJoueur(joueur);
         }
 
-        mains[0].setSurvolActif(!(joueur instanceof Bot));
+        mains[0].setSurvolActif((joueur instanceof Bot));
     }
 
     public Sabot getSabot() {
@@ -242,22 +245,28 @@ public class MilleBornes {
         // animation
         CarteVue vue = mains[0].getCartes()[Math.abs(nCarte) - 1];
         mains[0].montrer(Math.abs(nCarte) - 1);
+        CarteVue destination = null;
 
         if (nCarte < 0) {
-            Animation animation = CarteTransition.getCombinedTransition(vue, sabot.getDefausse(), Duration.millis(1500));
-            animation.setOnFinished(e -> finDeTour());
-            animation.play();
+            destination = sabot.getDefausse();
+        } else if (carte instanceof LimiteVitesse) {
+            destination = trouverMainDepuisJoueur(cible).getLimite();
         } else if (carte instanceof Attaque) {
-            JoueurMain main = trouverMainDepuisJoueur(cible);
-            Animation animation = CarteTransition.getCombinedTransition(vue, main.getBataille(), Duration.millis(1500));
-            animation.setOnFinished(e -> {
-                System.out.println("fini");
-                finDeTour();
-            });
-            animation.play();
+            destination = trouverMainDepuisJoueur(cible).getBataille();
+        } else if (carte instanceof FinDeLimite) {
+            destination = mains[0].getLimite();
+        } else if (carte instanceof Parade) {
+            destination = mains[0].getBataille();
         } else {
             finDeTour();
+            return;
         }
+
+        Animation animation = CarteTransition.getCombinedTransition(vue, destination, Duration.millis(1500));
+        animation.setOnFinished(e -> {
+            finDeTour();
+        });
+        animation.playFromStart();
     }
 
     private JoueurMain trouverMainDepuisJoueur(Joueur joueur) {

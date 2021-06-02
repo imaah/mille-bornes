@@ -144,4 +144,8 @@ public abstract class JoueurMain extends GridPane implements Updatable {
             carteVue.setSurvolActif(survolActif);
         }
     }
+
+    public CarteVue getLimite() {
+        return limite;
+    }
 }

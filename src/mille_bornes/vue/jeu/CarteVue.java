@@ -57,7 +57,7 @@ public class CarteVue extends Rectangle {
             setWidth(0);
             return;
         }
-
+        setRotate(0.0);
         double width = size * (image.getWidth() / image.getHeight());
 
         switch (rotation) {
