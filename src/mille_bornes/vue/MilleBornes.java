@@ -120,6 +120,8 @@ public class MilleBornes {
             joueur = joueur.getProchainJoueur();
             mains[i].setJoueur(joueur);
         }
+
+        mains[0].setSurvolActif(!(joueur instanceof Bot));
     }
 
     public Sabot getSabot() {
@@ -217,7 +219,7 @@ public class MilleBornes {
                 carte = bot.getMain().get(Math.abs(nCarte) - 1);
 
                 if (nCarte > 0) {
-                    if(carte instanceof Attaque) {
+                    if (carte instanceof Attaque) {
                         cible = bot.choisitAdversaire(carte);
                         bot.joueCarte(jeu, nCarte - 1, cible);
                     } else {
@@ -241,11 +243,11 @@ public class MilleBornes {
         CarteVue vue = mains[0].getCartes()[Math.abs(nCarte) - 1];
         mains[0].montrer(Math.abs(nCarte) - 1);
 
-        if(nCarte < 0) {
+        if (nCarte < 0) {
             Animation animation = CarteTransition.getCombinedTransition(vue, sabot.getDefausse(), Duration.millis(1500));
             animation.setOnFinished(e -> finDeTour());
             animation.play();
-        } else if(carte instanceof Attaque) {
+        } else if (carte instanceof Attaque) {
             JoueurMain main = trouverMainDepuisJoueur(cible);
             Animation animation = CarteTransition.getCombinedTransition(vue, main.getBataille(), Duration.millis(1500));
             animation.setOnFinished(e -> {
@@ -259,8 +261,8 @@ public class MilleBornes {
     }
 
     private JoueurMain trouverMainDepuisJoueur(Joueur joueur) {
-        for(JoueurMain main : mains) {
-            if(main != null && main.getJoueur().equals(joueur)) return main;
+        for (JoueurMain main : mains) {
+            if (main != null && main.getJoueur().equals(joueur)) return main;
         }
         throw new IllegalStateException("joueur inconnu");
     }

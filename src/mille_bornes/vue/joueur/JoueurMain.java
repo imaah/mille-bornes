@@ -88,7 +88,6 @@ public abstract class JoueurMain extends GridPane implements Updatable {
                         botteVue,
                         new Tooltip("Vous ne possedez pas cette botte")
                 );
-
             }
         }
 
@@ -138,5 +137,11 @@ public abstract class JoueurMain extends GridPane implements Updatable {
 
     public CarteVue getBataille() {
         return bataille;
+    }
+
+    public void setSurvolActif(boolean survolActif) {
+        for(CarteVue carteVue : cartes) {
+            carteVue.setSurvolActif(survolActif);
+        }
     }
 }
