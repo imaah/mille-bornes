@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import mille_bornes.modele.Joueur;
 import mille_bornes.modele.cartes.Botte;
+import mille_bornes.modele.cartes.Carte;
 import mille_bornes.modele.cartes.DefaultCarte;
 import mille_bornes.modele.cartes.attaques.LimiteVitesse;
 import mille_bornes.modele.cartes.bottes.AsDuVolant;
@@ -15,8 +16,12 @@ import mille_bornes.vue.MilleBornes;
 import mille_bornes.vue.Updatable;
 import mille_bornes.vue.jeu.CarteVue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class JoueurMain extends GridPane implements Updatable {
     protected final CarteVue[] cartes = new CarteVue[7];
+    private List<Carte> cartesJoueur;
     protected final Label statusLabel = new Label();
     protected final CarteVue limite;
     protected final CarteVue bataille;
@@ -28,6 +33,7 @@ public abstract class JoueurMain extends GridPane implements Updatable {
         this.joueur = joueur;
         limite = new CarteVue(null, milleBornes, false);
         bataille = new CarteVue(null, milleBornes, false);
+        cartesJoueur = new ArrayList<>(joueur.getMain());
 
         setAlignment(Pos.CENTER);
 
@@ -61,11 +67,12 @@ public abstract class JoueurMain extends GridPane implements Updatable {
     }
 
     public void update() {
+        cartesJoueur = new ArrayList<>(joueur.getMain());
         for (int i = 0; i < cartes.length; i++) {
             if (i < joueur
                     .getMain()
                     .size()) {
-                cartes[i].changeCarte(joueur.getMain().get(i));
+                cartes[i].changeCarte(cartesJoueur.get(i));
             } else {
                 cartes[i].changeCarte(null);
             }
@@ -89,6 +96,10 @@ public abstract class JoueurMain extends GridPane implements Updatable {
         }
     }
 
+    public CarteVue[] getCartes() {
+        return cartes;
+    }
+
     public void cacher() {
         cacher = true;
         for (CarteVue vue : cartes) {
@@ -102,8 +113,20 @@ public abstract class JoueurMain extends GridPane implements Updatable {
         update();
     }
 
+    public void montrer(int i) {
+        cartes[i].changeCarte(cartesJoueur.get(i));
+    }
+
     public void setJoueur(Joueur joueur) {
         this.joueur = joueur;
         update();
+    }
+
+    public Joueur getJoueur() {
+        return joueur;
+    }
+
+    public CarteVue getBataille() {
+        return bataille;
     }
 }

@@ -10,7 +10,6 @@ import mille_bornes.vue.MilleBornes;
 public class BarreMenu {
     private Controleur controleur;
 
-
     /**
      * Permet de créer une nouvelle partie avec des options
      */

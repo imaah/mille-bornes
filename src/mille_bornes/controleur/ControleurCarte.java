@@ -40,6 +40,7 @@ public class ControleurCarte {
     }
 
     private void onClick(MouseEvent event) {
+        System.out.printf("carte : %f %f%n", carte.getLayoutX(), carte.getLayoutY());
         if (carte.estSurvolActif()) {
             if (event.getButton() == MouseButton.PRIMARY) {
                 controleur.joueCarte(this.carte.getCarte());

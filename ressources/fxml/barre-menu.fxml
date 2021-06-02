@@ -2,12 +2,13 @@
 
 <?import javafx.scene.control.*?>
 
+<?import javafx.scene.input.KeyCodeCombination?>
 <MenuBar xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mille_bornes.controleur.BarreMenu">
     <Menu text="Partie">
         <MenuItem onAction="#onCreerNouvellePartie" text="Nouvelle          ctrl+n" />
         <SeparatorMenuItem />
-        <MenuItem onAction="#onChargerPartie" text="Charger           ctrl+o" />
-        <MenuItem onAction="#onSauverPartie" text="Sauvegarder    ctrl+s" />
+        <MenuItem onAction="#onChargerPartie" text="Charger" accelerator="ctrl+o" />
+        <MenuItem onAction="#onSauverPartie" text="Sauvegarder" accelerator="ctrl+s" />
         <SeparatorMenuItem />
         <MenuItem onAction="#onQuitter" text="Quitter             alt+f4" />
     </Menu>

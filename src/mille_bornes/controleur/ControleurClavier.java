@@ -23,13 +23,13 @@ public class ControleurClavier {
 
             switch (c) {
                 case 'n':
-                    controleur.nouvellePartie();
+//                    controleur.nouvellePartie();
                     break;
                 case 's':
-                    controleur.sauvegarder();
+//                    controleur.sauvegarder();
                     break;
                 case 'o':
-                    controleur.chargerPartie();
+//                    controleur.chargerPartie();
                     break;
             }
         }

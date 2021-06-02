@@ -33,6 +33,7 @@ public class CarteVue extends Rectangle {
     public CarteVue(Carte carte, MilleBornes milleBornes) {
         new ControleurCarte(this, milleBornes);
         changeCarte(carte);
+        toBack();
     }
 
     public void changeCarte(Carte carte) {
@@ -44,6 +45,11 @@ public class CarteVue extends Rectangle {
 
         this.carte = carte;
         Image image;
+        setTranslateX(0);
+        setTranslateY(0);
+        setScaleX(1);
+        setScaleY(1);
+        toBack();
 
         if (this.carte != null) {
             image = new Image(this.carte.getImagePath());
@@ -117,6 +123,10 @@ public class CarteVue extends Rectangle {
 
     public boolean estSurvolActif() {
         return survolActif;
+    }
+
+    public double getRatio() {
+        return ratio;
     }
 
     public enum CarteRotation {
