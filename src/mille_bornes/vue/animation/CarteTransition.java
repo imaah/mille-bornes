@@ -8,6 +8,13 @@ import javafx.util.Duration;
 import mille_bornes.vue.jeu.CarteVue;
 
 public class CarteTransition {
+    /**
+     * Permet de changer la position d'une carte en correspondance avec la destination
+     * @param from La carte de départ
+     * @param to La carte d'arrivée
+     * @param duration La durée de la transition
+     * @return La transition générée
+     */
     public static TranslateTransition getTranslateAnimation(CarteVue from, CarteVue to, Duration duration) {
         TranslateTransition translate = new TranslateTransition(duration, from);
 
@@ -32,6 +39,13 @@ public class CarteTransition {
         return translate;
     }
 
+    /**
+     * Permet de changer la taille d'une carte en correspondance avec la destination
+     * @param from Carte de départ
+     * @param to Carte d'arrivée
+     * @param duration Durée de la transformation
+     * @return Une ScaleTransition
+     */
     public static ScaleTransition getScaleAnimation(CarteVue from, CarteVue to, Duration duration) {
         ScaleTransition scale = new ScaleTransition(duration, from);
         double ratio = to.getRatio() / from.getRatio();
@@ -41,6 +55,13 @@ public class CarteTransition {
         return scale;
     }
 
+    /**
+     * Combine les deux transitions précédentes
+     * @param from La carte de départ
+     * @param to La carte d'arrivée
+     * @param duration La durée de la transition
+     * @return La transition complète
+     */
     public static ParallelTransition getCombinedTransition(CarteVue from, CarteVue to, Duration duration) {
         return new ParallelTransition(from,
                 getTranslateAnimation(from, to, duration),

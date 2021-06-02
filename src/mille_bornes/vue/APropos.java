@@ -12,11 +12,15 @@ import java.util.Date;
 
 public class APropos extends Alert {
 
+    /**
+     * Créer une boîte de dialogue "À propos"
+     */
     public APropos() {
+        // Puisqu'on hérite d'Alert
         super(AlertType.INFORMATION);
-
         this.setTitle("À propos");
 
+        // On récupère la bannière du jeu
         ImageView headerImage = new ImageView(getClass().getResource("/images/boite.jpg").toString());
         headerImage.setPreserveRatio(true);
         headerImage.setFitWidth(512);
@@ -27,6 +31,7 @@ public class APropos extends Alert {
         Date date = new Date();
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
+        // On affiche le texte
         Label lbl = new Label("Jeu du Mille bornes\nPar MORISSE Esteban & GUIBOUT Clément\n" + format.format(date));
         lbl.setStyle("-fx-font-size: 18pt; -fx-text-fill: orange; -fx-font-weight: bolder; -fx-text-alignment: center;");
         HBox content = new HBox(lbl);

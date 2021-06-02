@@ -58,17 +58,34 @@ public class Controleur {
         }
     }
 
-    public void nouvellePartie() {
-        // On vérifie d'abord qu'aucune partie n'est en cours
-        if (!(milleBornes.getJeu() == null || milleBornes.getJeu().estPartieFinie())) {
-            // Si il ne souhaite pas recréer de partie, alors on annule
-            if (!confirmation(
-                    "Nouvelle partie",
-                    "Une partie est déjà en cours, êtes-vous sûr de vouloir créer une nouvelle partie ?",
-                    "Si vous créez une nouvelle partie, l'état de celle en cours ne sera pas sauvegardé!"
-            )) return;
-        }
+    /**
+     * Dit si une partie est déjà en cours
+     *
+     * @return true si une partie est déjà en cours, false sinon
+     */
+    public boolean dejaUnePartieEnCours() {
+        return !(milleBornes.getJeu() == null || milleBornes.getJeu().estPartieFinie());
+    }
 
+    /**
+     * Demande si l'utilisateur veut quitter la partie en cours
+     *
+     * @return true s'il veut quitter, false sinon
+     */
+    public boolean veuxAbandonnerPartie() {
+        return confirmation(
+                "Nouvelle partie",
+                "Une partie est déjà en cours, êtes-vous sûr de vouloir créer une nouvelle partie ?",
+                "Si vous créez une nouvelle partie, l'état de celle en cours ne sera pas sauvegardé!"
+        );
+    }
+
+    /**
+     * Demande dans une fenêtre le nombre de joueurs à renseigner pour créer une nouvelle partie
+     *
+     * @return le nombre de joueurs à demander, -1 si l'utilisateur a annulé
+     */
+    private int getNbJoueurs() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Choix du nombre de joueurs");
         alert.setHeaderText("Combien de joueurs ?");
@@ -94,69 +111,125 @@ public class Controleur {
         Optional<ButtonType> reponse = alert.showAndWait();
 
         if (reponse.orElse(null) == ButtonType.OK) {
-            // Nouvelle boite de dialogue
-            Alert choixTypesJoueurs = new Alert(Alert.AlertType.CONFIRMATION);
-            choixTypesJoueurs.setTitle("Nouveaux joueurs");
-            choixTypesJoueurs.setHeaderText("Indiquez le type et le nom de chaque joueur");
+            return nbJoueurs.getValue();
+        }
 
-            // Une ArrayList de FlowPane total, qui va contenir les differentes lignes pour y accéder plus tard
-            List<ChoixJoueur> total = new ArrayList<>();
+        return -1;
+    }
+
+    /**
+     * Affiche une boite de dialogue pour savoir le nom et le type des futurs joueurs/bots du jeu
+     * @param nbJoueurs Le nombre de joueurs pour lesquels demander des renseignements
+     * @return Une liste de joueurs avec leur nom et leur type
+     */
+    private List<ChoixJoueur> demandeNomsJoueurs(int nbJoueurs) {
+        // Nouvelle boite de dialogue
+        Alert choixTypesJoueurs = new Alert(Alert.AlertType.CONFIRMATION);
+        choixTypesJoueurs.setTitle("Nouveaux joueurs");
+        choixTypesJoueurs.setHeaderText("Indiquez le type et le nom de chaque joueur");
+
+        // Une ArrayList de FlowPane total, qui va contenir les differentes lignes pour y accéder plus tard
+        List<ChoixJoueur> joueurs = new ArrayList<>();
 
 
-            FlowPane affichage = new FlowPane();
-            // Pour chaque joueur
-            for (int i = 0; i < nbJoueurs.getValue(); i++) {
-                ChoixJoueur joueur = new ChoixJoueur(i);
-                total.add(joueur);
+        FlowPane affichage = new FlowPane();
+        // Pour chaque joueur
+        for (int i = 0; i < nbJoueurs; i++) {
+            ChoixJoueur joueur = new ChoixJoueur(i);
+            joueurs.add(joueur);
 
-                FlowPane ligne = new FlowPane();
-                ligne.setAlignment(Pos.CENTER);
-                ligne.setPadding(new Insets(5));
-                ligne.setHgap(5);
-                ligne.getChildren().addAll(joueur.getLabel(), joueur.getComboBox(), joueur.getTextField());
+            FlowPane ligne = new FlowPane();
+            ligne.setAlignment(Pos.CENTER);
+            ligne.setPadding(new Insets(5));
+            ligne.setHgap(5);
+            ligne.getChildren().addAll(joueur.getLabel(), joueur.getComboBox(), joueur.getTextField());
 
-                affichage.getChildren().add(ligne);
+            affichage.getChildren().add(ligne);
+        }
+
+        // Affichage
+        choixTypesJoueurs.getDialogPane().setContent(affichage);
+
+        // On récupère la réponse
+        Optional<ButtonType> confirmation = choixTypesJoueurs.showAndWait();
+
+        if (confirmation.orElse(null) == ButtonType.OK) {
+            return joueurs;
+        }
+
+        return null;
+    }
+
+    /**
+     * Permet de normaliser les noms des joueurs (bots compris). Si certains ne possèdes pas de nom, ils en obtiennent 1
+     *
+     * @param joueurs La listes des joueurs (pour connaître leur position)
+     * @param joueur Le joueur en question
+     * @return Le nom du joueur normalisé
+     */
+    private String normaliseNomJoueur(List<ChoixJoueur> joueurs, ChoixJoueur joueur) {
+        Object value = joueur.getComboBox().getValue();
+        // On évite les noms vides
+        String tempNom;
+
+        // Si c'est un humain et qu'il n'a pas de nom, on lui en met un
+        if ((tempNom = joueur.getTextField().getText().trim()).equals("")) {
+            if (value.equals("Humain")) {
+                tempNom = "Joueur n°" + (joueurs.indexOf(joueur) + 1);
+            } else {
+                tempNom = "Bot n°" + (joueurs.indexOf(joueur) + 1);
             }
 
-            // Affichage
-            choixTypesJoueurs.getDialogPane().setContent(affichage);
+        }
 
-            // On récupère la réponse
-            Optional<ButtonType> confirmation = choixTypesJoueurs.showAndWait();
+        return tempNom;
+    }
 
-            if (confirmation.orElse(null) == ButtonType.OK) {
-                List<Joueur> joueurs = new ArrayList<>();
-                for (ChoixJoueur j : total) {
-                    Object value = j.getComboBox().getValue();
-                    // On évite les noms vides
-                    String tempNom;
-                    if ((tempNom = j.getTextField().getText().trim()).equals("")) {
-                        tempNom = "Joueur n°" + (total.indexOf(j) + 1);
-                    }
-                    String nom = tempNom;
+    /**
+     * Permet de créer une nouvelle partie
+     */
+    public void nouvellePartie() {
+        // On vérifie d'abord qu'aucune partie n'est en cours
+        if (dejaUnePartieEnCours()) {
+            if (!veuxAbandonnerPartie()) return;
+        }
 
-                    // On évite les doublons
-                    int n = 1;
-                    tempNom = nom;
-                    while (joueurs.stream().map(Joueur::getNom).collect(Collectors.toList()).contains(tempNom)) {
-                        tempNom = nom + " " + (++n);
-                    }
+        int nbJoueurs = getNbJoueurs();
 
-                    nom = tempNom;
+        // Si getNbJoueurs renvoit 0, l'utilisateur ne veut plus créer de partie
+        if (nbJoueurs == -1) return;
 
-                    if ("IA - Aléatoire".equals(value)) {
-                        joueurs.add(new DumbBot(nom));
-                    } else if ("IA - Naïf".equals(value)) {
-                        joueurs.add(new NaiveBot(nom));
-                    } else {
-                        joueurs.add(new Joueur(nom));
-                    }
-                }
+        List<ChoixJoueur> joueurs = demandeNomsJoueurs(nbJoueurs);
 
-                Jeu partie = new Jeu(joueurs.toArray(new Joueur[0]));
-                milleBornes.setJeu(partie);
+        // Si demandeNomsJoueurs renvoit null, l'utilisateur ne veut plus créer de partie
+        if (joueurs == null) return;
+
+
+        List<Joueur> joueursFinaux = new ArrayList<>();
+        for (ChoixJoueur j : joueurs) {
+            // On s'assure que chaque joueur a un nom
+            String nom = normaliseNomJoueur(joueurs, j);
+
+            // On évite les doublons
+            int n = 1;
+            while (joueursFinaux.stream().map(Joueur::getNom).collect(Collectors.toList()).contains(nom)) {
+                nom = nom + " " + (++n);
+            }
+
+
+            String type = j.getComboBox().getValue();
+            // On créer enfin la liste de joueurs
+            if (type.equals("IA - Aléatoire")) {
+                joueursFinaux.add(new DumbBot(nom));
+            } else if (type.equals("IA - Naïf")) {
+                joueursFinaux.add(new NaiveBot(nom));
+            } else {
+                joueursFinaux.add(new Joueur(nom));
             }
         }
+
+        Jeu partie = new Jeu(joueursFinaux.toArray(new Joueur[0]));
+        milleBornes.setJeu(partie);
     } // nouvellePartie
 
     public void sauvegarder() {
@@ -243,7 +316,7 @@ public class Controleur {
         alert.setTitle("Rejouer ?");
         Optional<ButtonType> res = alert.showAndWait();
 
-        if(res.orElse(ButtonType.NO) == ButtonType.YES) {
+        if (res.orElse(ButtonType.NO) == ButtonType.YES) {
             nouvellePartie();
         } else {
             quitterClique();

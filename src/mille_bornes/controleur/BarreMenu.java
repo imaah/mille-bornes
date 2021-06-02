@@ -17,6 +17,11 @@ public class BarreMenu {
         controleur.nouvellePartie();
     }
 
+
+    /**
+     * Permet de charger sur l'interface avec la partie actuelle
+     * @param gui
+     */
     public void setGui(MilleBornes gui) {
         controleur = new Controleur(gui);
     }
@@ -42,9 +47,13 @@ public class BarreMenu {
      * Appelle la même fonction onQuitter, mais avec des paramètres par défaut
      */
     public void onQuitter() {
+        String message = "Vous êtes sur le point de fermer l'application. Êtes-vous sûr de vouloir quitter ?";
+        if (controleur.dejaUnePartieEnCours()) message += " Comme une partie est déjà en cours, la fermeture de" +
+                                                          " l'application sans sauvegarde entrainera la perte de" +
+                                                          " l'état de la partie!";
         if (controleur.confirmation("Quitter",
                 "Voulez-vous vraiment quitter ?",
-                "Vous êtes sur le point de quitter l'application. Si vous confirmez, la partie en cours ne sera pas sauvegardée!"
+                message
         )) System.exit(0);
     }
 

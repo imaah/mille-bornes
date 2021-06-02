@@ -2,6 +2,7 @@ package mille_bornes.vue.joueur;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import mille_bornes.modele.Joueur;
 import mille_bornes.modele.cartes.Botte;
@@ -79,7 +80,16 @@ public abstract class JoueurMain extends GridPane implements Updatable {
         }
 
         for (CarteVue botteVue : bottes) {
-            botteVue.setGrisee(!joueur.getBottes().contains((Botte) botteVue.getCarte()));
+            boolean hasBotte = joueur.getBottes().contains((Botte) botteVue.getCarte());
+            botteVue.setGrisee(!hasBotte);
+
+            if(!hasBotte) {
+                Tooltip.install(
+                        botteVue,
+                        new Tooltip("Vous ne possedez pas cette botte")
+                );
+
+            }
         }
 
         if (cacher) {
