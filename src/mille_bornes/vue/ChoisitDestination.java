@@ -14,7 +14,9 @@ import mille_bornes.modele.cartes.Attaque;
 import java.util.*;
 
 public class ChoisitDestination extends Alert {
-    /** Le joueur cible qui va recevoir l'attaque */
+    /**
+     * Le joueur cible qui va recevoir l'attaque
+     */
     private final Joueur cible;
 
 
@@ -22,7 +24,8 @@ public class ChoisitDestination extends Alert {
      * Ouvre une boite de dialogue avec la liste des joueurs de la partie. Permet de lancer une attaque sur un d'entre
      * eux. Si un joueur est déjà attaqué, une erreur sera levée avec un nouvelle boîte de dialogue. Sinon, il recoit
      * la carte sur sa pile de bataille.
-     * @param jeu La partie actuelle
+     *
+     * @param jeu   La partie actuelle
      * @param carte La carte attaquante
      */
     public ChoisitDestination(Jeu jeu, Attaque carte) {
@@ -75,6 +78,7 @@ public class ChoisitDestination extends Alert {
 
     /**
      * Permet de récupérer la cible choisie
+     *
      * @return La cible choisie, ou null si aucune
      */
     public Joueur getCible() {

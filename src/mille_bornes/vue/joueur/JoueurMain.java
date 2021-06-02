@@ -13,7 +13,6 @@ import mille_bornes.modele.cartes.bottes.AsDuVolant;
 import mille_bornes.modele.cartes.bottes.Citerne;
 import mille_bornes.modele.cartes.bottes.Increvable;
 import mille_bornes.modele.cartes.bottes.VehiculePrioritaire;
-import mille_bornes.modele.extensions.bots.Bot;
 import mille_bornes.vue.MilleBornes;
 import mille_bornes.vue.Updatable;
 import mille_bornes.vue.jeu.CarteVue;

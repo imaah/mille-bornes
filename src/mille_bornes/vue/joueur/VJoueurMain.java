@@ -27,7 +27,7 @@ public class VJoueurMain extends JoueurMain {
         if (invert) {
             addColumn(3, cartes);
             addColumn(1, statusLabel);
-            for(CarteVue carte : getBottes()) {
+            for (CarteVue carte : getBottes()) {
                 carte.tourner(CarteVue.CarteRotation.DEG_270);
             }
             limite.tourner(CarteVue.CarteRotation.DEG_270);

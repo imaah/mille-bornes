@@ -107,7 +107,7 @@ public class MilleBornes {
         jeu.activeProchainJoueurEtTireCarte();
         tournerJoueurs();
 
-        if(jeu.getJoueurActif() instanceof Bot) {
+        if (jeu.getJoueurActif() instanceof Bot) {
             TimerUtils.wait(1000, this::botJoue);
         }
     }
@@ -244,7 +244,7 @@ public class MilleBornes {
 
         // animation
         CarteVue vue = mains[0].getCartes()[Math.abs(nCarte) - 1];
-        if(nCarte < 0) {
+        if (nCarte < 0) {
             animerAction(vue, -(Math.abs(nCarte) - 1), cible);
         } else {
             animerAction(vue, nCarte - 1, cible);

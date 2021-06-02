@@ -21,13 +21,14 @@ public class Sabot extends GridPane implements Updatable {
 
     /**
      * Permet d'initialiser le sabot avec le jeu et la partie en cours
-     * @param jeu Le jeu en cours
+     *
+     * @param jeu         Le jeu en cours
      * @param milleBornes L'instance de mille bornes à utiliser
      */
     public Sabot(Jeu jeu, MilleBornes milleBornes) {
         this.jeu = jeu;
         update();
-        defausse = new CarteVue(DefaultCarte.VIDE, milleBornes, -1,false);
+        defausse = new CarteVue(DefaultCarte.VIDE, milleBornes, -1, false);
         defausse.setAfficherSiNull(false);
 
         Label piocheHeader = new Label("Pioche");
@@ -47,6 +48,7 @@ public class Sabot extends GridPane implements Updatable {
 
     /**
      * Permet de set un jeu en particulier, même s'il est commencé
+     *
      * @param jeu Le jeu à définir
      */
     public void setJeu(Jeu jeu) {
@@ -72,6 +74,7 @@ public class Sabot extends GridPane implements Updatable {
 
     /**
      * Retourne la défausse
+     *
      * @return La défausse
      */
     public CarteVue getDefausse() {

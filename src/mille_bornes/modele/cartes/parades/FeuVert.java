@@ -31,7 +31,7 @@ public class FeuVert extends Parade {
                 // Sinon on ne peut pas la jouer
                 throw new IllegalStateException("Cette carte ne peut pas être jouée maintenant");
             }
-        } else if(bataille == null) {
+        } else if (bataille == null) {
             joueur.setBataille(this);
         } else {
             throw new IllegalStateException("Cette carte ne peut pas être jouée maintenant");

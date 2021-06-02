@@ -22,7 +22,7 @@ public class HJoueurMain extends JoueurMain {
         if (invert) {
             addRow(1, cartes);
             addRow(3, statusLabel);
-            for(CarteVue carte : getBottes()) {
+            for (CarteVue carte : getBottes()) {
                 carte.tourner(CarteVue.CarteRotation.DEG_180);
             }
             limite.tourner(CarteVue.CarteRotation.DEG_180);

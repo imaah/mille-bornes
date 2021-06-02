@@ -5,6 +5,7 @@ import javafx.concurrent.Task;
 public class TimerUtils {
     /**
      * Permet d'attendre un certain nombre de temps (en millisecondes)
+     *
      * @param millis Le nombre de millisecondes à attendre
      * @param action La méthode à exécuter ensuite
      */

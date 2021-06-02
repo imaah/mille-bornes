@@ -20,6 +20,7 @@ public class BarreMenu {
 
     /**
      * Permet de charger sur l'interface avec la partie actuelle
+     *
      * @param gui
      */
     public void setGui(MilleBornes gui) {

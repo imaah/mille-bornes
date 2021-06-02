@@ -23,9 +23,10 @@ public class CarteVue extends Rectangle {
 
     /**
      * Créer une nouvelle carte, avec ou sans survol
-     * @param carte La carte à créer
+     *
+     * @param carte       La carte à créer
      * @param milleBornes Le jeu en cours
-     * @param index L'index que la carte prendra dans la main du joueur
+     * @param index       L'index que la carte prendra dans la main du joueur
      * @param survolActif true si le survol doit être actif
      */
     public CarteVue(Carte carte, MilleBornes milleBornes, int index, boolean survolActif) {
@@ -35,11 +36,12 @@ public class CarteVue extends Rectangle {
 
     /**
      * Créer une nouvelle carte, avec ou sans survol, avec ou sans grisement
-     * @param carte La carte à créer
+     *
+     * @param carte       La carte à créer
      * @param milleBornes Le jeu en cours
-     * @param index L'index que la carte prendra dans la main du joueur
+     * @param index       L'index que la carte prendra dans la main du joueur
      * @param survolActif true si le survol doit être actif
-     * @param grisee true si la carte doit être grisée
+     * @param grisee      true si la carte doit être grisée
      */
     public CarteVue(Carte carte, MilleBornes milleBornes, int index, boolean survolActif, boolean grisee) {
         this(carte, milleBornes, index, survolActif);
@@ -48,9 +50,10 @@ public class CarteVue extends Rectangle {
 
     /**
      * Créer un nouveau controlleur, défini le visuel de carte et l'indexe dans la main
-     * @param carte La carte à créer
+     *
+     * @param carte       La carte à créer
      * @param milleBornes Le jeu en cours
-     * @param index L'index que la carte prendra dans la main du joueur
+     * @param index       L'index que la carte prendra dans la main du joueur
      */
     public CarteVue(Carte carte, MilleBornes milleBornes, int index) {
         new ControleurCarte(this, milleBornes);
@@ -60,6 +63,7 @@ public class CarteVue extends Rectangle {
 
     /**
      * Permet de changer le visuel d'une carte
+     *
      * @param carte Le nouveau visuel à affecter
      */
     public void changeCarte(Carte carte) {
@@ -115,6 +119,7 @@ public class CarteVue extends Rectangle {
 
     /**
      * Permet de griser ou dégriser la carte
+     *
      * @param grisee true si on veut griser la carte, false sinon
      */
     public void setGrisee(boolean grisee) {
@@ -129,16 +134,8 @@ public class CarteVue extends Rectangle {
     }
 
     /**
-     * Permet de définir le ratio de la carte (sa taille en quelque sorte)
-     * @param ratio Le ratio de la carte
-     */
-    public void setRatio(double ratio) {
-        this.ratio = ratio;
-        this.changeCarte(carte);
-    }
-
-    /**
      * Permet de tourner une carte d'une certaine orientation
+     *
      * @param rotation L'orientation à appliquer. Provient de CarteRotation
      */
     public void tourner(CarteRotation rotation) {
@@ -148,6 +145,7 @@ public class CarteVue extends Rectangle {
 
     /**
      * Permet d'activer ou de désactiver le survol
+     *
      * @param survolActif true si le survol doit être actif, false sinon
      */
     public void setSurvolActif(boolean survolActif) {
@@ -156,6 +154,7 @@ public class CarteVue extends Rectangle {
 
     /**
      * Retourne la carte
+     *
      * @return La carte
      */
     public Carte getCarte() {
@@ -164,6 +163,7 @@ public class CarteVue extends Rectangle {
 
     /**
      * Précise si la carte doit être affichée même si elle est nulle
+     *
      * @param afficherSiNull true si elle doit l'être, false sinon
      */
     public void setAfficherSiNull(boolean afficherSiNull) {
@@ -172,6 +172,7 @@ public class CarteVue extends Rectangle {
 
     /**
      * Permet de savoir si une carte est grisée
+     *
      * @return true si elle est grisée, false sinon
      */
     public boolean estGrisee() {
@@ -180,6 +181,7 @@ public class CarteVue extends Rectangle {
 
     /**
      * Permet de savoir si le survol est actif
+     *
      * @return true s'il l'est, false sinon
      */
     public boolean estSurvolActif() {
@@ -188,6 +190,7 @@ public class CarteVue extends Rectangle {
 
     /**
      * Permet de connaître le ratio de la carte
+     *
      * @return Le ratio de la carte
      */
     public double getRatio() {
@@ -195,7 +198,18 @@ public class CarteVue extends Rectangle {
     }
 
     /**
+     * Permet de définir le ratio de la carte (sa taille en quelque sorte)
+     *
+     * @param ratio Le ratio de la carte
+     */
+    public void setRatio(double ratio) {
+        this.ratio = ratio;
+        this.changeCarte(carte);
+    }
+
+    /**
      * Permet de connaître la rotation de la carte
+     *
      * @return La rotation de la carte. Provient de RotationCarte
      */
     public CarteRotation getRotation() {
@@ -204,6 +218,7 @@ public class CarteVue extends Rectangle {
 
     /**
      * Permet de savoir l'index de la carte
+     *
      * @return L'index de la carte
      */
     public int getIndex() {

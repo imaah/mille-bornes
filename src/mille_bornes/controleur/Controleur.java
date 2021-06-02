@@ -10,7 +10,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import mille_bornes.modele.Jeu;
 import mille_bornes.modele.Joueur;
-import mille_bornes.modele.cartes.Carte;
 import mille_bornes.modele.extensions.bots.DumbBot;
 import mille_bornes.modele.extensions.bots.NaiveBot;
 import mille_bornes.modele.utils.JsonUtils;
@@ -120,6 +119,7 @@ public class Controleur {
 
     /**
      * Affiche une boite de dialogue pour savoir le nom et le type des futurs joueurs/bots du jeu
+     *
      * @param nbJoueurs Le nombre de joueurs pour lesquels demander des renseignements
      * @return Une liste de joueurs avec leur nom et leur type
      */
@@ -165,7 +165,7 @@ public class Controleur {
      * Permet de normaliser les noms des joueurs (bots compris). Si certains ne possèdes pas de nom, ils en obtiennent 1
      *
      * @param joueurs La listes des joueurs (pour connaître leur position)
-     * @param joueur Le joueur en question
+     * @param joueur  Le joueur en question
      * @return Le nom du joueur normalisé
      */
     private String normaliseNomJoueur(List<ChoixJoueur> joueurs, ChoixJoueur joueur) {
@@ -275,8 +275,8 @@ public class Controleur {
     public void quitterClique() {
         String message = "Vous êtes sur le point de fermer l'application. Êtes-vous sûr de vouloir quitter ?";
         if (dejaUnePartieEnCours()) message += " Comme une partie est déjà en cours, la fermeture de" +
-                                                          " l'application sans sauvegarde entrainera la perte de" +
-                                                          " l'état de la partie!";
+                                               " l'application sans sauvegarde entrainera la perte de" +
+                                               " l'état de la partie!";
         if (confirmation("Quitter",
                 "Voulez-vous vraiment quitter ?",
                 message
