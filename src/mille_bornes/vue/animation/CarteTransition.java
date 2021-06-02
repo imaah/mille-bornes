@@ -5,6 +5,7 @@ import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Point2D;
+import javafx.scene.effect.Light;
 import javafx.util.Duration;
 import mille_bornes.vue.jeu.CarteVue;
 
@@ -30,6 +31,14 @@ public class CarteTransition {
 
         double dX = positionDepart.getX() - positionArrivee.getX() - dW / 2;
         double dY = positionDepart.getY() - positionArrivee.getY() - dH / 2;
+
+        double angle = Math.abs(from.getRotation().angle - to.getRotation().angle);
+
+        // Si la carte doit tourner
+        if (angle == 90 || angle == 270) {
+            dX *= 2;
+            dY *= 2;
+        }
 
         translate.setToX(from.getX() - dX);
         translate.setToY(from.getY() - dY);

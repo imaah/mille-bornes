@@ -107,10 +107,6 @@ public class MilleBornes {
         contenu.setLeft(mains[3]);
         jeu.activeProchainJoueurEtTireCarte();
         tournerJoueurs();
-
-//        if(jeu.getJoueurActif() instanceof Bot) {
-//            botJoue();
-//        }
     }
 
     public void tournerJoueurs() {
@@ -169,7 +165,8 @@ public class MilleBornes {
                     Alert.AlertType.INFORMATION,
                     "Fin de partie",
                     "Victoire !",
-                    content);
+                    content
+            );
 
             alert.showAndWait();
 

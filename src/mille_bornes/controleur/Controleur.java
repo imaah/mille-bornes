@@ -232,6 +232,9 @@ public class Controleur {
         milleBornes.setJeu(partie);
     } // nouvellePartie
 
+    /**
+     * Sauvegarde l'état de la partie en cours dans un fichier .json
+     */
     public void sauvegarder() {
         FileChooser enregistreur = new FileChooser();
         enregistreur.setTitle("Enregistrer une partie");
@@ -265,21 +268,23 @@ public class Controleur {
         }
     } // sauvegarder
 
+    /**
+     * Demande à l'utilisateur s'il veut vraiment quitter l'application
+     */
     public void quitterClique() {
-        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmation.setTitle("Quitter");
-        confirmation.setHeaderText("Voulez-vous vraiment quitter ?");
-        confirmation.setContentText("Vous êtes sur le point de quitter l'application. Si vous confirmez, " +
-                                    "la partie en cours ne sera pas sauvegardée!");
-
-        Optional<ButtonType> reponse = confirmation.showAndWait();
-
-        if (reponse.orElse(null) == ButtonType.OK) {
-            System.out.println("Fermeture du MilleBornes.");
-            System.exit(0);
-        }
+        String message = "Vous êtes sur le point de fermer l'application. Êtes-vous sûr de vouloir quitter ?";
+        if (dejaUnePartieEnCours()) message += " Comme une partie est déjà en cours, la fermeture de" +
+                                                          " l'application sans sauvegarde entrainera la perte de" +
+                                                          " l'état de la partie!";
+        if (confirmation("Quitter",
+                "Voulez-vous vraiment quitter ?",
+                message
+        )) System.exit(0);
     }
 
+    /**
+     * Ouvre un fichier de sauvegarde de partie, montre une boite de dialogue d'erreur s'il y a un soucis
+     */
     public void chargerPartie() {
         FileChooser ouvreur = new FileChooser();
         ouvreur.setTitle("Récupérer une partie...");
@@ -310,6 +315,9 @@ public class Controleur {
         }
     }
 
+    /**
+     * Affiche une boite de dialogue qui demande à l'utilisateur s'il veut rejouer
+     */
     public void demanderRejouer() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, null, ButtonType.YES, ButtonType.NO);
         alert.setHeaderText("Voulez vous rejouer ?");

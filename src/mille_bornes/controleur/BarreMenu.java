@@ -47,14 +47,7 @@ public class BarreMenu {
      * Appelle la même fonction onQuitter, mais avec des paramètres par défaut
      */
     public void onQuitter() {
-        String message = "Vous êtes sur le point de fermer l'application. Êtes-vous sûr de vouloir quitter ?";
-        if (controleur.dejaUnePartieEnCours()) message += " Comme une partie est déjà en cours, la fermeture de" +
-                                                          " l'application sans sauvegarde entrainera la perte de" +
-                                                          " l'état de la partie!";
-        if (controleur.confirmation("Quitter",
-                "Voulez-vous vraiment quitter ?",
-                message
-        )) System.exit(0);
+        controleur.quitterClique();
     }
 
     /**
