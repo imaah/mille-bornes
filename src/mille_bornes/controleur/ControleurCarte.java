@@ -43,9 +43,9 @@ public class ControleurCarte {
         System.out.printf("carte : %f %f%n", carte.getLayoutX(), carte.getLayoutY());
         if (carte.estSurvolActif()) {
             if (event.getButton() == MouseButton.PRIMARY) {
-                controleur.joueCarte(this.carte.getCarte());
+                controleur.joueCarte(this.carte);
             } else if (event.getButton() == MouseButton.SECONDARY) {
-                controleur.defausseCarte(this.carte.getCarte());
+                controleur.defausseCarte(this.carte);
             }
         }
 

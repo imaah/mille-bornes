@@ -13,6 +13,7 @@ import mille_bornes.modele.cartes.bottes.AsDuVolant;
 import mille_bornes.modele.cartes.bottes.Citerne;
 import mille_bornes.modele.cartes.bottes.Increvable;
 import mille_bornes.modele.cartes.bottes.VehiculePrioritaire;
+import mille_bornes.modele.extensions.bots.Bot;
 import mille_bornes.vue.MilleBornes;
 import mille_bornes.vue.Updatable;
 import mille_bornes.vue.jeu.CarteVue;
@@ -22,18 +23,18 @@ import java.util.List;
 
 public abstract class JoueurMain extends GridPane implements Updatable {
     protected final CarteVue[] cartes = new CarteVue[7];
-    private List<Carte> cartesJoueur;
     protected final Label statusLabel = new Label();
     protected final CarteVue limite;
     protected final CarteVue bataille;
     protected final CarteVue[] bottes = new CarteVue[4];
+    private List<Carte> cartesJoueur;
     private Joueur joueur;
     private boolean cacher = false;
 
     public JoueurMain(MilleBornes milleBornes, Joueur joueur, boolean survolActif) {
         this.joueur = joueur;
-        limite = new CarteVue(null, milleBornes, false);
-        bataille = new CarteVue(null, milleBornes, false);
+        limite = new CarteVue(null, milleBornes, -1, false);
+        bataille = new CarteVue(null, milleBornes, -1, false);
         cartesJoueur = new ArrayList<>(joueur.getMain());
 
         setAlignment(Pos.CENTER);
@@ -43,17 +44,17 @@ public abstract class JoueurMain extends GridPane implements Updatable {
 
         for (int i = 0; i < cartes.length; i++) {
             if (i < joueur.getMain().size()) {
-                cartes[i] = new CarteVue(joueur.getMain().get(i), milleBornes, survolActif);
+                cartes[i] = new CarteVue(joueur.getMain().get(i), milleBornes, i, survolActif);
             } else {
-                cartes[i] = new CarteVue(null, milleBornes, survolActif);
+                cartes[i] = new CarteVue(null, milleBornes, i, survolActif);
             }
             cartes[i].setRatio(.7);
         }
 
-        bottes[0] = new CarteVue(new VehiculePrioritaire(), milleBornes, false, true);
-        bottes[1] = new CarteVue(new AsDuVolant(), milleBornes, false, true);
-        bottes[2] = new CarteVue(new Citerne(), milleBornes, false, true);
-        bottes[3] = new CarteVue(new Increvable(), milleBornes, false, true);
+        bottes[0] = new CarteVue(new VehiculePrioritaire(), milleBornes, 0, false, true);
+        bottes[1] = new CarteVue(new AsDuVolant(), milleBornes, 1, false, true);
+        bottes[2] = new CarteVue(new Citerne(), milleBornes, 2, false, true);
+        bottes[3] = new CarteVue(new Increvable(), milleBornes, 3, false, true);
 
         for (CarteVue botte : bottes) {
             botte.setRatio(.7);
@@ -83,7 +84,7 @@ public abstract class JoueurMain extends GridPane implements Updatable {
             boolean hasBotte = joueur.getBottes().contains((Botte) botteVue.getCarte());
             botteVue.setGrisee(!hasBotte);
 
-            if(!hasBotte) {
+            if (!hasBotte) {
                 Tooltip.install(
                         botteVue,
                         new Tooltip("Vous ne possedez pas cette botte")
@@ -126,13 +127,13 @@ public abstract class JoueurMain extends GridPane implements Updatable {
         cartes[i].changeCarte(cartesJoueur.get(i));
     }
 
+    public Joueur getJoueur() {
+        return joueur;
+    }
+
     public void setJoueur(Joueur joueur) {
         this.joueur = joueur;
         update();
-    }
-
-    public Joueur getJoueur() {
-        return joueur;
     }
 
     public CarteVue getBataille() {
@@ -140,12 +141,25 @@ public abstract class JoueurMain extends GridPane implements Updatable {
     }
 
     public void setSurvolActif(boolean survolActif) {
-        for(CarteVue carteVue : cartes) {
+        for (CarteVue carteVue : cartes) {
             carteVue.setSurvolActif(survolActif);
         }
     }
 
     public CarteVue getLimite() {
         return limite;
+    }
+
+    public CarteVue[] getBottes() {
+        return bottes;
+    }
+
+    public CarteVue getBotte(Class<? extends Botte> aClass) {
+        for (CarteVue botte : bottes) {
+            if (botte.getCarte().getClass().equals(aClass)) {
+                return botte;
+            }
+        }
+        return null;
     }
 }

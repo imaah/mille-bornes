@@ -26,12 +26,15 @@ public class FeuVert extends Parade {
             // ... on vérifie que notre carte la contre bien
             if (contre((Attaque) bataille)) {
                 joueur.defausseBataille(jeu);
+                joueur.setBataille(this);
             } else {
                 // Sinon on ne peut pas la jouer
                 throw new IllegalStateException("Cette carte ne peut pas être jouée maintenant");
             }
+        } else if(bataille == null) {
+            joueur.setBataille(this);
+        } else {
+            throw new IllegalStateException("Cette carte ne peut pas être jouée maintenant");
         }
-
-        joueur.setBataille(this);
     }
 }

@@ -14,9 +14,7 @@ import mille_bornes.controleur.Controleur;
 import mille_bornes.modele.CoupFourreException;
 import mille_bornes.modele.Jeu;
 import mille_bornes.modele.Joueur;
-import mille_bornes.modele.cartes.Attaque;
-import mille_bornes.modele.cartes.Carte;
-import mille_bornes.modele.cartes.Parade;
+import mille_bornes.modele.cartes.*;
 import mille_bornes.modele.cartes.attaques.LimiteVitesse;
 import mille_bornes.modele.cartes.parades.FinDeLimite;
 import mille_bornes.modele.extensions.bots.Bot;
@@ -26,6 +24,7 @@ import mille_bornes.vue.jeu.Sabot;
 import mille_bornes.vue.joueur.HJoueurMain;
 import mille_bornes.vue.joueur.JoueurMain;
 import mille_bornes.vue.joueur.VJoueurMain;
+import mille_bornes.vue.timer.TimerUtils;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -107,6 +106,10 @@ public class MilleBornes {
         contenu.setLeft(mains[3]);
         jeu.activeProchainJoueurEtTireCarte();
         tournerJoueurs();
+
+        if(jeu.getJoueurActif() instanceof Bot) {
+            TimerUtils.wait(1000, this::botJoue);
+        }
     }
 
     public void tournerJoueurs() {
@@ -120,7 +123,7 @@ public class MilleBornes {
             mains[i].setJoueur(joueur);
         }
 
-        mains[0].setSurvolActif((joueur instanceof Bot));
+        mains[0].setSurvolActif(!(jeu.getJoueurActif() instanceof Bot));
     }
 
     public Sabot getSabot() {
@@ -135,11 +138,10 @@ public class MilleBornes {
         return vBox;
     }
 
-    public void defausseCarte(Carte carte) {
+    public void defausseCarte(CarteVue carte) {
         try {
-            jeu.getJoueurActif().defausseCarte(jeu, carte);
-
-            finDeTour();
+            jeu.getJoueurActif().defausseCarte(jeu, carte.getCarte());
+            animerAction(carte, -carte.getIndex(), null);
         } catch (IllegalStateException e) {
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("Erreur");
@@ -195,7 +197,7 @@ public class MilleBornes {
         tournerJoueurs();
         if (jeu.getJoueurActif() instanceof Bot) {
             mains[0].cacher();
-            botJoue();
+            TimerUtils.wait(500, this::botJoue);
             return;
         }
         mains[0].montrer();
@@ -230,19 +232,31 @@ public class MilleBornes {
                 } else {
                     throw new IllegalStateException("Entrez un numéro de carte entre 1 et 7 inclus (négatif pour défausser)");
                 }
-
                 carteJouee = true;
             } catch (IllegalStateException e) {
                 System.out.println(e.getMessage());
                 carteJouee = false;
+            } catch (CoupFourreException e) {
+                carteJouee = true;
             }
 
         } while (!carteJouee);
 
         // animation
         CarteVue vue = mains[0].getCartes()[Math.abs(nCarte) - 1];
-        mains[0].montrer(Math.abs(nCarte) - 1);
-        CarteVue destination = null;
+        if(nCarte < 0) {
+            animerAction(vue, -(Math.abs(nCarte) - 1), cible);
+        } else {
+            animerAction(vue, nCarte - 1, cible);
+        }
+    }
+
+    private void animerAction(CarteVue vue, int nCarte, Joueur cible) {
+        mains[0].montrer(Math.abs(nCarte));
+        Carte carte = vue.getCarte();
+        CarteVue destination;
+
+        System.out.println(nCarte);
 
         if (nCarte < 0) {
             destination = sabot.getDefausse();
@@ -254,16 +268,25 @@ public class MilleBornes {
             destination = mains[0].getLimite();
         } else if (carte instanceof Parade) {
             destination = mains[0].getBataille();
+        } else if (carte instanceof Botte) {
+            destination = mains[0].getBotte(carte.getClass().asSubclass(Botte.class));
+        } else if (carte instanceof Borne) {
+            Animation animation = CarteTransition.getBorneAnimation(vue, Duration.millis(1000));
+            animation.setOnFinished(e -> onAnimationFinish());
+            animation.playFromStart();
+            return;
         } else {
             finDeTour();
             return;
         }
 
         Animation animation = CarteTransition.getCombinedTransition(vue, destination, Duration.millis(1500));
-        animation.setOnFinished(e -> {
-            finDeTour();
-        });
+        animation.setOnFinished(e -> onAnimationFinish());
         animation.playFromStart();
+    }
+
+    private void onAnimationFinish() {
+        TimerUtils.wait(1500, this::finDeTour);
     }
 
     private JoueurMain trouverMainDepuisJoueur(Joueur joueur) {
@@ -273,7 +296,8 @@ public class MilleBornes {
         throw new IllegalStateException("joueur inconnu");
     }
 
-    public void joueCarte(Carte carte) {
+    public void joueCarte(CarteVue vue) {
+        Carte carte = vue.getCarte();
         try {
             if (carte instanceof Attaque) {
                 // afficher alert
@@ -282,10 +306,11 @@ public class MilleBornes {
                 if (cible == null) return;
 
                 jeu.getJoueurActif().joueCarte(jeu, carte, cible);
+                animerAction(vue, vue.getIndex(), cible);
             } else {
                 jeu.getJoueurActif().joueCarte(jeu, carte);
+                animerAction(vue, vue.getIndex(), null);
             }
-            finDeTour();
         } catch (IllegalStateException e) {
             Alert error = genererAlert(Alert.AlertType.ERROR,
                     "Erreur", "Vous ne pouvez pas faire cette action.", e.getMessage());

@@ -18,7 +18,7 @@ public class Sabot extends GridPane implements Updatable {
     public Sabot(Jeu jeu, MilleBornes milleBornes) {
         this.jeu = jeu;
         update();
-        defausse = new CarteVue(DefaultCarte.VIDE, milleBornes, false);
+        defausse = new CarteVue(DefaultCarte.VIDE, milleBornes, -1,false);
         defausse.setAfficherSiNull(false);
 
         Label piocheHeader = new Label("Pioche");
@@ -28,7 +28,7 @@ public class Sabot extends GridPane implements Updatable {
         setHgap(5);
 
         addRow(0, piocheHeader, defausseHeader);
-        CarteVue pioche = new CarteVue(DefaultCarte.DEFAULT, milleBornes, false);
+        CarteVue pioche = new CarteVue(DefaultCarte.DEFAULT, milleBornes, -1, false);
         addRow(1, pioche, defausse);
         addRow(2, piocheLabel);
         piocheLabel.setTextAlignment(TextAlignment.CENTER);

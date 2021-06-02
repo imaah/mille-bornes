@@ -19,20 +19,43 @@ public class CarteVue extends Rectangle {
     private boolean afficherSiNull = false;
     private boolean grisee = false;
     private Carte carte;
+    private int index;
 
-    public CarteVue(Carte carte, MilleBornes milleBornes, boolean survolActif) {
-        this(carte, milleBornes);
+    /**
+     * Créer une nouvelle carte, avec ou sans survol
+     * @param carte La carte à créer
+     * @param milleBornes Le jeu en cours
+     * @param index L'index que la carte prendra dans la main du joueur
+     * @param survolActif true si le survol doit être actif
+     */
+    public CarteVue(Carte carte, MilleBornes milleBornes, int index, boolean survolActif) {
+        this(carte, milleBornes, index);
         setSurvolActif(survolActif);
     }
 
-    public CarteVue(Carte carte, MilleBornes milleBornes, boolean survolActif, boolean grisee) {
-        this(carte, milleBornes, survolActif);
+    /**
+     * Créer une nouvelle carte, avec ou sans survol, avec ou sans grisement
+     * @param carte La carte à créer
+     * @param milleBornes Le jeu en cours
+     * @param index L'index que la carte prendra dans la main du joueur
+     * @param survolActif true si le survol doit être actif
+     * @param grisee true si la carte doit être grisée
+     */
+    public CarteVue(Carte carte, MilleBornes milleBornes, int index, boolean survolActif, boolean grisee) {
+        this(carte, milleBornes, index, survolActif);
         setGrisee(grisee);
     }
 
-    public CarteVue(Carte carte, MilleBornes milleBornes) {
+    /**
+     * Créer un nouveau controlleur, défini le visuel de carte et l'indexe dans la main
+     * @param carte La carte à créer
+     * @param milleBornes Le jeu en cours
+     * @param index L'index que la carte prendra dans la main du joueur
+     */
+    public CarteVue(Carte carte, MilleBornes milleBornes, int index) {
         new ControleurCarte(this, milleBornes);
         changeCarte(carte);
+        this.index = index;
     }
 
     public void changeCarte(Carte carte) {
@@ -57,7 +80,7 @@ public class CarteVue extends Rectangle {
             setWidth(0);
             return;
         }
-        setRotate(0.0);
+
         double width = size * (image.getWidth() / image.getHeight());
 
         switch (rotation) {
@@ -72,6 +95,8 @@ public class CarteVue extends Rectangle {
                 setHeight(width);
                 break;
         }
+
+        setRotate(0.0);
 
         ImageView view = new ImageView(image);
         view.setRotate(rotation.angle);
@@ -132,6 +157,17 @@ public class CarteVue extends Rectangle {
         return rotation;
     }
 
+    /**
+     * Permet de savoir l'index de la carte
+     * @return L'index de la carte
+     */
+    public int getIndex() {
+        return index;
+    }
+
+    /**
+     * Permet d'appliquer des rotations aux cartes
+     */
     public enum CarteRotation {
         DEG_0(0),
         DEG_180(180),

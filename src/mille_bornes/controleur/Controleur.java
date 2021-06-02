@@ -15,6 +15,7 @@ import mille_bornes.modele.extensions.bots.DumbBot;
 import mille_bornes.modele.extensions.bots.NaiveBot;
 import mille_bornes.modele.utils.JsonUtils;
 import mille_bornes.vue.MilleBornes;
+import mille_bornes.vue.jeu.CarteVue;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -31,11 +32,11 @@ public class Controleur {
         this.milleBornes = milleBornes;
     }
 
-    public void joueCarte(Carte carte) {
+    public void joueCarte(CarteVue carte) {
         milleBornes.joueCarte(carte);
     }
 
-    public void defausseCarte(Carte carte) {
+    public void defausseCarte(CarteVue carte) {
         milleBornes.defausseCarte(carte);
     }
 
