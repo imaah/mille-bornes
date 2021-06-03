@@ -10,6 +10,7 @@ import mille_bornes.modele.utils.JsonUtils;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Joueur implements Sauvegardable {
@@ -203,5 +204,18 @@ public class Joueur implements Sauvegardable {
 
     public String getNom() {
         return this.nom;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Joueur)) return false;
+        Joueur joueur = (Joueur) o;
+        return Objects.equals(nom, joueur.nom);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nom);
     }
 }

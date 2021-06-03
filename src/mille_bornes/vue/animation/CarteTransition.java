@@ -14,12 +14,9 @@ public class CarteTransition {
      *
      * @param from     La carte de départ
      * @param to       La carte d'arrivée
-     * @param duration La durée de la transition
      * @return La transition générée
      */
-    public static TranslateTransition getTranslateAnimation(CarteVue from, CarteVue to, Duration duration) {
-        TranslateTransition translate = new TranslateTransition(duration, from);
-
+    public static TranslateTransition getTranslateAnimation(CarteVue from, CarteVue to) {
         Point2D positionDepart = from.localToScene(from.getX(), from.getY());
         Point2D positionArrivee = to.localToScene(to.getX(), to.getY());
         double ratio = to.getRatio() / from.getRatio();
@@ -77,14 +74,15 @@ public class CarteTransition {
      *
      * @param from     La carte de départ
      * @param to       La carte d'arrivée
-     * @param duration La durée de la transition
      * @return La transition complète
      */
-    public static ParallelTransition getCombinedTransition(CarteVue from, CarteVue to, Duration duration) {
+    public static ParallelTransition getCombinedTransition(CarteVue from, CarteVue to) {
+        TranslateTransition transition = getTranslateAnimation(from, to);
+
         return new ParallelTransition(from,
-                getRotateAnimation(from, to, duration),
-                getTranslateAnimation(from, to, duration),
-                getScaleAnimation(from, to, duration)
+                transition,
+                getRotateAnimation(from, to, transition.getDuration()),
+                getScaleAnimation(from, to, transition.getDuration())
         );
     }
 

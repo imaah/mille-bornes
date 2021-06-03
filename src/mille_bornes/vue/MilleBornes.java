@@ -33,6 +33,8 @@ import java.util.stream.Collectors;
 
 public class MilleBornes {
 
+    public static final long DUREE_ANIM_BASE = 1L;
+
     private final BorderPane contenu;
     private final VBox vBox;
     private final Sabot sabot;
@@ -108,7 +110,8 @@ public class MilleBornes {
         tournerJoueurs();
 
         if (jeu.getJoueurActif() instanceof Bot) {
-            TimerUtils.wait(1000, this::botJoue);
+            mains[0].cacher();
+            TimerUtils.wait(DUREE_ANIM_BASE, this::botJoue);
         }
     }
 
@@ -197,7 +200,7 @@ public class MilleBornes {
         tournerJoueurs();
         if (jeu.getJoueurActif() instanceof Bot) {
             mains[0].cacher();
-            TimerUtils.wait(500, this::botJoue);
+            TimerUtils.wait((long) (DUREE_ANIM_BASE / 3d), this::botJoue);
             return;
         }
         mains[0].montrer();
@@ -208,8 +211,9 @@ public class MilleBornes {
         if (!(jeu.getJoueurActif() instanceof Bot)) {
             throw new IllegalStateException("Le joueur Actif n'est pas de type Bot");
         }
+        System.out.println("------------------------");
         mains[0].cacher();
-        Carte carte = null;
+        Carte carte;
         int nCarte = 0;
         Joueur cible = null;
 
@@ -245,7 +249,7 @@ public class MilleBornes {
         // animation
         CarteVue vue = mains[0].getCartes()[Math.abs(nCarte) - 1];
         if (nCarte < 0) {
-            animerAction(vue, -(Math.abs(nCarte) - 1), cible);
+            animerAction(vue, -(Math.abs(nCarte) - 1), null);
         } else {
             animerAction(vue, nCarte - 1, cible);
         }
@@ -256,9 +260,9 @@ public class MilleBornes {
         Carte carte = vue.getCarte();
         CarteVue destination;
 
-        System.out.println(nCarte);
-
-        if (nCarte < 0) {
+        System.out.println(cible);
+        System.out.println(carte);
+        if (nCarte <= 0) {
             destination = sabot.getDefausse();
         } else if (carte instanceof LimiteVitesse) {
             destination = trouverMainDepuisJoueur(cible).getLimite();
@@ -271,7 +275,7 @@ public class MilleBornes {
         } else if (carte instanceof Botte) {
             destination = mains[0].getBotte(carte.getClass().asSubclass(Botte.class));
         } else if (carte instanceof Borne) {
-            Animation animation = CarteTransition.getBorneAnimation(vue, Duration.millis(1000));
+            Animation animation = CarteTransition.getBorneAnimation(vue, Duration.millis(DUREE_ANIM_BASE / 3d));
             animation.setOnFinished(e -> onAnimationFinish());
             animation.playFromStart();
             return;
@@ -280,13 +284,13 @@ public class MilleBornes {
             return;
         }
 
-        Animation animation = CarteTransition.getCombinedTransition(vue, destination, Duration.millis(1500));
+        Animation animation = CarteTransition.getCombinedTransition(vue, destination);
         animation.setOnFinished(e -> onAnimationFinish());
         animation.playFromStart();
     }
 
     private void onAnimationFinish() {
-        TimerUtils.wait(1500, this::finDeTour);
+        TimerUtils.wait(DUREE_ANIM_BASE / 2, this::finDeTour);
     }
 
     private JoueurMain trouverMainDepuisJoueur(Joueur joueur) {
