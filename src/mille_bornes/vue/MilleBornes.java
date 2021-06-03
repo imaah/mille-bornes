@@ -144,7 +144,7 @@ public class MilleBornes {
     public void defausseCarte(CarteVue carte) {
         try {
             jeu.getJoueurActif().defausseCarte(jeu, carte.getCarte());
-            animerAction(carte, -carte.getIndex(), null);
+            animerAction(carte, -(carte.getIndex() + 1), null);
         } catch (IllegalStateException e) {
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("Erreur");
@@ -258,14 +258,14 @@ public class MilleBornes {
         // animation
         CarteVue vue = mains[0].getCartes()[Math.abs(nCarte) - 1];
         if (nCarte < 0) {
-            animerAction(vue, -(Math.abs(nCarte) - 1), null);
+            animerAction(vue, nCarte, null);
         } else {
-            animerAction(vue, nCarte - 1, cible);
+            animerAction(vue, nCarte, cible);
         }
     }
 
     private void animerAction(CarteVue vue, int nCarte, Joueur cible) {
-        mains[0].montrer(Math.abs(nCarte));
+        mains[0].montrer(Math.abs(nCarte) - 1);
         Carte carte = vue.getCarte();
         CarteVue destination;
 
@@ -321,10 +321,10 @@ public class MilleBornes {
                 if (cible == null) return;
 
                 jeu.getJoueurActif().joueCarte(jeu, carte, cible);
-                animerAction(vue, vue.getIndex(), cible);
+                animerAction(vue, vue.getIndex() + 1, cible);
             } else {
                 jeu.getJoueurActif().joueCarte(jeu, carte);
-                animerAction(vue, vue.getIndex(), null);
+                animerAction(vue, vue.getIndex() + 1, null);
             }
         } catch (IllegalStateException e) {
             Alert error = genererAlert(Alert.AlertType.ERROR,

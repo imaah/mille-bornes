@@ -97,7 +97,7 @@ public class Controleur {
 
         // La liste
         ComboBox<Integer> nbJoueurs = new ComboBox<>();
-        nbJoueurs.getItems().addAll(4, 2, 3, 4);
+        nbJoueurs.getItems().addAll(2, 3, 4);
         nbJoueurs.getSelectionModel().select(0);
 
         // Le label
