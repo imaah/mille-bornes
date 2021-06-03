@@ -6,10 +6,8 @@ import mille_bornes.vue.MilleBornes;
 
 public class ControleurClavier {
 
-    private final Controleur controleur;
-
     private ControleurClavier(Scene scene, MilleBornes milleBornes) {
-        this.controleur = new Controleur(milleBornes);
+        Controleur controleur = new Controleur(milleBornes);
         scene.setOnKeyPressed(this::touchePressee);
     }
 

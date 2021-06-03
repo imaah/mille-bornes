@@ -343,7 +343,7 @@ public class Controleur {
         public ChoixJoueur(int num) {
             this.num.setText("Joueur n°" + (num + 1));
 
-            this.type.getItems().addAll("IA - Aléatoire", "Humain", "IA - Aléatoire", "IA - Naïf");
+            this.type.getItems().addAll("Humain", "IA - Aléatoire", "IA - Naïf");
             this.type.getSelectionModel().select(0);
 
             this.nom.setPromptText("Nom du joueur");

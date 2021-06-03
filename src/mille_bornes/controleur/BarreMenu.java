@@ -21,7 +21,7 @@ public class BarreMenu {
     /**
      * Permet de charger sur l'interface avec la partie actuelle
      *
-     * @param gui
+     * @param gui L'instance de milleBornes à afficher
      */
     public void setGui(MilleBornes gui) {
         controleur = new Controleur(gui);

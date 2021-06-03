@@ -13,7 +13,6 @@ public class Serialiseur {
      * @param file   le fichier dans lequel enregistrer l'objet.
      * @param object L'objet à sauvegarder
      * @return Un booléen vrai ou faux si l'opération à réussie ou non
-     * @throws IOException S'il y a un problème lors de l'écriture du fichier.
      */
     public boolean sauvegarderDansUnFichier(File file, Serializable object) {
         try {
