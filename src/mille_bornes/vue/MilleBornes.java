@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MilleBornes {
-
+    /** La durée des animations générales (pas les déplacements */
     public static final long DUREE_ANIM_BASE = 1000L;
 
     private final BorderPane contenu;
@@ -42,10 +42,19 @@ public class MilleBornes {
     private final Controleur controleur = new Controleur(this);
     private Jeu jeu;
 
+
+    /**
+     * Constructeur - Permet d'initialiser tout les composants de la fenêtre
+     *
+     * @param width La largeur de la fenêtre
+     * @param height La longueur de la fenêtre
+     * @throws IOException Levée si le fichier .fxml n'a pas pu être ouvert
+     */
     public MilleBornes(double width, double height) throws IOException {
         contenu = new BorderPane();
         sabot = new Sabot(null, this);
 
+        // On charge la barre de menu
         FXMLLoader loader = new FXMLLoader(MilleBornes.class.getResource("/fxml/barre-menu.fxml"));
         MenuBar barreMenu = loader.load();
         Object controller = loader.getController();
@@ -67,18 +76,40 @@ public class MilleBornes {
         contenu.setCenter(sabot);
     }
 
+
+    /**
+     * Retourne le jeu en cours
+     *
+     * @return Le jeu en cours
+     */
     public Jeu getJeu() {
         return jeu;
     }
 
+
+    /**
+     * Défini le jeu à utiliser
+     *
+     * @param jeu Le jeu à utiliser
+     */
     public void setJeu(Jeu jeu) {
         setJeu(jeu, false);
     }
 
+
+    /**
+     * Permet de changer le jeu en précisant si ce jeu provient d'un fichier de sauvegarde
+     *
+     * @param jeu Le jeu à utiliser
+     * @param partieChargee Indique si la partie provient d'un fichier de sauvegarde
+     */
     public void setJeu(Jeu jeu, boolean partieChargee) {
         this.jeu = jeu;
+        // Si la partie n'a pas été chargée, on le fait
         if (!partieChargee) this.jeu.prepareJeu();
         sabot.setJeu(jeu);
+
+        // On remplit les mains
         Arrays.fill(mains, null);
         mains[0] = new HJoueurMain(this, jeu.getJoueurs().get(0), true);
 
@@ -96,10 +127,12 @@ public class MilleBornes {
             }
         }
 
+        // On cache les mains qui ne doivent pas être montrées
         for (int i = 1; i < mains.length; i++) {
             if (mains[i] != null) mains[i].cacher();
         }
 
+        // On ajoute les différentes parties sur l'interface
         contenu.setBottom(mains[0]);
         contenu.setRight(mains[1]);
         contenu.setTop(mains[2]);
@@ -107,43 +140,75 @@ public class MilleBornes {
         jeu.activeProchainJoueurEtTireCarte();
         tournerJoueurs();
 
+        // Toutes les mains de bots doivent être cachées
         if (jeu.getJoueurActif() instanceof Bot) {
             mains[0].cacher();
             TimerUtils.wait(DUREE_ANIM_BASE, this::botJoue);
         }
     }
 
+
+    /**
+     * Permet d'actualiser les positions de chaque joueur
+     */
     public void tournerJoueurs() {
         Joueur joueur = jeu.getJoueurActif();
 
+        // Le joueur actif ne va plus l'être, son affichage change
+        trouverMainDepuisJoueur(joueur).setNomGras(false);
+
         mains[0].setJoueur(joueur);
 
+        // On décale chaque joueur dans la liste
         for (int i = 1; i < mains.length; i++) {
             if (mains[i] == null) continue;
             joueur = joueur.getProchainJoueur();
             mains[i].setJoueur(joueur);
         }
 
+        // Le joueur actif obtient les propriétés dont il doit faire l'objet
+        mains[0].setNomGras(true);
         mains[0].setSurvolActif(!(jeu.getJoueurActif() instanceof Bot));
     }
 
+
+    /**
+     * Retourne le sabot du jeu
+     * @return Le sabot du jeu
+     */
     public Sabot getSabot() {
         return sabot;
     }
 
+
+    /**
+     * Retourne le contenu du jeu
+     * @return Le contenu du jeu
+     */
     public BorderPane getContenu() {
         return contenu;
     }
 
+
+    /**
+     * Retourne la VBox du jeu
+     * @return La VBox du jeu
+     */
     public VBox getHolder() {
         return vBox;
     }
 
+
+    /**
+     * Permet de défausser une carte précisée
+     *
+     * @param carte La carte à défausser
+     */
     public void defausseCarte(CarteVue carte) {
-        try {
+        try { // On essaye de défausser la carte...
             jeu.getJoueurActif().defausseCarte(jeu, carte.getCarte());
             animerAction(carte, -carte.getIndex(), null);
-        } catch (IllegalStateException e) {
+        } catch (IllegalStateException e) { // ...sauf si on a pas le droit
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("Erreur");
             error.setHeaderText("Vous ne pouvez pas faire cette action");
@@ -152,6 +217,12 @@ public class MilleBornes {
         }
     }
 
+
+    /**
+     * Permet de savoir si un ou plusieurs joueurs ont gagnés (et donc par extension que la partie est finie)
+     *
+     * @return True si la partie est finie, false sinon
+     */
     public boolean testVictoire() {
         if (jeu.estPartieFinie()) {
             String content;
@@ -164,6 +235,7 @@ public class MilleBornes {
                         .map(Joueur::getNom).collect(Collectors.joining("\n- "));
             }
 
+            // On affiche les gagnants dans une boîte de dialogue
             Alert alert = genererAlert(
                     Alert.AlertType.INFORMATION,
                     "Fin de partie",
@@ -179,6 +251,17 @@ public class MilleBornes {
         return false;
     }
 
+
+    /**
+     * Permet de générer une alerte avec un message personnalisé
+     *
+     * @param type Le type de l'alert (utile pour l'icone et les boutons)
+     * @param titre Le titre de la fenêtre
+     * @param header Le contenu de la section en-tête
+     * @param content Le texte central de la fenêtre
+     * @param buttons Les boutons qui peuvent être ajoutés à la fenêtre (optionel)
+     * @return La boîte de dialogue personnalisée
+     */
     private Alert genererAlert(Alert.AlertType type, String titre, String header, String content, ButtonType... buttons) {
         Alert alert = new Alert(type, content, buttons);
         alert.setTitle(titre);
@@ -186,7 +269,12 @@ public class MilleBornes {
         return alert;
     }
 
+
+    /**
+     * Permet de finir un tour correctement et de passer au prochain
+     */
     private void finDeTour() {
+        // Si la partie n'est pas finie
         if (testVictoire()) {
             controleur.demanderRejouer();
             return;
@@ -195,6 +283,7 @@ public class MilleBornes {
         jeu.activeProchainJoueurEtTireCarte();
         sabot.update();
 
+        // Alors on tourne les joueurs
         tournerJoueurs();
         if (jeu.getJoueurActif() instanceof Bot) {
             mains[0].cacher();
@@ -204,6 +293,10 @@ public class MilleBornes {
         mains[0].montrer();
     }
 
+
+    /**
+     * Permet de faire jouer un bot quand c'est à lui de jouer
+     */
     private void botJoue() {
         boolean carteJouee;
         if (!(jeu.getJoueurActif() instanceof Bot)) {
@@ -217,11 +310,14 @@ public class MilleBornes {
 
         Bot bot = (Bot) jeu.getJoueurActif();
 
+        // Il essaye de jouer toutes les cartes possibles une fois, jusqu'à ce qu'il en trouve une (ou défausse)
         do {
             try {
+                // On choisit une carte parmis les choix restants
                 nCarte = bot.choisitCarte();
                 carte = bot.getMain().get(Math.abs(nCarte) - 1);
 
+                // On traite ce qu'il a choisit
                 if (nCarte > 0) {
                     if (carte instanceof Attaque) {
                         cible = bot.choisitAdversaire(carte);
@@ -236,16 +332,16 @@ public class MilleBornes {
                     throw new IllegalStateException("Entrez un numéro de carte entre 1 et 7 inclus (négatif pour défausser)");
                 }
                 carteJouee = true;
-            } catch (IllegalStateException e) {
+            } catch (IllegalStateException e) { // Parfois, il prend une carte qu'il ne peut pas jouer
                 System.out.println(e.getMessage());
                 carteJouee = false;
             } catch (CoupFourreException e) {
                 carteJouee = true;
             }
 
-        } while (!carteJouee);
+        } while (!carteJouee); // On doit repéter ces actions tant qu'il n'a pas pu jouer
 
-        // animation
+        // Animation
         CarteVue vue = mains[0].getCartes()[Math.abs(nCarte) - 1];
         if (nCarte < 0) {
             animerAction(vue, -(Math.abs(nCarte) - 1), null);
@@ -254,6 +350,14 @@ public class MilleBornes {
         }
     }
 
+
+    /**
+     * Permet de gérer les différents cas d'animation entre les joueurs
+     *
+     * @param vue La carte à animer
+     * @param nCarte Sa position dans la main
+     * @param cible Sa destination
+     */
     private void animerAction(CarteVue vue, int nCarte, Joueur cible) {
         mains[0].montrer(Math.abs(nCarte));
         Carte carte = vue.getCarte();
@@ -261,6 +365,8 @@ public class MilleBornes {
 
         System.out.println(cible);
         System.out.println(carte);
+
+        // On traite au cas-par-cas
         if (nCarte <= 0) {
             destination = sabot.getDefausse();
         } else if (carte instanceof LimiteVitesse) {
@@ -283,15 +389,27 @@ public class MilleBornes {
             return;
         }
 
+        // Enfin, on genére l'animation
         Animation animation = CarteTransition.getCombinedTransition(vue, destination);
         animation.setOnFinished(e -> onAnimationFinish());
         animation.playFromStart();
     }
 
+
+    /**
+     * Attend un temps après la fin d'une animation pour éviter les bugs d'animation
+     */
     private void onAnimationFinish() {
         TimerUtils.wait(DUREE_ANIM_BASE / 2, this::finDeTour);
     }
 
+
+    /**
+     * Permet de trouver la main d'un joueur
+     *
+     * @param joueur Le joueur recherché
+     * @return La main du joueur
+     */
     private JoueurMain trouverMainDepuisJoueur(Joueur joueur) {
         for (JoueurMain main : mains) {
             if (main != null && main.getJoueur().equals(joueur)) return main;
@@ -299,11 +417,17 @@ public class MilleBornes {
         throw new IllegalStateException("joueur inconnu");
     }
 
+
+    /**
+     * Permet de jouer une carte
+     *
+     * @param vue La carte à jouer
+     */
     public void joueCarte(CarteVue vue) {
         Carte carte = vue.getCarte();
         try {
             if (carte instanceof Attaque) {
-                // afficher alert
+                // Afficher alert
                 Joueur cible = new ChoisitDestination(jeu, (Attaque) carte).getCible();
 
                 if (cible == null) return;
@@ -314,15 +438,17 @@ public class MilleBornes {
                 jeu.getJoueurActif().joueCarte(jeu, carte);
                 animerAction(vue, vue.getIndex(), null);
             }
-        } catch (IllegalStateException e) {
+        } catch (IllegalStateException e) { // Si on a pas le droit de faire ce déplacement
             Alert error = genererAlert(Alert.AlertType.ERROR,
                     "Erreur", "Vous ne pouvez pas faire cette action.", e.getMessage());
             error.showAndWait();
-        } catch (CoupFourreException e) {
+        } catch (CoupFourreException e) { // Si le joueur cachait un coup-fourré, on le signale
             Alert coupFourre = genererAlert(Alert.AlertType.INFORMATION, "Coup Fourré !",
                     "Votre adversaire sort un coup-fourré !",
                     "Votre attaque n'a aucun effet et il récupère la main.");
             coupFourre.showAndWait();
+
+            // Une fois la boîte de dialogue fermée, on continu le jeu
             jeu.activeProchainJoueurEtTireCarte();
             sabot.update();
             tournerJoueurs();
