@@ -47,7 +47,7 @@ public class CarteTransition {
         // Le minimum sert à ne pas avoir de transition trop rapide
         int minimum = 250;
         Duration duration = Duration.millis(minimum + Math.sqrt(dX*dX + dY*dY));
-        duration = Duration.millis(1);
+//        duration = Duration.millis(1);
         TranslateTransition translate = new TranslateTransition(duration, from);
 
         translate.setToX(from.getX() - dX);
