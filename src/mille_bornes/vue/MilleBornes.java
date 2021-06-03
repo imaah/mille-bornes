@@ -228,6 +228,7 @@ public class MilleBornes {
                     if (carte instanceof Attaque) {
                         cible = bot.choisitAdversaire(carte);
                         bot.joueCarte(jeu, nCarte - 1, cible);
+                        System.out.println("cible : " + cible);
                     } else {
                         bot.joueCarte(jeu, nCarte - 1);
                     }
