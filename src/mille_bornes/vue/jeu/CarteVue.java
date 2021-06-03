@@ -93,14 +93,14 @@ public class CarteVue extends Rectangle {
 
         // Si la carte est horizontale, on l'affiche "normalement", sinon on inverse sa largeur et sa longueur
         switch (rotation) {
-            case DEG_0, DEG_180 -> {
+            case DEG_0: case DEG_180:
                 setWidth(width);
                 setHeight(size);
-            }
-            case DEG_90, DEG_270 -> {
+                break;
+            case DEG_90: case DEG_270:
                 setWidth(size);
                 setHeight(width);
-            }
+                break;
         }
 
         setRotate(0.0);
