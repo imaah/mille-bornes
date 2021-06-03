@@ -59,7 +59,7 @@ public abstract class Carte implements Sauvegardable {
     public abstract String nomColore();
 
     public String getImagePath() {
-        return getClass().getResource(imagePath).toString();
+        return Objects.requireNonNull(getClass().getResource(imagePath)).toString();
     }
 
     @Override

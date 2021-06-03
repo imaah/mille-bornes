@@ -80,7 +80,7 @@ public abstract class JoueurMain extends GridPane implements Updatable {
         }
 
         for (CarteVue botteVue : bottes) {
-            boolean hasBotte = joueur.getBottes().contains(botteVue.getCarte());
+            boolean hasBotte = joueur.getBottes().contains((Botte) botteVue.getCarte());
             botteVue.setGrisee(!hasBotte);
 
             if (!hasBotte) {
@@ -94,8 +94,7 @@ public abstract class JoueurMain extends GridPane implements Updatable {
         if (cacher) {
             cacher();
         }
-
-        statusLabel.setText(String.format("%s%n%d km", joueur.nom, joueur.getKm()));
+        updateLabel();
         bataille.changeCarte(joueur.getBataille());
 
         if (joueur.getLimiteVitesse()) {
@@ -168,5 +167,9 @@ public abstract class JoueurMain extends GridPane implements Updatable {
             }
         }
         return null;
+    }
+
+    public void updateLabel() {
+        statusLabel.setText(String.format("%s%n%d km", joueur.nom, joueur.getKm()));
     }
 }

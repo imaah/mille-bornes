@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MilleBornes {
-    /** La durée des animations générales (pas les déplacements */
+
     public static final long DUREE_ANIM_BASE = 1000L;
 
     private final BorderPane contenu;
@@ -115,16 +115,18 @@ public class MilleBornes {
 
         // Selection manuelle des emplacements des joueurs selon le nombre total
         switch (jeu.getNbJoueurs()) {
-            case 2 -> mains[2] = new HJoueurMain(this, jeu.getJoueurs().get(1), false, true);
-            case 3 -> {
+            case 2:
+                mains[2] = new HJoueurMain(this, jeu.getJoueurs().get(1), false, true);
+                break;
+            case 3:
                 mains[1] = new VJoueurMain(this, jeu.getJoueurs().get(1), false, true);
                 mains[3] = new VJoueurMain(this, jeu.getJoueurs().get(2), false);
-            }
-            case 4 -> {
+                break;
+            case 4:
                 mains[1] = new VJoueurMain(this, jeu.getJoueurs().get(1), false, true);
                 mains[2] = new HJoueurMain(this, jeu.getJoueurs().get(2), false, true);
                 mains[3] = new VJoueurMain(this, jeu.getJoueurs().get(3), false);
-            }
+                break;
         }
 
         // On cache les mains qui ne doivent pas être montrées
@@ -207,7 +209,7 @@ public class MilleBornes {
     public void defausseCarte(CarteVue carte) {
         try { // On essaye de défausser la carte...
             jeu.getJoueurActif().defausseCarte(jeu, carte.getCarte());
-            animerAction(carte, -carte.getIndex(), null);
+            animerAction(carte, -(carte.getIndex() + 1), null);
         } catch (IllegalStateException e) { // ...sauf si on a pas le droit
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("Erreur");
@@ -227,6 +229,10 @@ public class MilleBornes {
         if (jeu.estPartieFinie()) {
             String content;
             List<Joueur> gagnants = jeu.getGagnant();
+
+            for (JoueurMain main : mains) {
+                if (main != null) main.montrer();
+            }
 
             if (gagnants.size() == 1) {
                 content = gagnants.get(0).nom + " remporte la partie !";
@@ -336,6 +342,10 @@ public class MilleBornes {
                 System.out.println(e.getMessage());
                 carteJouee = false;
             } catch (CoupFourreException e) {
+                Alert coupFourre = genererAlert(Alert.AlertType.INFORMATION, "Coup Fourré !",
+                        "Votre adversaire sort un coup-fourré !",
+                        "L'attaque de " + bot.nom + " n'a aucun effet et " + e.getCible().nom + " récupère la main.");
+                coupFourre.showAndWait();
                 carteJouee = true;
             }
 
@@ -344,9 +354,9 @@ public class MilleBornes {
         // Animation
         CarteVue vue = mains[0].getCartes()[Math.abs(nCarte) - 1];
         if (nCarte < 0) {
-            animerAction(vue, -(Math.abs(nCarte) - 1), null);
+            animerAction(vue, nCarte, null);
         } else {
-            animerAction(vue, nCarte - 1, cible);
+            animerAction(vue, nCarte, cible);
         }
     }
 
@@ -359,7 +369,7 @@ public class MilleBornes {
      * @param cible Sa destination
      */
     private void animerAction(CarteVue vue, int nCarte, Joueur cible) {
-        mains[0].montrer(Math.abs(nCarte));
+        mains[0].montrer(Math.abs(nCarte) - 1);
         Carte carte = vue.getCarte();
         CarteVue destination;
 
@@ -367,7 +377,7 @@ public class MilleBornes {
         System.out.println(carte);
 
         // On traite au cas-par-cas
-        if (nCarte <= 0) {
+        if (nCarte < 0) {
             destination = sabot.getDefausse();
         } else if (carte instanceof LimiteVitesse) {
             destination = trouverMainDepuisJoueur(cible).getLimite();
@@ -433,10 +443,10 @@ public class MilleBornes {
                 if (cible == null) return;
 
                 jeu.getJoueurActif().joueCarte(jeu, carte, cible);
-                animerAction(vue, vue.getIndex(), cible);
+                animerAction(vue, vue.getIndex() + 1, cible);
             } else {
                 jeu.getJoueurActif().joueCarte(jeu, carte);
-                animerAction(vue, vue.getIndex(), null);
+                animerAction(vue, vue.getIndex() + 1, null);
             }
         } catch (IllegalStateException e) { // Si on a pas le droit de faire ce déplacement
             Alert error = genererAlert(Alert.AlertType.ERROR,
@@ -445,7 +455,7 @@ public class MilleBornes {
         } catch (CoupFourreException e) { // Si le joueur cachait un coup-fourré, on le signale
             Alert coupFourre = genererAlert(Alert.AlertType.INFORMATION, "Coup Fourré !",
                     "Votre adversaire sort un coup-fourré !",
-                    "Votre attaque n'a aucun effet et il récupère la main.");
+                    "Votre attaque n'a aucun effet et " + e.getCible().nom + " récupère la main.");
             coupFourre.showAndWait();
 
             // Une fois la boîte de dialogue fermée, on continu le jeu

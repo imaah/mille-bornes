@@ -10,7 +10,7 @@ Codé par Clément GUIBOUT & Esteban MORISSE dans le cadre du DUT Informatique d
 
 Une fois une partie créer, c'est toujours au tour du joueur du bas de jouer. Pour jouer une carte, rien de plus simple:
 le clique droit défausse la carte et l'envoi directement dans le tas prévu à cet effet, tandis que le clique gauche joue
-la carte classiquement. Si la carte que vous souhaitez jouer nécessite des actions supplémentaires, comme par exemple
+la carte classiquement. Si la carte que vous souhaitez jouer nécessite des actions supplémentaires, comme
 choisir la cible dans le cas d'une carte d'attaque, une fenêtre de choix vous sera proposée.
 
 ## Dépendances :

@@ -10,6 +10,8 @@ import mille_bornes.modele.cartes.DefaultCarte;
 import mille_bornes.vue.MilleBornes;
 import mille_bornes.vue.Updatable;
 
+import java.util.Objects;
+
 public class Sabot extends GridPane implements Updatable {
     /* La carte sur le haut de la defausse */
     private final CarteVue defausse;
@@ -65,9 +67,7 @@ public class Sabot extends GridPane implements Updatable {
         if (jeu == null) return;
         Carte carteDefausse = jeu.regardeDefausse();
 
-        if (carteDefausse != null) {
-            defausse.changeCarte(carteDefausse);
-        }
+        defausse.changeCarte(Objects.requireNonNullElse(carteDefausse, DefaultCarte.VIDE));
 
         piocheLabel.setText(jeu.getNbCartesSabot() + " Cartes");
     }

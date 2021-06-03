@@ -6,8 +6,10 @@ import mille_bornes.vue.MilleBornes;
 
 public class ControleurClavier {
 
+    private final Controleur controleur;
+
     private ControleurClavier(Scene scene, MilleBornes milleBornes) {
-        Controleur controleur = new Controleur(milleBornes);
+        controleur = new Controleur(milleBornes);
         scene.setOnKeyPressed(this::touchePressee);
     }
 
@@ -21,13 +23,13 @@ public class ControleurClavier {
 
             switch (c) {
                 case 'n':
-//                    controleur.nouvellePartie();
+                    controleur.nouvellePartie();
                     break;
                 case 's':
-//                    controleur.sauvegarder();
+                    controleur.sauvegarder();
                     break;
                 case 'o':
-//                    controleur.chargerPartie();
+                    controleur.chargerPartie();
                     break;
             }
         }
