@@ -159,6 +159,10 @@ public class MilleBornes {
             String content;
             List<Joueur> gagnants = jeu.getGagnant();
 
+            for (JoueurMain main : mains) {
+                if(main != null) main.montrer();
+            }
+
             if (gagnants.size() == 1) {
                 content = gagnants.get(0).nom + " remporte la partie !";
             } else {
@@ -242,6 +246,10 @@ public class MilleBornes {
                 System.out.println(e.getMessage());
                 carteJouee = false;
             } catch (CoupFourreException e) {
+                Alert coupFourre = genererAlert(Alert.AlertType.INFORMATION, "Coup Fourré !",
+                        "Votre adversaire sort un coup-fourré !",
+                        "L'attaque de " + bot.nom + " n'a aucun effet et " + e.getCible().nom + " récupère la main.");
+                coupFourre.showAndWait();
                 carteJouee = true;
             }
 
@@ -323,7 +331,7 @@ public class MilleBornes {
         } catch (CoupFourreException e) {
             Alert coupFourre = genererAlert(Alert.AlertType.INFORMATION, "Coup Fourré !",
                     "Votre adversaire sort un coup-fourré !",
-                    "Votre attaque n'a aucun effet et il récupère la main.");
+                    "Votre attaque n'a aucun effet et " + e.getCible().nom + " récupère la main.");
             coupFourre.showAndWait();
             jeu.activeProchainJoueurEtTireCarte();
             sabot.update();

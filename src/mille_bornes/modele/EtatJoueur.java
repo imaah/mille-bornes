@@ -157,7 +157,7 @@ public class EtatJoueur implements Sauvegardable {
                     jeu.setProchainJoueur(this.joueur);
                     jeu.defausse(attaque);
 
-                    throw new CoupFourreException();
+                    throw new CoupFourreException(joueur);
                 }
             }
         } // for
@@ -223,7 +223,7 @@ public class EtatJoueur implements Sauvegardable {
                 main.remove(i);
             } catch (CoupFourreException e) {
                 defausseCarte(jeu, i);
-                throw new CoupFourreException();
+                throw e;
             }
         } else {
             throw new IllegalStateException("La carte n'est pas une attaque, donc ne peut pas être utilisée sur un autre joueur!");
