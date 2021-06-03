@@ -158,10 +158,8 @@ public class Jeu implements Sauvegardable {
 
                 if (nCarte > 0) {
                     this.joueurActif.joueCarte(this, nCarte - 1);
-                } else if (nCarte < 0) {
-                    this.joueurActif.defausseCarte(this, -nCarte - 1);
                 } else {
-                    throw new IllegalStateException("Entrez un numéro de carte entre 1 et 7 inclus (négatif pour défausser)");
+                    this.joueurActif.defausseCarte(this, -nCarte - 1);
                 }
 
                 if (joueurActif instanceof Bot) {
@@ -294,9 +292,5 @@ public class Jeu implements Sauvegardable {
         List<Joueur> temp = this.joueurs;
         temp.sort(Comparator.comparing(Joueur::getNom));
         return temp;
-    }
-
-    public int getNbCartesDefausse() {
-        return defausse.getNbCartes();
     }
 }

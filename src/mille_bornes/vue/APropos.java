@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class APropos extends Alert {
 
@@ -21,7 +22,7 @@ public class APropos extends Alert {
         this.setTitle("À propos");
 
         // On récupère la bannière du jeu
-        ImageView headerImage = new ImageView(getClass().getResource("/images/boite.jpg").toString());
+        ImageView headerImage = new ImageView(Objects.requireNonNull(getClass().getResource("/images/boite.jpg")).toString());
         headerImage.setPreserveRatio(true);
         headerImage.setFitWidth(512);
 
