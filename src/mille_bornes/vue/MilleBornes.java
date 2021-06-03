@@ -271,7 +271,8 @@ public class MilleBornes {
 
         System.out.println(cible);
         System.out.println(carte);
-        if (nCarte <= 0) {
+
+        if (nCarte < 0) {
             destination = sabot.getDefausse();
         } else if (carte instanceof LimiteVitesse) {
             destination = trouverMainDepuisJoueur(cible).getLimite();
@@ -299,6 +300,7 @@ public class MilleBornes {
     }
 
     private void onAnimationFinish() {
+        mains[0].updateLabel();
         TimerUtils.wait(DUREE_ANIM_BASE / 2, this::finDeTour);
     }
 
