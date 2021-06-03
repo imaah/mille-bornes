@@ -80,7 +80,7 @@ public abstract class JoueurMain extends GridPane implements Updatable {
         }
 
         for (CarteVue botteVue : bottes) {
-            boolean hasBotte = joueur.getBottes().contains((Botte) botteVue.getCarte());
+            boolean hasBotte = joueur.getBottes().contains(botteVue.getCarte());
             botteVue.setGrisee(!hasBotte);
 
             if (!hasBotte) {

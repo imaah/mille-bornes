@@ -19,7 +19,7 @@ public class CarteVue extends Rectangle {
     private boolean afficherSiNull = false;
     private boolean grisee = false;
     private Carte carte;
-    private int index;
+    private final int index;
 
     /**
      * Créer une nouvelle carte, avec ou sans survol
@@ -93,16 +93,14 @@ public class CarteVue extends Rectangle {
 
         // Si la carte est horizontale, on l'affiche "normalement", sinon on inverse sa largeur et sa longueur
         switch (rotation) {
-            case DEG_0:
-            case DEG_180:
+            case DEG_0, DEG_180 -> {
                 setWidth(width);
                 setHeight(size);
-                break;
-            case DEG_90:
-            case DEG_270:
+            }
+            case DEG_90, DEG_270 -> {
                 setWidth(size);
                 setHeight(width);
-                break;
+            }
         }
 
         setRotate(0.0);

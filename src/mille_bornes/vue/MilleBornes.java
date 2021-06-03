@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 
 public class MilleBornes {
 
-    public static final long DUREE_ANIM_BASE = 1L;
+    public static final long DUREE_ANIM_BASE = 1000L;
 
     private final BorderPane contenu;
     private final VBox vBox;
@@ -84,18 +84,16 @@ public class MilleBornes {
 
         // Selection manuelle des emplacements des joueurs selon le nombre total
         switch (jeu.getNbJoueurs()) {
-            case 2:
-                mains[2] = new HJoueurMain(this, jeu.getJoueurs().get(1), false, true);
-                break;
-            case 3:
+            case 2 -> mains[2] = new HJoueurMain(this, jeu.getJoueurs().get(1), false, true);
+            case 3 -> {
                 mains[1] = new VJoueurMain(this, jeu.getJoueurs().get(1), false, true);
                 mains[3] = new VJoueurMain(this, jeu.getJoueurs().get(2), false);
-                break;
-            case 4:
+            }
+            case 4 -> {
                 mains[1] = new VJoueurMain(this, jeu.getJoueurs().get(1), false, true);
                 mains[2] = new HJoueurMain(this, jeu.getJoueurs().get(2), false, true);
                 mains[3] = new VJoueurMain(this, jeu.getJoueurs().get(3), false);
-                break;
+            }
         }
 
         for (int i = 1; i < mains.length; i++) {

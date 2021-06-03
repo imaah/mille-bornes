@@ -68,9 +68,8 @@ public class Main {
      * @param sauvegarde fichier de sauvegarde
      * @return La partie enregistrée dans le fichier de sauvegarde
      * @throws IOException            S'il y a une problème lors de la lecture du fichier
-     * @throws ClassNotFoundException Si la classe {@link Jeu} n'existe pas
      */
-    private Jeu chargerPartie(File sauvegarde) throws IOException, ClassNotFoundException {
+    private Jeu chargerPartie(File sauvegarde) throws IOException {
         Gson gson = new Gson();
         FileReader lecteur = new FileReader(sauvegarde);
         JsonObject json = gson.fromJson(lecteur, JsonObject.class);
@@ -180,7 +179,7 @@ public class Main {
         if (chargerFichier) {
             try {
                 jeu = chargerPartie(sauvegarde);
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException e) {
                 System.err.println("La partie est corrompue. Il est donc impossible de la charger.");
             }
         }
