@@ -43,6 +43,13 @@ public class CarteTransition {
             }
         }
 
+        // La durée de la transition est proportionnelle à la distance à parcourir
+        // Le minimum sert à ne pas avoir de transition trop rapide
+        int minimum = 250;
+        Duration duration = Duration.millis(minimum + Math.sqrt(dX*dX + dY*dY));
+        duration = Duration.millis(1);
+        TranslateTransition translate = new TranslateTransition(duration, from);
+
         translate.setToX(from.getX() - dX);
         translate.setToY(from.getY() - dY);
         translate.setToZ(-2);
@@ -86,13 +93,27 @@ public class CarteTransition {
         );
     }
 
+    /**
+     * t*
+     *
+     * @param from     La carte de départ
+     * @param to       La carte d'arrivée
+     * @param duration La durée de la transition
+     * @return La transition complète
+     */
     public static RotateTransition getRotateAnimation(CarteVue from, CarteVue to, Duration duration) {
         RotateTransition rotate = new RotateTransition(duration, from);
         rotate.setToAngle(to.getRotation().angle);
         return rotate;
     }
 
-
+    /**
+     * Permet d'avoir l'animation des bornes quand elles sont jouées
+     *
+     * @param borne    La carte à animer
+     * @param duration La durée de l'animation
+     * @return L'animation complète
+     */
     public static ScaleTransition getBorneAnimation(CarteVue borne, Duration duration) {
         ScaleTransition scale = new ScaleTransition(duration, borne);
         scale.setToX(0);
