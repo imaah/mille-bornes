@@ -85,6 +85,8 @@ public class CarteTransition {
     public static ParallelTransition getCombinedTransition(CarteVue from, CarteVue to) {
         TranslateTransition transition = getTranslateAnimation(from, to);
 
+        from.setTranslateZ(-3);
+
         return new ParallelTransition(from,
                 transition,
                 getRotateAnimation(from, to, transition.getDuration()),
@@ -93,7 +95,7 @@ public class CarteTransition {
     }
 
     /**
-     * t*
+     * Permet de créer l'animation de rotation de la carte
      *
      * @param from     La carte de départ
      * @param to       La carte d'arrivée
