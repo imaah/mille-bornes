@@ -416,10 +416,20 @@ public class MilleBornes extends StackPane {
 
         // Enfin, on genére l'animation
         Animation animation = CarteTransition.getCombinedTransition(vue, destination);
-        animation.setOnFinished(e -> onAnimationFinish());
+        animation.setOnFinished(e -> onAnimationFinish(destination, vue.getCarte()));
         animation.playFromStart();
     }
 
+
+    /**
+     * Remplace la carte de destination et attend un temps après la fin d'une animation pour éviter les bugs d'animation
+     * @param cible la carte à remplacer
+     * @param carte le remplacement de la carte
+     */
+    private void onAnimationFinish(CarteVue cible, Carte carte) {
+        cible.changeCarte(carte);
+        onAnimationFinish();
+    }
 
     /**
      * Attend un temps après la fin d'une animation pour éviter les bugs d'animation

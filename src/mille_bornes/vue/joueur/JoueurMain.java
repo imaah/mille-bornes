@@ -4,6 +4,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import mille_bornes.modele.Joueur;
 import mille_bornes.modele.cartes.Botte;
 import mille_bornes.modele.cartes.Carte;
@@ -145,10 +147,11 @@ public abstract class JoueurMain extends GridPane implements Updatable {
     }
 
     public void setNomGras(boolean estGras) {
+//        Font font = this.statusLabel.getFont();
         if (estGras) {
             this.statusLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 13px;");
         } else {
-            this.statusLabel.setStyle("-fx-font-weight: initial; -fx-font-size: 12px;");
+            this.statusLabel.setStyle("-fx-font-weight: normal; -fx-font-size: 12px;");
         }
     }
 
