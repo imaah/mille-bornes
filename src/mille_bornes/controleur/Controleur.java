@@ -41,6 +41,10 @@ public class Controleur {
 
     /**
      * Demande confirmation avant de quitter l'application ou de changer de partie
+     * @param title le titre de l'alert
+     * @param header texte dans l'entête de l'alert
+     * @param content contenu de l'alert
+     * @return si l'utilisateur à appuyé sur ok.
      */
     public boolean confirmation(String title, String header, String content) {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);

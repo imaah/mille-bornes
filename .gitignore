@@ -6,3 +6,4 @@ bin
 libs
 *.iml
 test.*
+javadoc
