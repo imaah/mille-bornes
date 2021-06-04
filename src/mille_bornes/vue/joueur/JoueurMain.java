@@ -148,7 +148,7 @@ public abstract class JoueurMain extends GridPane implements Updatable {
         if (estGras) {
             this.statusLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 13px;");
         } else {
-            this.statusLabel.setStyle("-fx-font-weight: regular; -fx-font-size: 12px;");
+            this.statusLabel.setStyle("-fx-font-weight: initial; -fx-font-size: 12px;");
         }
     }
 

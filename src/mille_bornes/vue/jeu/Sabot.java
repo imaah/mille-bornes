@@ -1,6 +1,9 @@
 package mille_bornes.vue.jeu;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.TextAlignment;
@@ -36,6 +39,11 @@ public class Sabot extends GridPane implements Updatable {
         Label piocheHeader = new Label("Pioche");
         Label defausseHeader = new Label("Défausse");
 
+        piocheHeader.setStyle("-fx-font-weight: bold; -fx-font-size: 17px");
+        defausseHeader.setStyle("-fx-font-weight: bold; -fx-font-size: 17px");
+
+        centrer(piocheLabel, piocheHeader, defausseHeader);
+
         setVgap(5);
         setHgap(5);
 
@@ -46,6 +54,13 @@ public class Sabot extends GridPane implements Updatable {
         addRow(2, piocheLabel);
         piocheLabel.setTextAlignment(TextAlignment.CENTER);
         this.setAlignment(Pos.CENTER);
+    }
+
+    private void centrer(Node... nodes) {
+        for (Node node : nodes) {
+            GridPane.setValignment(node, VPos.CENTER);
+            GridPane.setHalignment(node, HPos.CENTER);
+        }
     }
 
     /**
