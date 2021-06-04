@@ -331,8 +331,6 @@ public class Controleur {
 
         if (res.orElse(null) == ButtonType.YES) {
             nouvellePartie();
-        } else {
-            quitterClique();
         }
     }
 
