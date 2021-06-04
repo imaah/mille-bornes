@@ -77,7 +77,7 @@ public class CarteVue extends Rectangle {
         Image image;
         setTranslateX(0);
         setTranslateY(0);
-        setTranslateZ(-1);
+        setTranslateZ(-2);
         setScaleX(1);
         setScaleY(1);
 

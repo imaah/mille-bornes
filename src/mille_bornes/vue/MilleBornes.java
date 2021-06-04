@@ -31,7 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MilleBornes {
+public class MilleBornes extends StackPane {
 
     public static final long DUREE_ANIM_BASE = 1000L;
 
@@ -40,6 +40,7 @@ public class MilleBornes {
     private final Sabot sabot;
     private final JoueurMain[] mains = new JoueurMain[4];
     private final Controleur controleur = new Controleur(this);
+    private final MessageText message = new MessageText();
     private Jeu jeu;
 
 
@@ -51,6 +52,8 @@ public class MilleBornes {
      * @throws IOException Levée si le fichier .fxml n'a pas pu être ouvert
      */
     public MilleBornes(double width, double height) throws IOException {
+        this.setWidth(width);
+        this.setHeight(height);
         contenu = new BorderPane();
         sabot = new Sabot(null, this);
 
@@ -58,6 +61,8 @@ public class MilleBornes {
         FXMLLoader loader = new FXMLLoader(MilleBornes.class.getResource("/fxml/barre-menu.fxml"));
         MenuBar barreMenu = loader.load();
         Object controller = loader.getController();
+
+        barreMenu.setTranslateZ(-2);
 
         if (controller instanceof BarreMenu) {
             ((BarreMenu) controller).setGui(this);
@@ -74,6 +79,14 @@ public class MilleBornes {
         contenu.setPrefHeight(height);
         contenu.setPadding(new Insets(5, 5, 5, 5));
         contenu.setCenter(sabot);
+
+        getChildren().add(vBox);
+        getChildren().add(message);
+
+        // Il faut changer la position du message
+        message.setX(getWidth() / 2);
+        message.setY(getHeight() / 2);
+        message.setTranslateZ(-2);
     }
 
 
@@ -171,6 +184,8 @@ public class MilleBornes {
         // Le joueur actif obtient les propriétés dont il doit faire l'objet
         mains[0].setNomGras(true);
         mains[0].setSurvolActif(!(jeu.getJoueurActif() instanceof Bot));
+
+        message.afficherMessage("Au tour de " + jeu.getJoueurActif().nom, 1000);
     }
 
 

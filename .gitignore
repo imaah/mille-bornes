@@ -5,3 +5,4 @@ bin
 *.userlibraries
 libs
 *.iml
+test.*
