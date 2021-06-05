@@ -12,13 +12,21 @@ import mille_bornes.modele.cartes.DefaultCarte;
 import mille_bornes.vue.MilleBornes;
 
 public class CarteVue extends Rectangle {
+    /** Taille par défaut d'une carte */
     private static final double DEFAULT_SIZE = 140;
+    /** Survol actif par défaut */
     protected boolean survolActif = true;
+    /** Taille d'une carte par défaut */
     private double ratio = 1.0;
+    /** Angle: par défaut droit */
     private CarteRotation rotation = CarteRotation.DEG_0;
+    /** Si on doit afficher la carte quand elle n'est pas définie */
     private boolean afficherSiNull = false;
+    /** Si la carte est grisée (utilisé pour les bottes) */
     private boolean grisee = false;
+    /** La carte en question */
     private Carte carte;
+    /** La position de la carte dans la main */
     private final int index;
 
     /**
@@ -67,6 +75,7 @@ public class CarteVue extends Rectangle {
      * @param carte Le nouveau visuel à affecter
      */
     public void changeCarte(Carte carte) {
+        // Changement potentiel de taille
         double size = DEFAULT_SIZE * ratio;
 
         if (carte == null && afficherSiNull) {
@@ -81,6 +90,7 @@ public class CarteVue extends Rectangle {
         setScaleX(1);
         setScaleY(1);
 
+        // On change son image
         if (this.carte != null) {
             image = new Image(this.carte.getImagePath());
         } else {
