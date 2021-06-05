@@ -28,6 +28,7 @@ public class MessageText extends Text {
      * @param millis la durée en ms
      */
     public void afficherMessage(String text, double millis, Color color) {
+        // On gère le déplacement du message
         Duration duree = Duration.millis(millis);
         TranslateTransition translate = new TranslateTransition(duree, this);
         FadeTransition fade = new FadeTransition(duree.divide(2), this);
