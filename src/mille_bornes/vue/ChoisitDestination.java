@@ -60,10 +60,12 @@ public class ChoisitDestination extends Alert {
 
         this.getDialogPane().setContent(affichage);
 
+        // On récupère la réponse
         Optional<ButtonType> confirmation = this.showAndWait();
 
         Joueur tempCible = null;
 
+        // Si c'est OK
         if (confirmation.orElse(null) == ButtonType.OK) {
             for (RadioButton btn : boutons) {
                 if (btn.isSelected()) {
