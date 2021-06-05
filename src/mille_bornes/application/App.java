@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import mille_bornes.controleur.ControleurClavier;
 import mille_bornes.vue.MilleBornes;
 
 import java.net.URL;
@@ -41,8 +40,6 @@ public class App extends Application {
         if (iconUrl != null) {
             stage.getIcons().add(new Image(iconUrl.toString()));
         }
-
-        ControleurClavier.init(scene, app);
 
         // Affichage
         stage.show();
