@@ -449,7 +449,11 @@ public class MilleBornes extends StackPane {
         for (JoueurMain main : mains) {
             if (main != null && main.getJoueur().equals(joueur)) return main;
         }
-        throw new IllegalStateException("joueur inconnu");
+        // Si aucune main n'a été trouvée, peut-être que le premier tour n'est pas fini et que donc toutes les mains ne
+        // sont peut-être pas encore générées. Dans ce cas, on retourne le joueur suivant (2e main à 2 joueurs, 1e main
+        // à 3 ou 4 joueurs
+        if (mains.length == 2) return mains[2];
+        return mains[1];
     }
 
 
