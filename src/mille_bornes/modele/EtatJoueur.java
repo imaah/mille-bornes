@@ -154,6 +154,7 @@ public class EtatJoueur implements Sauvegardable {
                     botte.appliqueEffet(jeu, this);
                     main.remove(i);
 
+                    // On change le joueur
                     jeu.setProchainJoueur(this.joueur);
                     jeu.defausse(attaque);
 

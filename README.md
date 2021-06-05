@@ -22,6 +22,15 @@ choisir la cible dans le cas d'une carte d'attaque, une fenêtre de choix vous s
     * [MacOS](https://gluonhq.com/download/javafx-11-0-2-sdk-mac)
 * Google GSON 2.8.6 : [téléchargement](https://repo1.maven.org/maven2/com/google/code/gson/gson/2.8.6/gson-2.8.6.jar)
 
+## Libertées prises
+
+- Nous avons décidé de ne pas commenter la base de code existante. Cette base de code nous a été fournie, et nous n'avons 
+donc pas jugé nécessaire de le faire.
+- Également, nous avons décidé de laisser certaines méthodes qui ne sont pas utilisées ou qui ne le sont plus. Pourquoi ? 
+Car ces méthodes pourraient être utilisées si on envisage des changements sur l'application. De plus, elles témoignent
+  pour la plupart de notre refléxion tout au long du projet.
+
+
 ## IDE
 
 Nous avons décidé d'utiliser l'IDE IntelliJ pour des raisons de préférence.
