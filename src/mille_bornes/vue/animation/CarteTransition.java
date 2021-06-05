@@ -17,18 +17,21 @@ public class CarteTransition {
      * @return La transition générée
      */
     public static TranslateTransition getTranslateAnimation(CarteVue from, CarteVue to) {
+        // On transforme les deux cartes en tant que Point2D pour pouvoir travailler plus facilement
         Point2D positionDepart = from.localToScene(from.getX(), from.getY());
         Point2D positionArrivee = to.localToScene(to.getX(), to.getY());
+        // On calcule un ratio en fonction des tailles des deux cartes (pour les changements)
         double ratio = to.getRatio() / from.getRatio();
 
+        // Déplacements horizontaux et verticaux + angle
         double dW = from.getWidth() * ratio - from.getWidth();
         double dH = from.getHeight() * ratio - from.getHeight();
 
         double angle = Math.abs(from.getRotation().angle - to.getRotation().angle);
 
+        // Offsets
         double dX;
         double dY;
-
         if (ratio != 1) { // Si la carte doit tourner et qu'elle doit changer de taille
             dX = positionDepart.getX() - positionArrivee.getX() - dW / 2;
             dY = positionDepart.getY() - positionArrivee.getY() - dH / 2;
@@ -87,6 +90,7 @@ public class CarteTransition {
 
         from.setTranslateZ(-3);
 
+        // L'animation complète
         return new ParallelTransition(from,
                 transition,
                 getRotateAnimation(from, to, transition.getDuration()),
