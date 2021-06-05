@@ -363,14 +363,29 @@ public class Controleur {
             this.nom.setPromptText("Nom du joueur");
         }
 
+        /**
+         * Permet de récupérer le type du joueur
+         *
+         * @return Le type du joueur
+         */
         public ComboBox<String> getComboBox() {
             return this.type;
         }
 
+        /**
+         * Permet de récupérer le nom entré
+         *
+         * @return Le nom du joueur
+         */
         public TextField getTextField() {
             return this.nom;
         }
 
+        /**
+         * Permet de récupérer le numéro du joueur
+         *
+         * @return Le numéro du joueur
+         */
         public Label getLabel() {
             return this.num;
         }

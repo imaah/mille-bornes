@@ -21,6 +21,12 @@ public class App extends Application {
         Application.launch(args);
     }
 
+    /**
+     * Méthode principale, permet de gérer l'application
+     *
+     * @param stage La stage à utiliser
+     * @throws Exception Lancée si jamais une erreur apparait
+     */
     @Override
     public void start(Stage stage) throws Exception {
         MilleBornes app = new MilleBornes(APP_WIDTH, APP_HEIGHT);
@@ -29,6 +35,7 @@ public class App extends Application {
         stage.setTitle("1000 bornes");
         stage.setResizable(false);
 
+        // Le logo de la fenêtre
         URL iconUrl = getClass().getResource("/images/Mille_Bornes.png");
 
         if (iconUrl != null) {
@@ -37,6 +44,7 @@ public class App extends Application {
 
         ControleurClavier.init(scene, app);
 
+        // Affichage
         stage.show();
     }
 }
