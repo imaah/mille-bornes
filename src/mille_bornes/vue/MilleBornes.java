@@ -185,7 +185,7 @@ public class MilleBornes extends StackPane {
         mains[0].setNomGras(true);
         mains[0].setSurvolActif(!(jeu.getJoueurActif() instanceof Bot));
 
-        message.afficherMessage("Au tour de " + jeu.getJoueurActif().nom, 1000);
+        message.afficherMessage("Au tour de " + jeu.getJoueurActif().nom, 1200, Color.WHITE);
     }
 
 
@@ -357,10 +357,12 @@ public class MilleBornes extends StackPane {
                 System.out.println(e.getMessage());
                 carteJouee = false;
             } catch (CoupFourreException e) {
-                Alert coupFourre = genererAlert(Alert.AlertType.INFORMATION, "Coup Fourré !",
-                        "Votre adversaire sort un coup-fourré !",
-                        "L'attaque de " + bot.nom + " n'a aucun effet et " + e.getCible().nom + " récupère la main.");
-                coupFourre.showAndWait();
+                message.afficherMessage(
+                        "Votre adversaire sort un coup-fourré!\nIl récupère la main",
+                        4000,
+                        Color.RED
+                );
+
                 carteJouee = true;
             }
 
@@ -482,10 +484,11 @@ public class MilleBornes extends StackPane {
                     "Erreur", "Vous ne pouvez pas faire cette action.", e.getMessage());
             error.showAndWait();
         } catch (CoupFourreException e) { // Si le joueur cachait un coup-fourré, on le signale
-            Alert coupFourre = genererAlert(Alert.AlertType.INFORMATION, "Coup Fourré !",
-                    "Votre adversaire sort un coup-fourré !",
-                    "Votre attaque n'a aucun effet et " + e.getCible().nom + " récupère la main.");
-            coupFourre.showAndWait();
+            message.afficherMessage(
+                    "Votre adversaire sort un coup-fourré!\nIl récupère la main",
+                    4000,
+                    Color.RED
+            );
 
             // Une fois la boîte de dialogue fermée, on continu le jeu
             jeu.activeProchainJoueurEtTireCarte();

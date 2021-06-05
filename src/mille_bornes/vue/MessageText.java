@@ -27,7 +27,7 @@ public class MessageText extends Text {
      * @param text le texte à afficher
      * @param millis la durée en ms
      */
-    public void afficherMessage(String text, double millis) {
+    public void afficherMessage(String text, double millis, Color color) {
         Duration duree = Duration.millis(millis);
         TranslateTransition translate = new TranslateTransition(duree, this);
         FadeTransition fade = new FadeTransition(duree.divide(2), this);
@@ -45,6 +45,7 @@ public class MessageText extends Text {
             setVisible(false);
         });
 
+        setFill(color);
         setVisible(true);
         parallel.play();
     }

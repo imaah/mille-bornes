@@ -27,14 +27,26 @@ import java.util.stream.Collectors;
 public class Controleur {
     private final MilleBornes milleBornes;
 
+    /**
+     * Permet d'instancier une nouvelle partie de mille bornes existante
+     * @param milleBornes La partie à charger
+     */
     public Controleur(MilleBornes milleBornes) {
         this.milleBornes = milleBornes;
     }
 
+    /**
+     * Permet de jouer une carte
+     * @param carte La carte à jouer
+     */
     public void joueCarte(CarteVue carte) {
         milleBornes.joueCarte(carte);
     }
 
+    /**
+     * Permet de défausser une carte
+     * @param carte La carte à défausser
+     */
     public void defausseCarte(CarteVue carte) {
         milleBornes.defausseCarte(carte);
     }
