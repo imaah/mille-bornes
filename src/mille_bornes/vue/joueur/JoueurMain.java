@@ -4,8 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+import javafx.util.Duration;
 import mille_bornes.modele.Joueur;
 import mille_bornes.modele.cartes.Botte;
 import mille_bornes.modele.cartes.Carte;
@@ -39,6 +38,10 @@ public abstract class JoueurMain extends GridPane implements Updatable {
     private Joueur joueur;
     /** S'il faut cacher les cartes (quand le joueur ne joue pas) */
     private boolean cacher = false;
+    /** Le tooltip à montrer au survol des bottes non possédées */
+    Tooltip botteVueNonPossedeeTooltip = new Tooltip("Vous ne possédez pas cette botte!");
+    /** Le tooltip à montrer au survol des bottes non possédées */
+    Tooltip botteVuePossedeeTooltip = new Tooltip("Vous possédez cette botte!");
 
     /**
      * Permet de créer une main de joueur
@@ -80,6 +83,8 @@ public abstract class JoueurMain extends GridPane implements Updatable {
             botte.setAfficherSiNull(true);
         }
 
+        botteVuePossedeeTooltip.setShowDelay(Duration.millis(200));
+        botteVueNonPossedeeTooltip.setShowDelay(Duration.millis(200));
         limite.setRatio(.7);
         bataille.setRatio(.7);
         limite.setAfficherSiNull(true);
@@ -107,11 +112,20 @@ public abstract class JoueurMain extends GridPane implements Updatable {
             boolean hasBotte = joueur.getBottes().contains(botteVue.getCarte());
             botteVue.setGrisee(!hasBotte);
 
-            // Message explicatif au survol
+            // On supprime systématiquement les hintbox
+            Tooltip.uninstall(botteVue, botteVueNonPossedeeTooltip);
+            Tooltip.uninstall(botteVue, botteVuePossedeeTooltip);
+
+            // Message explicatif au survol, en fonction de si on possède la botte ou pas
             if (!hasBotte) {
                 Tooltip.install(
                         botteVue,
-                        new Tooltip("Vous ne possedez pas cette botte")
+                        botteVueNonPossedeeTooltip
+                );
+            } else {
+                Tooltip.install(
+                        botteVue,
+                        botteVuePossedeeTooltip
                 );
             }
         }

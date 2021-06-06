@@ -52,6 +52,9 @@ public class MilleBornes extends StackPane {
      * @throws IOException Levée si le fichier .fxml n'a pas pu être ouvert
      */
     public MilleBornes(double width, double height) throws IOException {
+        // Si une partie est déjà en cours (au cas où on lancer une nouvelle partie en plein cours d'une autre)
+
+
         this.setWidth(width);
         this.setHeight(height);
         contenu = new BorderPane();
