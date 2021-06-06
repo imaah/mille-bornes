@@ -5,10 +5,11 @@ import javafx.concurrent.Task;
 public class TimerUtils {
     /**
      * Permet d'attendre un certain nombre de temps (en millisecondes)
-     *  @param millis Le nombre de millisecondes à attendre
+     * @param millis Le nombre de millisecondes à attendre
      * @param action La méthode à exécuter ensuite
+     * @return La tâche qui va faire attendre
      */
-    public static void wait(long millis, Action action) {
+    public static Task<Void> wait(long millis, Action action) {
         Task<Void> sleeper = new Task<>() {
             @Override
             protected Void call() {
@@ -21,6 +22,7 @@ public class TimerUtils {
         };
         sleeper.setOnSucceeded(event -> action.run());
         new Thread(sleeper).start();
+        return sleeper;
     }
 
     /**

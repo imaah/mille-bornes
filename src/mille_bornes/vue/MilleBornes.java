@@ -1,6 +1,7 @@
 package mille_bornes.vue;
 
 import javafx.animation.Animation;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
@@ -32,17 +33,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MilleBornes extends StackPane {
+    /** La durée par défaut d'une animation */
+    public static final long DUREE_ANIM_BASE = 1200L;
 
-    public static final long DUREE_ANIM_BASE = 1000L;
-
+    /** Le contenu du jeu */
     private final BorderPane contenu;
+    /** Utilisé pour y mettre les composants la scene principale */
     private final VBox vBox;
-    private final Sabot sabot;
+    /** Le sabot du jeu */
+    private Sabot sabot;
+    /** Un tableau contenant les différentes mains des joueurs (jusqu'à 4) */
     private final JoueurMain[] mains = new JoueurMain[4];
+    /** Le controleur de l'application */
     private final Controleur controleur = new Controleur(this);
+    /** Utilisé pour faire apparaître des messages à l'écran */
     private final MessageText message = new MessageText();
+    /** Le jeu courant */
     private Jeu jeu;
-
+    private Task<Void> timer;
 
     /**
      * Constructeur - Permet d'initialiser tout les composants de la fenêtre
@@ -53,8 +61,6 @@ public class MilleBornes extends StackPane {
      */
     public MilleBornes(double width, double height) throws IOException {
         // Si une partie est déjà en cours (au cas où on lancer une nouvelle partie en plein cours d'une autre)
-
-
         this.setWidth(width);
         this.setHeight(height);
         contenu = new BorderPane();
@@ -121,10 +127,11 @@ public class MilleBornes extends StackPane {
      */
     public void setJeu(Jeu jeu, boolean partieChargee) {
         this.jeu = jeu;
+
+        if(timer != null && timer.isRunning()) timer.cancel();
         // Si la partie n'a pas été chargée, on le fait
         if (!partieChargee) this.jeu.prepareJeu();
         sabot.setJeu(jeu);
-
         // On remplit les mains
         Arrays.fill(mains, null);
         mains[0] = new HJoueurMain(this, jeu.getJoueurs().get(0), true);
@@ -161,7 +168,7 @@ public class MilleBornes extends StackPane {
         // Toutes les mains de bots doivent être cachées
         if (jeu.getJoueurActif() instanceof Bot) {
             mains[0].cacher();
-            TimerUtils.wait(DUREE_ANIM_BASE, this::botJoue);
+            timer = TimerUtils.wait(DUREE_ANIM_BASE, this::botJoue);
         }
     }
 
@@ -227,6 +234,7 @@ public class MilleBornes extends StackPane {
     public void defausseCarte(CarteVue carte) {
         try { // On essaye de défausser la carte...
             jeu.getJoueurActif().defausseCarte(jeu, carte.getCarte());
+            mains[0].setSurvolActif(false);
             animerAction(carte, -(carte.getIndex() + 1), null);
         } catch (IllegalStateException e) { // ...sauf si on a pas le droit
             Alert error = new Alert(Alert.AlertType.ERROR);
@@ -311,7 +319,7 @@ public class MilleBornes extends StackPane {
         tournerJoueurs();
         if (jeu.getJoueurActif() instanceof Bot) {
             mains[0].cacher();
-            TimerUtils.wait((long) (DUREE_ANIM_BASE / 3d), this::botJoue);
+            timer = TimerUtils.wait((long) (DUREE_ANIM_BASE / 3d), this::botJoue);
             return;
         }
         mains[0].montrer();
@@ -323,7 +331,9 @@ public class MilleBornes extends StackPane {
      */
     private void botJoue() {
         boolean carteJouee;
+        // update
         if (!(jeu.getJoueurActif() instanceof Bot)) {
+            botJoue();
             throw new IllegalStateException("Le joueur Actif n'est pas de type Bot");
         }
         System.out.println("------------------------");
@@ -433,6 +443,11 @@ public class MilleBornes extends StackPane {
      */
     private void onAnimationFinish(CarteVue cible, Carte carte) {
         cible.changeCarte(carte);
+
+        if(carte instanceof Botte) {
+            cible.setGrisee(false);
+        }
+
         onAnimationFinish();
     }
 
@@ -440,7 +455,7 @@ public class MilleBornes extends StackPane {
      * Attend un temps après la fin d'une animation pour éviter les bugs d'animation
      */
     private void onAnimationFinish() {
-        TimerUtils.wait(DUREE_ANIM_BASE / 2, this::finDeTour);
+        timer = TimerUtils.wait(DUREE_ANIM_BASE / 2, this::finDeTour);
     }
 
 
@@ -477,9 +492,11 @@ public class MilleBornes extends StackPane {
                 if (cible == null) return;
 
                 jeu.getJoueurActif().joueCarte(jeu, carte, cible);
+                mains[0].setSurvolActif(false);
                 animerAction(vue, vue.getIndex() + 1, cible);
             } else {
                 jeu.getJoueurActif().joueCarte(jeu, carte);
+                mains[0].setSurvolActif(false);
                 animerAction(vue, vue.getIndex() + 1, null);
             }
         } catch (IllegalStateException e) { // Si on a pas le droit de faire ce déplacement

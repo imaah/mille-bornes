@@ -170,6 +170,7 @@ public abstract class JoueurMain extends GridPane implements Updatable {
      */
     public void montrer() {
         this.cacher = false;
+        setSurvolActif(true);
         update();
     }
 
