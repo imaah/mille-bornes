@@ -11,6 +11,9 @@ import mille_bornes.modele.cartes.Carte;
 import mille_bornes.modele.cartes.DefaultCarte;
 import mille_bornes.vue.MilleBornes;
 
+/**
+ * Classe permettant l'affichage des cartes sur l'interface.
+ */
 public class CarteVue extends Rectangle {
     /** Taille par défaut d'une carte */
     private static final double DEFAULT_SIZE = 140;

@@ -8,17 +8,26 @@ import javafx.scene.paint.Color;
 import mille_bornes.vue.MilleBornes;
 import mille_bornes.vue.jeu.CarteVue;
 
+/**
+ * Controleur pour les cartes du jeu.
+ *
+ * @see CarteVue
+ */
 public class ControleurCarte {
-    /** La carte à afficher */
+    /**
+     * La carte à afficher
+     */
     private final CarteVue carte;
-    /** Le controleur qu'on va utiliser */
+    /**
+     * Le controleur qu'on va utiliser
+     */
     private final Controleur controleur;
 
 
     /**
      * Permet d'instancier l'affichage d'une carte dans un mille bornes précis
      *
-     * @param carte La carte à afficher
+     * @param carte       La carte à afficher
      * @param milleBornes Le milleBornes dans lequel créer l'affichage
      */
     public ControleurCarte(CarteVue carte, MilleBornes milleBornes) {

@@ -4,6 +4,10 @@ import mille_bornes.modele.Joueur;
 import mille_bornes.vue.MilleBornes;
 import mille_bornes.vue.jeu.CarteVue;
 
+/**
+ * Permet d'afficher la barre d'un joueur à la verticale.
+ * @see JoueurMain
+ */
 public class VJoueurMain extends JoueurMain {
     /**
      * Permet de créer un joueur vertical

@@ -24,6 +24,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Contient les methodes permettant des lier l'interface au {@link MilleBornes}
+ */
 public class Controleur {
     private final MilleBornes milleBornes;
 

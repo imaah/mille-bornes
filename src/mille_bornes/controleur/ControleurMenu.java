@@ -5,9 +5,9 @@ import mille_bornes.vue.APropos;
 import mille_bornes.vue.MilleBornes;
 
 /**
- *
+ * Controleur de la barre de menu du haut.
  */
-public class BarreMenu {
+public class ControleurMenu {
     private Controleur controleur;
 
     /**

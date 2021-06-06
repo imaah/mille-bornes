@@ -8,6 +8,9 @@ import javafx.geometry.Point2D;
 import javafx.util.Duration;
 import mille_bornes.vue.jeu.CarteVue;
 
+/**
+ * Classe permettant de créer les animations pour les cartes.
+ */
 public class CarteTransition {
     /**
      * Permet de changer la position d'une carte en correspondance avec la destination

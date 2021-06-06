@@ -2,12 +2,12 @@ package mille_bornes.application;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import mille_bornes.vue.MilleBornes;
 
-import java.net.URL;
-
+/**
+ * La classe principale de l'interface
+ */
 public class App extends Application {
 
     /**

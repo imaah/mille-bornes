@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <MenuBar xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"
-         fx:controller="mille_bornes.controleur.BarreMenu" translateZ="-1">
+         fx:controller="mille_bornes.controleur.ControleurMenu" translateZ="-1">
     <Menu text="Partie">
         <MenuItem onAction="#onCreerNouvellePartie" text="Nouvelle" accelerator="ctrl+n"/>
         <SeparatorMenuItem/>

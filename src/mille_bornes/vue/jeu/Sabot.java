@@ -15,6 +15,9 @@ import mille_bornes.vue.Updatable;
 
 import java.util.Objects;
 
+/**
+ * Classe permettant d'afficher le sabot du {@link Jeu}
+ */
 public class Sabot extends GridPane implements Updatable {
     /* La carte sur le haut de la defausse */
     private final CarteVue defausse;

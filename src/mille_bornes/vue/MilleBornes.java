@@ -10,7 +10,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import mille_bornes.controleur.BarreMenu;
+import mille_bornes.controleur.ControleurMenu;
 import mille_bornes.controleur.Controleur;
 import mille_bornes.modele.CoupFourreException;
 import mille_bornes.modele.Jeu;
@@ -32,6 +32,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ *
+ */
 public class MilleBornes extends StackPane {
     /** La durée par défaut d'une animation */
     public static final long DUREE_ANIM_BASE = 1200L;
@@ -41,7 +44,7 @@ public class MilleBornes extends StackPane {
     /** Utilisé pour y mettre les composants la scene principale */
     private final VBox vBox;
     /** Le sabot du jeu */
-    private Sabot sabot;
+    private final Sabot sabot;
     /** Un tableau contenant les différentes mains des joueurs (jusqu'à 4) */
     private final JoueurMain[] mains = new JoueurMain[4];
     /** Le controleur de l'application */
@@ -73,8 +76,8 @@ public class MilleBornes extends StackPane {
 
         barreMenu.setTranslateZ(-2);
 
-        if (controller instanceof BarreMenu) {
-            ((BarreMenu) controller).setGui(this);
+        if (controller instanceof ControleurMenu) {
+            ((ControleurMenu) controller).setGui(this);
         }
 
         vBox = new VBox();

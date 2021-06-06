@@ -2,6 +2,9 @@ package mille_bornes.vue.timer;
 
 import javafx.concurrent.Task;
 
+/**
+ * Permet d'avoir des outils personnalisés pour attendre. Utiles pour les animations
+ */
 public class TimerUtils {
     /**
      * Permet d'attendre un certain nombre de temps (en millisecondes)

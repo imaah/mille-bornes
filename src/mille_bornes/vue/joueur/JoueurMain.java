@@ -21,6 +21,11 @@ import mille_bornes.vue.jeu.CarteVue;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe abstraite permettant de gérer les différentes apparences des mains et statuts des joueurs.
+ * @see HJoueurMain
+ * @see VJoueurMain
+ */
 public abstract class JoueurMain extends GridPane implements Updatable {
     /** Les vues des cartes de la main */
     protected final CarteVue[] cartes = new CarteVue[7];

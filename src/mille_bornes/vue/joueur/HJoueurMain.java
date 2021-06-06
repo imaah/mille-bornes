@@ -5,6 +5,10 @@ import mille_bornes.modele.Joueur;
 import mille_bornes.vue.MilleBornes;
 import mille_bornes.vue.jeu.CarteVue;
 
+/**
+ * Permet d'afficher la barre d'un joueur à l'horizontale.
+ * @see JoueurMain
+ */
 public class HJoueurMain extends JoueurMain {
     /**
      * Permet de créer un joueur horizontal

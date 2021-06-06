@@ -13,6 +13,9 @@ import mille_bornes.modele.cartes.Attaque;
 
 import java.util.*;
 
+/**
+ * Permet d'afficher une boîte de dialogue avec la liste des autres joueurs pour attaquer un joueur
+ */
 public class ChoisitDestination extends Alert {
     /**
      * Le joueur cible qui va recevoir l'attaque

@@ -12,6 +12,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Permet de d'obtenir une boîte de dialogue pour le sous-menu "à propos" dans la barre de menu
+ */
 public class APropos extends Alert {
 
     /**
