@@ -13,6 +13,12 @@ le clique droit défausse la carte et l'envoi directement dans le tas prévu à 
 la carte classiquement. Si la carte que vous souhaitez jouer nécessite des actions supplémentaires, comme
 choisir la cible dans le cas d'une carte d'attaque, une fenêtre de choix vous sera proposée.
 
+**Les différents types de bots:**
+- **Le bot aléatoire**: joue toujours au hasard. Peut autant défausser des cartes au mauvais moment que faire les meilleurs 
+coups possibles
+- **Le bot naïf**: joue la meilleure carte en apparence. Exemples: mettre un feu vert au début, jouer les bornes les plus 
+élevées...
+
 ## Dépendances :
 
 * Java 11.0.10
