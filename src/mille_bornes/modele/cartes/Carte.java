@@ -1,6 +1,8 @@
 package mille_bornes.modele.cartes;
 
 import com.google.gson.JsonObject;
+import javafx.scene.image.Image;
+import mille_bornes.application.Asset;
 import mille_bornes.modele.EtatJoueur;
 import mille_bornes.modele.Jeu;
 import mille_bornes.modele.extensions.sauvegarde.Sauvegardable;
@@ -12,17 +14,12 @@ import java.util.Objects;
 public abstract class Carte implements Sauvegardable {
     public final String nom;
     public final Categorie categorie;
-    private final String imagePath;
+    private final Asset image;
 
-    public Carte(String nom, Categorie categorie, String imagePath) {
+    public Carte(String nom, Categorie categorie, Asset image) {
         this.nom = nom;
         this.categorie = categorie;
-
-        imagePath = imagePath.trim();
-        if (!imagePath.startsWith("/")) {
-            imagePath = "/" + imagePath;
-        }
-        this.imagePath = imagePath;
+        this.image = image;
     }
 
     public static Carte deserialize(JsonObject json) {
@@ -58,8 +55,8 @@ public abstract class Carte implements Sauvegardable {
 
     public abstract String nomColore();
 
-    public String getImagePath() {
-        return Objects.requireNonNull(getClass().getResource(imagePath)).toString();
+    public Image getImage() {
+        return image.getImage();
     }
 
     @Override
@@ -69,7 +66,7 @@ public abstract class Carte implements Sauvegardable {
         json.addProperty("class", getClass().getName());
         json.addProperty("nom", nom);
         json.addProperty("categorie", categorie.name());
-        json.addProperty("imagePath", imagePath);
+        json.addProperty("asset", image.name());
 
         return json;
     }

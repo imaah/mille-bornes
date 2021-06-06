@@ -1,11 +1,12 @@
 package mille_bornes.modele.cartes;
 
+import mille_bornes.application.Asset;
 import mille_bornes.modele.EtatJoueur;
 import mille_bornes.modele.Jeu;
 
 public abstract class Botte extends Carte {
-    public Botte(String nom, String imagePath) {
-        super(nom, Categorie.BOTTE, imagePath);
+    public Botte(String nom, Asset image) {
+        super(nom, Categorie.BOTTE, image);
     }
 
     public abstract boolean contre(Attaque carte);

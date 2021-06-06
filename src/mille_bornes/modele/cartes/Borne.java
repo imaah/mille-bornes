@@ -1,6 +1,7 @@
 package mille_bornes.modele.cartes;
 
 import com.google.gson.JsonObject;
+import mille_bornes.application.Asset;
 import mille_bornes.modele.EtatJoueur;
 import mille_bornes.modele.Jeu;
 import mille_bornes.modele.cartes.attaques.FeuRouge;
@@ -11,7 +12,7 @@ public class Borne extends Carte {
     public final int km;
 
     public Borne(int km) {
-        super(String.valueOf(km), Categorie.BORNE, String.format("/images/cartes/Speed%d.jpg", km));
+        super(String.valueOf(km), Categorie.BORNE, Asset.valueOf(String.format("CARTE_BORNE_%d", km)));
         this.km = km;
     }
 

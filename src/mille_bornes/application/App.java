@@ -35,11 +35,7 @@ public class App extends Application {
         stage.setResizable(false);
 
         // Le logo de la fenêtre
-        URL iconUrl = getClass().getResource("/images/Mille_Bornes.png");
-
-        if (iconUrl != null) {
-            stage.getIcons().add(new Image(iconUrl.toString()));
-        }
+        stage.getIcons().add(Asset.ICON.getImage());
 
         // Affichage
         stage.show();

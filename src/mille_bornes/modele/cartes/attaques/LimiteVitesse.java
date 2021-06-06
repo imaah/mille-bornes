@@ -1,12 +1,13 @@
 package mille_bornes.modele.cartes.attaques;
 
+import mille_bornes.application.Asset;
 import mille_bornes.modele.EtatJoueur;
 import mille_bornes.modele.Jeu;
 import mille_bornes.modele.cartes.Attaque;
 
 public class LimiteVitesse extends Attaque {
     public LimiteVitesse() {
-        super("Limite de vitesse", "images/cartes/Limite_50.jpg");
+        super("Limite de vitesse", Asset.CARTE_LIMITE_VITESSE);
     }
 
     @Override

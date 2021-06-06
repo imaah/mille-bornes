@@ -1,12 +1,13 @@
 package mille_bornes.modele.cartes;
 
+import mille_bornes.application.Asset;
 import mille_bornes.modele.EtatJoueur;
 import mille_bornes.modele.Jeu;
 
 public abstract class Bataille extends Carte {
 
-    public Bataille(String nom, Categorie categorie, String imagePath) {
-        super(nom, categorie, imagePath);
+    public Bataille(String nom, Categorie categorie, Asset image) {
+        super(nom, categorie, image);
     }
 
     public boolean estContreeParFeuVert() {

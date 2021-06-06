@@ -2,6 +2,7 @@ package mille_bornes.modele;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import mille_bornes.application.Asset;
 import mille_bornes.modele.cartes.Carte;
 import mille_bornes.modele.extensions.bots.Bot;
 import mille_bornes.modele.extensions.sauvegarde.Sauvegardable;

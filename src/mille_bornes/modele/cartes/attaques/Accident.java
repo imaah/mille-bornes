@@ -1,10 +1,11 @@
 package mille_bornes.modele.cartes.attaques;
 
+import mille_bornes.application.Asset;
 import mille_bornes.modele.cartes.Attaque;
 
 public class Accident extends Attaque {
     public Accident() {
-        super("Accident", "images/cartes/Accident.jpg");
+        super("Accident", Asset.CARTE_ACCIDENT);
     }
 
     @Override

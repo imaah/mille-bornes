@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import mille_bornes.application.Asset;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,7 +23,7 @@ public class APropos extends Alert {
         this.setTitle("À propos");
 
         // On récupère la bannière du jeu
-        ImageView headerImage = new ImageView(Objects.requireNonNull(getClass().getResource("/images/boite.jpg")).toString());
+        ImageView headerImage = new ImageView(Asset.FOND_BOITE_APROPOS.getImage());
         headerImage.setPreserveRatio(true);
         headerImage.setFitWidth(512);
 

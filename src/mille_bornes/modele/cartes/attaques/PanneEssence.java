@@ -1,10 +1,11 @@
 package mille_bornes.modele.cartes.attaques;
 
+import mille_bornes.application.Asset;
 import mille_bornes.modele.cartes.Attaque;
 
 public class PanneEssence extends Attaque {
     public PanneEssence() {
-        super("Panne d'essence", "images/cartes/Panne_Essence.jpg");
+        super("Panne d'essence", Asset.CARTE_PANNE_D_ESSENCE);
     }
 
     @Override

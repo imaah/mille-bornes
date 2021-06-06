@@ -1,5 +1,6 @@
 package mille_bornes.modele.cartes.parades;
 
+import mille_bornes.application.Asset;
 import mille_bornes.modele.EtatJoueur;
 import mille_bornes.modele.Jeu;
 import mille_bornes.modele.cartes.Attaque;
@@ -9,7 +10,7 @@ import mille_bornes.modele.cartes.Parade;
 public class FeuVert extends Parade {
 
     public FeuVert() {
-        super("Feu vert", "images/cartes/Roulez.jpg");
+        super("Feu vert", Asset.CARTE_FEU_VERT);
     }
 
     @Override

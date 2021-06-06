@@ -1,10 +1,11 @@
 package mille_bornes.modele.cartes.attaques;
 
+import mille_bornes.application.Asset;
 import mille_bornes.modele.cartes.Attaque;
 
 public class FeuRouge extends Attaque {
     public FeuRouge() {
-        super("Feu rouge", "images/cartes/Stop.jpg");
+        super("Feu rouge", Asset.CARTE_FEU_ROUGE);
     }
 
     @Override

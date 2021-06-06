@@ -1,5 +1,6 @@
 package mille_bornes.modele.cartes.parades;
 
+import mille_bornes.application.Asset;
 import mille_bornes.modele.EtatJoueur;
 import mille_bornes.modele.Jeu;
 import mille_bornes.modele.cartes.Attaque;
@@ -8,7 +9,7 @@ import mille_bornes.modele.cartes.Parade;
 public class FinDeLimite extends Parade {
 
     public FinDeLimite() {
-        super("Fin de limite", "images/cartes/Fin_limite.jpg");
+        super("Fin de limite", Asset.CARTE_FIN_DE_LIMITE);
     }
 
     @Override

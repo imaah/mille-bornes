@@ -1,11 +1,12 @@
 package mille_bornes.modele.cartes;
 
+import mille_bornes.application.Asset;
 import mille_bornes.modele.EtatJoueur;
 import mille_bornes.modele.Jeu;
 
 public class Attaque extends Bataille {
-    public Attaque(String nom, String imagePath) {
-        super(nom, Categorie.ATTAQUE, imagePath);
+    public Attaque(String nom, Asset image) {
+        super(nom, Categorie.ATTAQUE, image);
     }
 
     @Override

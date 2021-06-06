@@ -1,11 +1,12 @@
 package mille_bornes.modele.cartes;
 
+import mille_bornes.application.Asset;
 import mille_bornes.modele.EtatJoueur;
 import mille_bornes.modele.Jeu;
 
 public abstract class Parade extends Bataille {
-    protected Parade(String nom, String imagePath) {
-        super(nom, Categorie.PARADE, imagePath);
+    protected Parade(String nom, Asset image) {
+        super(nom, Categorie.PARADE, image);
     }
 
     @Override

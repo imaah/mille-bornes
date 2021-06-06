@@ -92,7 +92,7 @@ public class CarteVue extends Rectangle {
 
         // On change son image
         if (this.carte != null) {
-            image = new Image(this.carte.getImagePath());
+            image = carte.getImage();
         } else {
             setHeight(0);
             setWidth(0);

@@ -1,5 +1,6 @@
 package mille_bornes.modele.cartes.bottes;
 
+import mille_bornes.application.Asset;
 import mille_bornes.modele.EtatJoueur;
 import mille_bornes.modele.Jeu;
 import mille_bornes.modele.cartes.Attaque;
@@ -7,7 +8,7 @@ import mille_bornes.modele.cartes.Botte;
 
 public class VehiculePrioritaire extends Botte {
     public VehiculePrioritaire() {
-        super("Vehicule Prioritaire", "images/cartes/Prioritaire.jpg");
+        super("Vehicule Prioritaire", Asset.CARTE_VEHICULE_PRIORITAIRE);
     }
 
     @Override

@@ -1,14 +1,15 @@
 package mille_bornes.modele.cartes;
 
+import mille_bornes.application.Asset;
 import mille_bornes.modele.EtatJoueur;
 import mille_bornes.modele.Jeu;
 
 public class DefaultCarte extends Carte {
-    public static final Carte DEFAULT = new DefaultCarte("DEFAUT", Categorie.DEFAULT, "images/cartes/Null.jpg");
-    public static final Carte VIDE = new DefaultCarte("DEFAUT", Categorie.DEFAULT, "images/cartes/Vide.jpg");
+    public static final Carte DEFAULT = new DefaultCarte("DEFAUT", Categorie.DEFAULT, Asset.CARTE_DEFAULT);
+    public static final Carte VIDE = new DefaultCarte("DEFAUT", Categorie.DEFAULT, Asset.CARTE_VIDE);
 
-    private DefaultCarte(String nom, Categorie categorie, String imagePath) {
-        super(nom, categorie, imagePath);
+    private DefaultCarte(String nom, Categorie categorie, Asset image) {
+        super(nom, categorie, image);
     }
 
     @Override
