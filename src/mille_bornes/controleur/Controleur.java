@@ -256,11 +256,19 @@ public class Controleur {
      * Sauvegarde l'état de la partie en cours dans un fichier .json
      */
     public void sauvegarder() {
+        if(milleBornes.getJeu() == null || milleBornes.getJeu().estPartieFinie()) {
+            Alert erreur = new Alert(Alert.AlertType.ERROR);
+            erreur.setTitle("Impossible de sauvegarder");
+            erreur.setHeaderText("Aucune partie n'est en cours, donc il n'est pas possible de la sauvegarder.");
+            erreur.setResizable(false);
+            erreur.showAndWait();
+            return;
+        }
+
         FileChooser enregistreur = new FileChooser();
         enregistreur.setTitle("Enregistrer une partie");
-        enregistreur.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Fichiers de sauvegarde", "*.json"),
-                new FileChooser.ExtensionFilter("Tous les fichiers", "*.*")
+        enregistreur.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Fichiers de sauvegarde", "*.json")
         );
         File fichier = enregistreur.showSaveDialog(null);
 
@@ -275,7 +283,7 @@ public class Controleur {
 
                 writer.flush();
                 writer.close();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 // Si on a pas pu écrire, alors on affiche une erreur
                 Alert erreur = new Alert(Alert.AlertType.ERROR);
                 erreur.setTitle("Sauvegarde d'une partie");
@@ -309,8 +317,7 @@ public class Controleur {
         FileChooser ouvreur = new FileChooser();
         ouvreur.setTitle("Récupérer une partie...");
         ouvreur.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Fichiers de sauvegarde", "*.json"),
-                new FileChooser.ExtensionFilter("Tous les fichiers", "*.*")
+                new FileChooser.ExtensionFilter("Fichiers de sauvegarde", "*.json")
         );
         File fichier = ouvreur.showOpenDialog(null);
 

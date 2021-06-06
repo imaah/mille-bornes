@@ -165,7 +165,7 @@ public class MilleBornes extends StackPane {
         contenu.setRight(mains[1]);
         contenu.setTop(mains[2]);
         contenu.setLeft(mains[3]);
-        jeu.activeProchainJoueurEtTireCarte();
+        if(!partieChargee) jeu.activeProchainJoueurEtTireCarte();
         tournerJoueurs();
 
         // Toutes les mains de bots doivent être cachées

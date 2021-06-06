@@ -24,7 +24,7 @@ public abstract class Carte implements Sauvegardable {
 
     public static Carte deserialize(JsonObject json) {
         try {
-            if (verifieExiste(json, "class", "categorie", "imagePath")) {
+            if (verifieExiste(json, "class")) {
                 Class<?> clazz = Class.forName(json.get("class").getAsString());
 
                 if (Carte.class.isAssignableFrom(clazz)) {
@@ -64,10 +64,6 @@ public abstract class Carte implements Sauvegardable {
         JsonObject json = new JsonObject();
 
         json.addProperty("class", getClass().getName());
-        json.addProperty("nom", nom);
-        json.addProperty("categorie", categorie.name());
-        json.addProperty("asset", image.name());
-
         return json;
     }
 
