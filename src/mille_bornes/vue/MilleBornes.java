@@ -53,6 +53,7 @@ public class MilleBornes extends StackPane {
     private final MessageText message = new MessageText();
     /** Le jeu courant */
     private Jeu jeu;
+    /** Pour pouvoir attendre */
     private Task<Void> timer;
 
     /**
@@ -375,10 +376,9 @@ public class MilleBornes extends StackPane {
             } catch (CoupFourreException e) {
                 message.afficherMessage(
                         "Votre adversaire sort un coup-fourré!\nIl récupère la main",
-                        4000,
+                        2000,
                         Color.RED
                 );
-
                 carteJouee = true;
             }
 
@@ -509,14 +509,14 @@ public class MilleBornes extends StackPane {
         } catch (CoupFourreException e) { // Si le joueur cachait un coup-fourré, on le signale
             message.afficherMessage(
                     "Votre adversaire sort un coup-fourré!\nIl récupère la main",
-                    4000,
+                    2000,
                     Color.RED
             );
 
             // Une fois la boîte de dialogue fermée, on continu le jeu
             jeu.activeProchainJoueurEtTireCarte();
             sabot.update();
-            tournerJoueurs();
+            TimerUtils.wait(2000, this::tournerJoueurs);
         }
     }
 }

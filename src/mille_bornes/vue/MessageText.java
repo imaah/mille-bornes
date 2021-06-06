@@ -5,6 +5,7 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 /**
@@ -19,7 +20,8 @@ public class MessageText extends Text {
         super("Lorem Ipsum");
         setVisible(false);
         setFill(Color.WHITE);
-        setStyle("-fx-font-size: 40px");
+        setStyle("-fx-font-size: 30px");
+        setTextAlignment(TextAlignment.CENTER);
     }
 
     /**
@@ -39,12 +41,10 @@ public class MessageText extends Text {
         fade.setDelay(duree.divide(2));
 
         translate.setFromX(0);
-        translate.setFromY(-70);
-        translate.setToY(-150);
+        translate.setFromY(-120);
+        translate.setToY(-170);
         setText(text);
-        translate.setOnFinished(event -> {
-            setVisible(false);
-        });
+        translate.setOnFinished(event -> setVisible(false));
 
         setFill(color);
         setVisible(true);
