@@ -54,6 +54,7 @@ public class Sabot extends GridPane implements Updatable {
         addRow(2, piocheLabel);
         piocheLabel.setTextAlignment(TextAlignment.CENTER);
         this.setAlignment(Pos.CENTER);
+        update();
     }
 
     private void centrer(Node... nodes) {
