@@ -353,6 +353,8 @@ public class Controleur {
      * Permet de lister les joueurs pour l'ajout. On peut ensuite récupérer les valeurs entrées
      */
     private static class ChoixJoueur extends FlowPane {
+        private static final int MAX_LENGTH = 16;
+
         final ComboBox<String> type = new ComboBox<>();
         final TextField nom = new TextField();
         final Label num = new Label();
@@ -364,6 +366,7 @@ public class Controleur {
             this.type.getSelectionModel().select(0);
 
             this.nom.setPromptText("Nom du joueur");
+            this.nom.textProperty().addListener((ov, oldV, newV) -> verifierTaille());
         }
 
         /**
@@ -391,6 +394,12 @@ public class Controleur {
          */
         public Label getLabel() {
             return this.num;
+        }
+
+        private void verifierTaille() {
+            if(nom.getText().length() > MAX_LENGTH) {
+                nom.setText(nom.getText(0, MAX_LENGTH));
+            }
         }
     }
 }
