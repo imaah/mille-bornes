@@ -543,9 +543,7 @@ public class MilleBornes extends StackPane {
             );
 
             // Une fois la boîte de dialogue fermée, on continu le jeu
-            jeu.activeProchainJoueurEtTireCarte();
-            sabot.update();
-            TimerUtils.wait(DUREE_ANIM_BASE + 800, this::tournerJoueurs);
+            TimerUtils.wait(DUREE_ANIM_BASE + 800, this::finDeTour);
         } catch (PasDeCiblePossibleException e) {
             message.afficherMessage("Aucun joueur ne peut être attaquer", 2000, Color.RED);
         }
