@@ -11,8 +11,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import mille_bornes.controleur.ControleurMenu;
 import mille_bornes.controleur.Controleur;
+import mille_bornes.controleur.ControleurMenu;
 import mille_bornes.modele.CoupFourreException;
 import mille_bornes.modele.Jeu;
 import mille_bornes.modele.Joueur;
@@ -39,30 +39,48 @@ import java.util.stream.Collectors;
  *
  */
 public class MilleBornes extends StackPane {
-    /** La durée par défaut d'une animation */
+    /**
+     * La durée par défaut d'une animation
+     */
     public static final long DUREE_ANIM_BASE = 1200L;
 
-    /** Le contenu du jeu */
+    /**
+     * Le contenu du jeu
+     */
     private final BorderPane contenu;
-    /** Utilisé pour y mettre les composants la scene principale */
+    /**
+     * Utilisé pour y mettre les composants la scene principale
+     */
     private final VBox vBox;
-    /** Le sabot du jeu */
+    /**
+     * Le sabot du jeu
+     */
     private final Sabot sabot;
-    /** Un tableau contenant les différentes mains des joueurs (jusqu'à 4) */
+    /**
+     * Un tableau contenant les différentes mains des joueurs (jusqu'à 4)
+     */
     private final JoueurMain[] mains = new JoueurMain[4];
-    /** Le controleur de l'application */
+    /**
+     * Le controleur de l'application
+     */
     private final Controleur controleur = new Controleur(this);
-    /** Utilisé pour faire apparaître des messages à l'écran */
+    /**
+     * Utilisé pour faire apparaître des messages à l'écran
+     */
     private final MessageText message = new MessageText();
-    /** Le jeu courant */
+    /**
+     * Le jeu courant
+     */
     private Jeu jeu;
-    /** Pour pouvoir attendre */
+    /**
+     * Pour pouvoir attendre
+     */
     private Task<Void> timer;
 
     /**
      * Constructeur - Permet d'initialiser tout les composants de la fenêtre
      *
-     * @param width La largeur de la fenêtre
+     * @param width  La largeur de la fenêtre
      * @param height La longueur de la fenêtre
      * @throws IOException Levée si le fichier .fxml n'a pas pu être ouvert
      */
@@ -129,14 +147,14 @@ public class MilleBornes extends StackPane {
     /**
      * Permet de changer le jeu en précisant si ce jeu provient d'un fichier de sauvegarde
      *
-     * @param jeu Le jeu à utiliser
+     * @param jeu           Le jeu à utiliser
      * @param partieChargee Indique si la partie provient d'un fichier de sauvegarde
      */
     public void setJeu(Jeu jeu, boolean partieChargee) {
         this.setCursor(Cursor.WAIT);
         this.jeu = jeu;
 
-        if(timer != null && timer.isRunning()) timer.cancel();
+        if (timer != null && timer.isRunning()) timer.cancel();
         // Si la partie n'a pas été chargée, on le fait
         if (!partieChargee) this.jeu.prepareJeu();
         sabot.setJeu(jeu);
@@ -170,7 +188,7 @@ public class MilleBornes extends StackPane {
         contenu.setRight(mains[1]);
         contenu.setTop(mains[2]);
         contenu.setLeft(mains[3]);
-        if(!partieChargee) jeu.activeProchainJoueurEtTireCarte();
+        if (!partieChargee) jeu.activeProchainJoueurEtTireCarte();
         tournerJoueurs();
 
         // Toutes les mains de bots doivent être cachées
@@ -198,6 +216,7 @@ public class MilleBornes extends StackPane {
             if (mains[i] == null) continue;
             joueur = joueur.getProchainJoueur();
             mains[i].setJoueur(joueur);
+            mains[i].setCarteRatio(0.5);
         }
 
         // Le joueur actif obtient les propriétés dont il doit faire l'objet
@@ -210,6 +229,7 @@ public class MilleBornes extends StackPane {
 
     /**
      * Retourne le sabot du jeu
+     *
      * @return Le sabot du jeu
      */
     public Sabot getSabot() {
@@ -219,6 +239,7 @@ public class MilleBornes extends StackPane {
 
     /**
      * Retourne le contenu du jeu
+     *
      * @return Le contenu du jeu
      */
     public BorderPane getContenu() {
@@ -228,6 +249,7 @@ public class MilleBornes extends StackPane {
 
     /**
      * Retourne la VBox du jeu
+     *
      * @return La VBox du jeu
      */
     public VBox getHolder() {
@@ -296,9 +318,9 @@ public class MilleBornes extends StackPane {
     /**
      * Permet de générer une alerte avec un message personnalisé
      *
-     * @param type Le type de l'alert (utile pour l'icone et les boutons)
-     * @param titre Le titre de la fenêtre
-     * @param header Le contenu de la section en-tête
+     * @param type    Le type de l'alert (utile pour l'icone et les boutons)
+     * @param titre   Le titre de la fenêtre
+     * @param header  Le contenu de la section en-tête
      * @param content Le texte central de la fenêtre
      * @param buttons Les boutons qui peuvent être ajoutés à la fenêtre (optionel)
      * @return La boîte de dialogue personnalisée
@@ -381,7 +403,7 @@ public class MilleBornes extends StackPane {
             } catch (CoupFourreException e) {
                 message.afficherMessage(
                         "Votre adversaire sort un coup-fourré!\nIl récupère la main",
-                        2000,
+                        DUREE_ANIM_BASE + 800,
                         Color.RED
                 );
                 carteJouee = true;
@@ -402,9 +424,9 @@ public class MilleBornes extends StackPane {
     /**
      * Permet de gérer les différents cas d'animation entre les joueurs
      *
-     * @param vue La carte à animer
+     * @param vue    La carte à animer
      * @param nCarte Sa position dans la main
-     * @param cible Sa destination
+     * @param cible  Sa destination
      */
     private void animerAction(CarteVue vue, int nCarte, Joueur cible) {
         mains[0].montrer(Math.abs(nCarte) - 1);
@@ -446,13 +468,14 @@ public class MilleBornes extends StackPane {
 
     /**
      * Remplace la carte de destination et attend un temps après la fin d'une animation pour éviter les bugs d'animation
+     *
      * @param cible la carte à remplacer
      * @param carte le remplacement de la carte
      */
     private void onAnimationFinish(CarteVue cible, Carte carte) {
         cible.changeCarte(carte);
 
-        if(carte instanceof Botte) {
+        if (carte instanceof Botte) {
             cible.setGrisee(false);
         }
 
@@ -514,14 +537,14 @@ public class MilleBornes extends StackPane {
         } catch (CoupFourreException e) { // Si le joueur cachait un coup-fourré, on le signale
             message.afficherMessage(
                     "Votre adversaire sort un coup-fourré!\nIl récupère la main",
-                    1200,
+                    DUREE_ANIM_BASE,
                     Color.RED
             );
 
             // Une fois la boîte de dialogue fermée, on continu le jeu
             jeu.activeProchainJoueurEtTireCarte();
             sabot.update();
-            TimerUtils.wait(2000, this::tournerJoueurs);
+            TimerUtils.wait(DUREE_ANIM_BASE + 800, this::tournerJoueurs);
         } catch (PasDeCiblePossibleException e) {
             message.afficherMessage("Aucun joueur ne peut être attaquer", 2000, Color.RED);
         }
