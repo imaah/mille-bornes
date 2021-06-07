@@ -15,8 +15,8 @@ public class CarteTransition {
     /**
      * Permet de changer la position d'une carte en correspondance avec la destination
      *
-     * @param from     La carte de départ
-     * @param to       La carte d'arrivée
+     * @param from La carte de départ
+     * @param to   La carte d'arrivée
      * @return La transition générée
      */
     public static TranslateTransition getTranslateAnimation(CarteVue from, CarteVue to) {
@@ -35,24 +35,26 @@ public class CarteTransition {
         // Offsets
         double dX;
         double dY;
-        if (ratio != 1) { // Si la carte doit tourner et qu'elle doit changer de taille
+
+        if (angle == 0 || angle == 180) { // Si la carte ne doit pas tourner
+
             dX = positionDepart.getX() - positionArrivee.getX() - dW / 2;
             dY = positionDepart.getY() - positionArrivee.getY() - dH / 2;
-        } else { // Si elle ne doit pas changer de taille...
-            if (angle == 0 || angle == 180) { // ...et qu'elle ne doit pas tourner
+
+        } else {
+            if (ratio == 1) { // Si la carte doit tourner et qu'elle doit changer de taille
                 dX = positionDepart.getX() - positionArrivee.getX();
                 dY = positionDepart.getY() - positionArrivee.getY();
-            } else { // ...et qu'elle doit tourner
-                // On décale de 13. Ce décalage est artisanal pour pallier à la rotation de la carte
-                dX = positionDepart.getX() - positionArrivee.getX() - 13;
-                dY = positionDepart.getY() - positionArrivee.getY() + 13;
+            } else { // Si la carte ne doit pas changer de taille
+                dX = positionDepart.getX() - positionArrivee.getX();
+                dY = positionDepart.getY() - positionArrivee.getY() + 23;
             }
         }
 
         // La durée de la transition est proportionnelle à la distance à parcourir
         // Le minimum sert à ne pas avoir de transition trop rapide
         int minimum = 250;
-        Duration duration = Duration.millis(minimum + Math.sqrt(dX*dX + dY*dY));
+        Duration duration = Duration.millis(minimum + Math.sqrt(dX * dX + dY * dY));
         TranslateTransition translate = new TranslateTransition(duration, from);
 
         translate.setToX(from.getX() - dX);
@@ -84,8 +86,8 @@ public class CarteTransition {
     /**
      * Combine les deux transitions précédentes
      *
-     * @param from     La carte de départ
-     * @param to       La carte d'arrivée
+     * @param from La carte de départ
+     * @param to   La carte d'arrivée
      * @return La transition complète
      */
     public static ParallelTransition getCombinedTransition(CarteVue from, CarteVue to) {

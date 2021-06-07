@@ -40,7 +40,8 @@ public class HJoueurMain extends JoueurMain {
         // S'il est inversé, il faut tourner toutes les cartes
         if (invert) {
             addRow(1, cartes);
-            addRow(3, statusLabel);
+            add(statusLabel, 0, 3, 2, 1);
+
             for (CarteVue carte : getBottes()) {
                 carte.tourner(CarteVue.CarteRotation.DEG_180);
             }
@@ -48,7 +49,7 @@ public class HJoueurMain extends JoueurMain {
             bataille.tourner(CarteVue.CarteRotation.DEG_180);
         } else {
             addRow(3, cartes);
-            addRow(1, statusLabel);
+            add(statusLabel, 0, 1, 2, 1);
         }
 
         // On lui ajoute ses bottes

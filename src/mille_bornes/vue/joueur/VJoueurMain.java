@@ -46,21 +46,22 @@ public class VJoueurMain extends JoueurMain {
         // S'il est inversé, il faut tourner toutes les cartes
         if (invert) {
             addColumn(3, cartes);
-            addColumn(1, statusLabel);
+            add(statusLabel, 1, 0, 1, 2);
             for (CarteVue carte : getBottes()) {
                 carte.tourner(CarteVue.CarteRotation.DEG_270);
             }
             limite.tourner(CarteVue.CarteRotation.DEG_270);
             bataille.tourner(CarteVue.CarteRotation.DEG_270);
+            statusLabel.setRotate(270);
         } else {
             addColumn(1, cartes);
-            addColumn(3, statusLabel);
+            add(statusLabel, 3, 0, 1, 2);
+            statusLabel.setRotate(90);
         }
 
         // On lui ajoute ses bottes
         for (int i = 0; i < bottes.length; i++) {
             add(bottes[i], 2, 2 + i);
         }
-
     }
 }

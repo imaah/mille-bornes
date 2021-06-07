@@ -94,6 +94,7 @@ public abstract class JoueurMain extends GridPane implements Updatable {
         bataille.setRatio(.7);
         limite.setAfficherSiNull(true);
         bataille.setAfficherSiNull(true);
+        statusLabel.setWrapText(true);
         update();
     }
 
@@ -114,7 +115,7 @@ public abstract class JoueurMain extends GridPane implements Updatable {
 
         // Les bottes aussi
         for (CarteVue botteVue : bottes) {
-            boolean hasBotte = joueur.getBottes().contains(botteVue.getCarte());
+            boolean hasBotte = joueur.getBottes().contains((Botte) botteVue.getCarte());
             botteVue.setGrisee(!hasBotte);
 
             // On supprime systématiquement les hintbox
@@ -225,6 +226,17 @@ public abstract class JoueurMain extends GridPane implements Updatable {
         for (CarteVue carteVue : cartes) {
             carteVue.setSurvolActif(survolActif);
         }
+    }
+
+    public void setCarteRatio(double ratio) {
+        for(CarteVue vue : cartes) {
+            vue.setRatio(ratio);
+        }
+        for(CarteVue vue : bottes) {
+            vue.setRatio(ratio);
+        }
+        limite.setRatio(ratio);
+        bataille.setRatio(ratio);
     }
 
     /**
