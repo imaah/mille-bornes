@@ -13,8 +13,8 @@ public class App extends Application {
     /**
      * La taille de la fenetre, à ne pas modifier !
      */
-    private static final int APP_WIDTH = 1200;
-    private static final int APP_HEIGHT = 1000;
+    private static final int APP_WIDTH = 1000;
+    private static final int APP_HEIGHT = 800;
 
     public static void main(String[] args) {
         Application.launch(args);
