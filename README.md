@@ -2,7 +2,7 @@
 
 ## Jeu du _1000 Bornes_ par Edmond Dujardin
 
-Codé par Clément GUIBOUT & Esteban MORISSE dans le cadre du DUT Informatique de Ifs.<br>
+Développé par Clément GUIBOUT & Esteban MORISSE dans le cadre du DUT Informatique de Ifs.
 
 ## Interface graphique
 
@@ -37,9 +37,6 @@ Car ces méthodes pourraient être utilisées si on envisage des changements sur
   pour la plupart de notre refléxion tout au long du projet.
 
 
-## IDE
-
-Nous avons décidé d'utiliser l'IDE IntelliJ pour des raisons de préférence.
-
+## Ressources
 **ATTENTION :** Le dossier [ressources](/ressources) est un dossier de sources (sur eclipse) ou de ressources (sur
 intelliJ), donc s'il n'est pas annoté comme ça le programme ne pourra pas se lancer

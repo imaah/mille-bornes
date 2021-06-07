@@ -51,7 +51,7 @@ public enum Asset {
             e.printStackTrace();
             System.err.println("\n\nImpossible de charger les images du projet. Il est donc impossible de lancer le " +
                                "projet.");
-            System.err.println("Lire le README.md pour comprendre le soucis.");
+            System.err.println("Lire la partie \"Ressources\" dans le README.md pour comprendre le soucis.");
             System.exit(0);
         }
         this.image = tempImage;
