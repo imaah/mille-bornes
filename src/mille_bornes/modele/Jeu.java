@@ -33,7 +33,7 @@ public class Jeu implements Sauvegardable {
     public Jeu(JsonObject json) {
         if (JsonUtils.verifieExiste(json, "joueurs", "joueurActif", "prochainJoueur", "sabot", "defausse")) {
             JsonArray ja = json.getAsJsonArray("joueurs");
-            ja.forEach(element -> joueurs.add(new Joueur(element.getAsJsonObject())));
+            ja.forEach(element -> joueurs.add(Joueur.deserialize(element.getAsJsonObject())));
 
             for (Joueur joueur : joueurs) {
                 joueur.setProchainJoueur(trouveJoueur(joueur.getProchainJoueurNom()));

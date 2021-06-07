@@ -274,15 +274,8 @@ public class Controleur {
 
         // Si on a un chemin, alors on essaye d'écrire dedans au format JSON
         if (fichier != null) {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            JsonObject json = milleBornes.getJeu().sauvegarder();
-            FileWriter writer;
             try {
-                writer = new FileWriter(fichier);
-                gson.toJson(json, writer);
-
-                writer.flush();
-                writer.close();
+                JsonUtils.sauvegarderJeuDansFichier(milleBornes.getJeu(), fichier);
             } catch (Exception e) {
                 // Si on a pas pu écrire, alors on affiche une erreur
                 Alert erreur = new Alert(Alert.AlertType.ERROR);

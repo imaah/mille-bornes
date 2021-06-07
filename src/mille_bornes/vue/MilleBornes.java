@@ -4,6 +4,7 @@ import javafx.animation.Animation;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
@@ -20,6 +21,7 @@ import mille_bornes.modele.cartes.attaques.LimiteVitesse;
 import mille_bornes.modele.cartes.parades.FinDeLimite;
 import mille_bornes.modele.extensions.bots.Bot;
 import mille_bornes.vue.animation.CarteTransition;
+import mille_bornes.vue.exceptions.PasDeCiblePossibleException;
 import mille_bornes.vue.jeu.CarteVue;
 import mille_bornes.vue.jeu.Sabot;
 import mille_bornes.vue.joueur.HJoueurMain;
@@ -130,6 +132,7 @@ public class MilleBornes extends StackPane {
      * @param partieChargee Indique si la partie provient d'un fichier de sauvegarde
      */
     public void setJeu(Jeu jeu, boolean partieChargee) {
+        this.setCursor(Cursor.WAIT);
         this.jeu = jeu;
 
         if(timer != null && timer.isRunning()) timer.cancel();
@@ -174,6 +177,7 @@ public class MilleBornes extends StackPane {
             mains[0].cacher();
             timer = TimerUtils.wait(DUREE_ANIM_BASE, this::botJoue);
         }
+        setCursor(Cursor.DEFAULT);
     }
 
 
@@ -475,8 +479,8 @@ public class MilleBornes extends StackPane {
         // Si aucune main n'a été trouvée, peut-être que le premier tour n'est pas fini et que donc toutes les mains ne
         // sont peut-être pas encore générées. Dans ce cas, on retourne le joueur suivant (2e main à 2 joueurs, 1e main
         // à 3 ou 4 joueurs
-        if (mains.length == 2) return mains[2];
-        return mains[1];
+        if (mains.length == 2) return mains[1];
+        return mains[0];
     }
 
 
@@ -490,7 +494,7 @@ public class MilleBornes extends StackPane {
         try {
             if (carte instanceof Attaque) {
                 // Afficher alert
-                Joueur cible = new ChoisitDestination(jeu, (Attaque) carte).getCible();
+                Joueur cible = ChoisitDestination.getCible(jeu, (Attaque) carte);
 
                 if (cible == null) return;
 
@@ -509,7 +513,7 @@ public class MilleBornes extends StackPane {
         } catch (CoupFourreException e) { // Si le joueur cachait un coup-fourré, on le signale
             message.afficherMessage(
                     "Votre adversaire sort un coup-fourré!\nIl récupère la main",
-                    2000,
+                    1200,
                     Color.RED
             );
 
@@ -517,6 +521,8 @@ public class MilleBornes extends StackPane {
             jeu.activeProchainJoueurEtTireCarte();
             sabot.update();
             TimerUtils.wait(2000, this::tournerJoueurs);
+        } catch (PasDeCiblePossibleException e) {
+            message.afficherMessage("Aucun joueur ne peut être attaquer", 2000, Color.RED);
         }
     }
 }

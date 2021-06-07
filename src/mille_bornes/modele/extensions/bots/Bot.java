@@ -1,5 +1,6 @@
 package mille_bornes.modele.extensions.bots;
 
+import com.google.gson.JsonObject;
 import mille_bornes.modele.Joueur;
 import mille_bornes.modele.cartes.Attaque;
 import mille_bornes.modele.cartes.Botte;
@@ -17,6 +18,11 @@ public abstract class Bot extends Joueur {
 
     public Bot(String nom) {
         super(nom);
+        remplirNCartesRestantes();
+    }
+
+    public Bot(JsonObject json) {
+        super(json);
         remplirNCartesRestantes();
     }
 

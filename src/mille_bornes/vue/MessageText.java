@@ -1,5 +1,6 @@
 package mille_bornes.vue;
 
+import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
@@ -8,11 +9,17 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Stack;
+
 /**
  * Une classe permettant d'afficher un message à l'écran
  */
 public class MessageText extends Text {
 
+    private final Queue<Animation> animationQueue = new PriorityQueue<>();
+    private boolean playing = false;
     /**
      * Contructeur de MessageText
      */
@@ -44,10 +51,22 @@ public class MessageText extends Text {
         translate.setFromY(-120);
         translate.setToY(-170);
         setText(text);
-        translate.setOnFinished(event -> setVisible(false));
+        translate.setOnFinished(event ->  {
+            setVisible(false);
+            Animation animation = animationQueue.poll();
+            if(animation != null) {
+                animation.play();
+            } else {
+                playing = false;
+            }
+        });
 
         setFill(color);
         setVisible(true);
-        parallel.play();
+
+        if(!playing) {
+            parallel.play();
+            playing = true;
+        }
     }
 }

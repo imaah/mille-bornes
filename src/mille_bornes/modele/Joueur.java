@@ -1,13 +1,11 @@
 package mille_bornes.modele;
 
 import com.google.gson.JsonObject;
-import mille_bornes.modele.cartes.Attaque;
-import mille_bornes.modele.cartes.Bataille;
-import mille_bornes.modele.cartes.Botte;
-import mille_bornes.modele.cartes.Carte;
+import mille_bornes.modele.cartes.*;
 import mille_bornes.modele.extensions.sauvegarde.Sauvegardable;
 import mille_bornes.modele.utils.JsonUtils;
 
+import java.lang.annotation.ElementType;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -37,6 +35,28 @@ public class Joueur implements Sauvegardable {
 
     public Joueur getProchainJoueur() {
         return prochainJoueur;
+    }
+
+    public static Joueur deserialize(JsonObject json) {
+        if (JsonUtils.verifieExiste(json, "nom", "etat", "prochainJoueur", "class")) {
+            try {
+                Class<?> clazz = Class.forName(json.get("class").getAsString());
+                if (Joueur.class.isAssignableFrom(clazz)) {
+
+                    Class<? extends Joueur> carteClass = clazz.asSubclass(Joueur.class);
+                    Object obj = carteClass.getConstructor(JsonObject.class)
+                                           .newInstance(json);
+                    return carteClass.cast(obj);
+                } else {
+                    throw new IllegalArgumentException("Joueur: La classe donnée dans le json n'est pas de type" +
+                            "Joueur");
+                }
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Joueur: Les propriétés dans le json sont incorrect.");
+            }
+        } else {
+            throw new IllegalArgumentException("Joueur: Propriétés manquantes dans l'objet json.");
+        }
     }
 
     public void setProchainJoueur(Joueur joueur) {
@@ -198,6 +218,7 @@ public class Joueur implements Sauvegardable {
         json.addProperty("nom", nom);
         json.add("etat", etat.sauvegarder());
         json.addProperty("prochainJoueur", prochainJoueur.nom);
+        json.addProperty("class", getClass().getName());
 
         return json;
     }

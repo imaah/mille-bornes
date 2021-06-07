@@ -1,10 +1,16 @@
 package mille_bornes.modele.extensions.bots;
 
+import com.google.gson.JsonObject;
+
 import java.util.Random;
 
 public class DumbBot extends Bot {
     public DumbBot(String nom) {
         super(nom);
+    }
+
+    public DumbBot(JsonObject json) {
+        super(json);
     }
 
     @Override

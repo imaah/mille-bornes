@@ -10,6 +10,9 @@ import javafx.scene.layout.FlowPane;
 import mille_bornes.modele.Jeu;
 import mille_bornes.modele.Joueur;
 import mille_bornes.modele.cartes.Attaque;
+import mille_bornes.modele.cartes.Botte;
+import mille_bornes.modele.cartes.attaques.LimiteVitesse;
+import mille_bornes.vue.exceptions.PasDeCiblePossibleException;
 
 import java.util.*;
 
@@ -17,11 +20,6 @@ import java.util.*;
  * Permet d'afficher une boîte de dialogue avec la liste des autres joueurs pour attaquer un joueur
  */
 public class ChoisitDestination extends Alert {
-    /**
-     * Le joueur cible qui va recevoir l'attaque
-     */
-    private final Joueur cible;
-
 
     /**
      * Ouvre une boite de dialogue avec la liste des joueurs de la partie. Permet de lancer une attaque sur un d'entre
@@ -31,12 +29,24 @@ public class ChoisitDestination extends Alert {
      * @param jeu   La partie actuelle
      * @param carte La carte attaquante
      */
-    public ChoisitDestination(Jeu jeu, Attaque carte) {
+    private ChoisitDestination(Jeu jeu, Attaque carte) {
         // Personnalisation de la boite de dialogue
         super(AlertType.CONFIRMATION);
         this.setTitle("Choix d'un adversaire");
         this.setHeaderText("Vers qui envoyer " + carte.toString());
-        // Mapping des noms et des joueurs, pour plus tard retrouver le nom du joueur associé au bouton
+    }
+
+    public static Joueur getCible(Jeu jeu, Attaque carte) throws PasDeCiblePossibleException {
+        if(jeu.getNbJoueurs() == 1) {
+            Joueur cible = jeu.getJoueurActif().getProchainJoueur();
+            if((cible.getBataille() instanceof Attaque && !(carte instanceof LimiteVitesse))
+                    || (carte instanceof LimiteVitesse && cible.getLimiteVitesse())) {
+                throw new PasDeCiblePossibleException();
+            }
+            return cible;
+        }
+        Alert alert = new ChoisitDestination(jeu, carte);
+
         Map<String, Joueur> joueurMap = new HashMap<>();
 
         // Création des composants d'affichage
@@ -49,22 +59,40 @@ public class ChoisitDestination extends Alert {
         for (Joueur joueur : jeu.getJoueurs()) {
             if (joueur.equals(jeu.getJoueurActif())) continue;
 
-            FlowPane l = new FlowPane();
-            l.setPadding(new Insets(5));
+            if((joueur.getBataille() instanceof Attaque && !(carte instanceof LimiteVitesse))
+                    || (carte instanceof LimiteVitesse && joueur.getLimiteVitesse())) continue;
+
+            boolean botteContre = false;
+            for(Botte botte : joueur.getBottes()) {
+                if(botte.contre(carte)) {
+                    botteContre = true;
+                    break;
+                }
+            }
+            if(botteContre) continue;
+
+            FlowPane flowPane = new FlowPane();
+            flowPane.setPadding(new Insets(5));
 
             RadioButton btn = new RadioButton(joueur.nom);
             btn.setToggleGroup(groupe);
             joueurMap.put(joueur.nom, joueur);
             boutons.add(btn);
 
-            l.getChildren().add(btn);
-            affichage.getChildren().add(l);
+            flowPane.getChildren().add(btn);
+            affichage.getChildren().add(flowPane);
         }
 
-        this.getDialogPane().setContent(affichage);
+        alert.getDialogPane().setContent(affichage);
+
+        if(boutons.size() == 0) {
+            throw new PasDeCiblePossibleException();
+        } else if(boutons.size() == 1) {
+            return joueurMap.get(boutons.get(0).getText());
+        }
 
         // On récupère la réponse
-        Optional<ButtonType> confirmation = this.showAndWait();
+        Optional<ButtonType> confirmation = alert.showAndWait();
 
         Joueur tempCible = null;
 
@@ -78,15 +106,6 @@ public class ChoisitDestination extends Alert {
             }
         }
 
-        this.cible = tempCible;
-    }
-
-    /**
-     * Permet de récupérer la cible choisie
-     *
-     * @return La cible choisie, ou null si aucune
-     */
-    public Joueur getCible() {
-        return cible;
+        return tempCible;
     }
 }

@@ -1,5 +1,6 @@
 package mille_bornes.modele.extensions.bots;
 
+import com.google.gson.JsonObject;
 import mille_bornes.modele.Jeu;
 import mille_bornes.modele.cartes.*;
 import mille_bornes.modele.cartes.bottes.VehiculePrioritaire;
@@ -15,6 +16,10 @@ public class NaiveBot extends Bot {
 
     public NaiveBot(String nom) {
         super(nom);
+    }
+
+    public NaiveBot(JsonObject json) {
+        super(json);
     }
 
     @Override

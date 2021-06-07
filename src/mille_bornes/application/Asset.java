@@ -10,7 +10,7 @@ import java.util.Objects;
 public enum Asset {
     // Les attaques
     CARTE_ACCIDENT("/images/cartes/Accident.jpg"),
-    CARTE_PANNE_D_ESSENCE("/images/cartes/Essence.jpg"),
+    CARTE_PANNE_D_ESSENCE("/images/cartes/Panne_Essence.jpg"),
     CARTE_CREVAISON("/images/cartes/Creve.jpg"),
     CARTE_FEU_ROUGE("/images/cartes/Stop.jpg"),
     CARTE_LIMITE_VITESSE("/images/cartes/Limite_50.jpg"),
