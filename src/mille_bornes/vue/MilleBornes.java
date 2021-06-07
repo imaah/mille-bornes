@@ -486,6 +486,7 @@ public class MilleBornes extends StackPane {
      * Attend un temps après la fin d'une animation pour éviter les bugs d'animation
      */
     private void onAnimationFinish() {
+        mains[0].updateLabel();
         timer = TimerUtils.wait(DUREE_ANIM_BASE / 2, this::finDeTour);
     }
 
