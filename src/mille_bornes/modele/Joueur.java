@@ -206,11 +206,6 @@ public class Joueur implements Sauvegardable {
         return etat.getBottes();
     }
 
-    // TODO: 29/05/2021 A RETIRER, CETTE METHODE EST LA JUSTE POUR LES TESTS !!
-    public EtatJoueur getEtat() {
-        return etat;
-    }
-
     @Override
     public JsonObject sauvegarder() {
         JsonObject json = new JsonObject();
