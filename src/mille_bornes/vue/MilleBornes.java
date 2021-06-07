@@ -21,6 +21,7 @@ import mille_bornes.modele.cartes.attaques.LimiteVitesse;
 import mille_bornes.modele.cartes.parades.FinDeLimite;
 import mille_bornes.modele.extensions.bots.Bot;
 import mille_bornes.vue.animation.CarteTransition;
+import mille_bornes.vue.animation.MessageText;
 import mille_bornes.vue.exceptions.PasDeCiblePossibleException;
 import mille_bornes.vue.jeu.CarteVue;
 import mille_bornes.vue.jeu.Sabot;

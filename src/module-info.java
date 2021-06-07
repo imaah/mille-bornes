@@ -16,4 +16,5 @@ module milles.bornes {
     opens mille_bornes.modele;
     opens mille_bornes.vue.joueur;
     opens mille_bornes.vue.jeu;
+    opens mille_bornes.vue.animation;
 }
